@@ -485,16 +485,23 @@ class RouterCtrl:
     finally:
       self._alive_table_lock.release()
 
+    self._neighbor_table_lock.acquire()
     self._routing_table_lock.acquire()
     self._link_state_lock.acquire()
     try:
+      self._link_state[self.name] = self._neighbor_table
+      for hostname in self._neighbor_table:
+        if hostname not in self._link_state:
+          self._link_state[hostname] = {}
+
       self._link_state[source] = data['neighbor']
       for hostname in data['neighbor']:
         if hostname not in self._link_state:
           self._link_state[hostname] = {}
 
       for hostname in dead_hostnames:
-        self._link_state.pop(hostname)
+        if hostname in self._link_state:
+          self._link_state.pop(hostname)
 
       for hostname in self._link_state:
         self._link_state[hostname] = {
@@ -507,6 +514,8 @@ class RouterCtrl:
       if self.debug:
         print('%s data:' % self.name)
         print(data)
+        print('%s link state:' % self.name)
+        print(self._link_state)
         print('%s prev_table:' % self.name)
         print(prev_table)
         print('%s routing table:' % self.name)
@@ -514,6 +523,7 @@ class RouterCtrl:
     finally:
       self._link_state_lock.release()
       self._routing_table_lock.release()
+      self._neighbor_table_lock.release()
 
   def _dijkstra(self):
     """Dijkstra algorithm

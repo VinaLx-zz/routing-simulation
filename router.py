@@ -512,11 +512,9 @@ class RouterCtrl:
       prev_table = self._dijkstra()
       self._update_routing(prev_table)
       if self.debug:
-        # print('%s data:' % self.name)
-        # print(data)
+        print('%s received data from %s:' % (self.name, source), data)
         print('%s link state:' % self.name, self._link_state)
-        # print('%s prev_table:' % self.name)
-        # print(prev_table)
+        print('%s prev_table:' % self.name, prev_table)
         print('%s routing table:' % self.name, self._routing_table)
     finally:
       self._link_state_lock.release()

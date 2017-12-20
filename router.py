@@ -775,7 +775,7 @@ class RouterCtrl:
     print("Server listenning at %s:%d" % self.address)
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind(self.address)
-    while (True):
+    while True:
       data, addr = s.recvfrom(10240)
       print('%s receive data\n' % self.name)
       t = threading.Thread(target = self.parse, args = (data.decode(),))
@@ -824,7 +824,7 @@ class RouterCtrl:
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    if (type == 3):
+    if type == 3:
       neighbors = list(self._neighbor_table.keys())
       if self.debug:
         print(self.name, neighbors, pkt['visited'])
@@ -837,7 +837,9 @@ class RouterCtrl:
             next_name = self.get_next_name(n)
           except ValueError:
             print('%s: error occur when sending' % self.name)
-            return
+            next_name = None
+          if next_name is None:
+            continue
           pkt['next_address'] = next_address
           pkt['next_name'] = next_name
           pkt['dest_name'] = next_name
@@ -918,7 +920,7 @@ class RouterCtrl:
     except ValueError:
       raise ValueError('hostname not found')
 
-    if (next_name not in self.mapping_table.keys()):
+    if next_name not in self.mapping_table.keys():
       raise ValueError('no such host name as %s' % next_name)
 
     return self.mapping_table[next_name]

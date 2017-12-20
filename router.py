@@ -512,14 +512,12 @@ class RouterCtrl:
       prev_table = self._dijkstra()
       self._update_routing(prev_table)
       if self.debug:
-        print('%s data:' % self.name)
-        print(data)
-        print('%s link state:' % self.name)
-        print(self._link_state)
-        print('%s prev_table:' % self.name)
-        print(prev_table)
-        print('%s routing table:' % self.name)
-        print(self._routing_table)
+        # print('%s data:' % self.name)
+        # print(data)
+        print('%s link state:' % self.name, self._link_state)
+        # print('%s prev_table:' % self.name)
+        # print(prev_table)
+        print('%s routing table:' % self.name, self._routing_table)
     finally:
       self._link_state_lock.release()
       self._routing_table_lock.release()
@@ -1017,7 +1015,7 @@ class RouterCtrl:
       data: data to be sended
     """
     print('%s Broadcasting...' % self.name)
-    self.send(self.name, self.name, data['type'], data['data'], data['visited'])
+    self.send(data['src_name'], self.name, data['type'], data['data'], data['visited'])
 
   def stop_listening():
     if self.thread_listen is not None:

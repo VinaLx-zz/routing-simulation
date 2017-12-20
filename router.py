@@ -96,7 +96,12 @@ class RouterCtrl:
     #   },
     #   ...
     # }
-    self._routing_table = {}
+    self._routing_table = {
+      self.name: {
+        'next': self.name,
+        'cost': 0
+      }
+    }
     self._routing_table_lock = threading.Lock()
 
     # Link-State
@@ -596,6 +601,10 @@ class RouterCtrl:
     self_hostname = self.get_self_name()
 
     self._routing_table.clear()
+    self._routing_table[self.name] = {
+      'next': self.name,
+      'cost': 0
+    }
     for destination in prev_table:
       last_hop = destination
 
@@ -623,10 +632,14 @@ class RouterCtrl:
 
     self._alive_table_lock.acquire()
     try:
+      self._alive_table[self.name] = current_time
       self._alive_table[source] = current_time
       dead_hostnames = [hostname
-        for hostname in self._alive_table
+      for hostname in self._alive_table
         if current_time - self._alive_table[hostname] > self._overtime]
+      if self.debug:
+        print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+        print('%s alive table:' % self.name, self._alive_table)
     finally:
       self._alive_table_lock.release()
 
@@ -641,7 +654,7 @@ class RouterCtrl:
       }
 
       data = {
-        k: v for k, v in data.itmes()
+        k: v for k, v in data.items()
              if k not in dead_hostnames and v['next'] not in dead_hostnames
       }
 
@@ -657,7 +670,9 @@ class RouterCtrl:
           self._routing_table[destination]['next'] = source
           self._routing_table[destination]['cost'] = indirect_cost
           modified = True
-
+      if self.debug:
+        print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+        print('%s routing table:' % self.name, self._routing_table)
     finally:
       self._routing_table_lock.release()
     
@@ -704,7 +719,7 @@ class RouterCtrl:
 
       for hostname in self._link_state:
         self._link_state[hostname] = {
-          k: v for k, v in self._link_state[hostname].itmes()
+          k: v for k, v in self._link_state[hostname].items()
                if k not in dead_hostnames
         }
     finally:

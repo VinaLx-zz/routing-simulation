@@ -23,7 +23,7 @@ class RouterCtrl:
     LS, DV, CENTRAL_LS
   )
 
-  def __init__(self, name_, ip_, port_):
+  def __init__(self, name_, ip_, port_, hns_ip, hns_port):
     """Initialize
 
     This method set the listen port and create a new thread to listen the port. 
@@ -39,6 +39,7 @@ class RouterCtrl:
       ValueError
     """
     self.name, self.address, self.mapping_table = name_, (ip_, port_), {}
+    self.hns_address = (hns_ip, hns_port)
     self.mapping_lock = threading.Lock()
     self.debug = True
 
@@ -48,6 +49,7 @@ class RouterCtrl:
     #create a new thread and listen to specified address
     self.thread_listen = threading.Thread(target = self.listen, args = ())
     self.thread_listen.start()
+    self.query_hns()
 
   def get_self_name(self):
     return self.name
@@ -782,6 +784,11 @@ class RouterCtrl:
       t.start()
     s.close()
 
+  def query_hns(self):
+    self.send(self.name, 'hns', 4, 'sb', [])
+    self.thread_query_hns = threading.Timer(10, RouterCtrl.query_hns, args = (self,))
+    self.thread_query_hns.start()
+
   def send(self, source, destination, type = 0, data = 'default data', visited = []):
     """ Send data to destination
 
@@ -799,13 +806,17 @@ class RouterCtrl:
     """
     if (not isinstance(source, str)) or (not isinstance(destination, str)):
       raise TypeError('source and destination must be string')
-    if (not isinstance(type, int)) or (type < 0 or type > 3):
-      raise ValueError('type must be 0, 1, 2 or 3')
+    if (not isinstance(type, int)) or (type < 0 or type > 4):
+      raise ValueError('type must be 0, 1, 2, 3, 4')
 
     visited.append(self.name)
     try:
-      next_address = self.get_next_address(destination)
-      next_name = self.get_next_name(destination)
+      if type == 4:
+        next_address = self.hns_address
+        next_name = 'sb'
+      else:
+        next_address = self.get_next_address(destination)
+        next_name = self.get_next_name(destination)
     except ValueError:
       print('%s: error occur when sending' % self.name)
       return
@@ -884,6 +895,8 @@ class RouterCtrl:
         self.handle_router(data['src_name'], data['data'])
         if (data['type'] == 3):
           self.handle_broadcast(data)
+      elif (data['type'] == 4):
+        self.handle_mapping_table(data['data'])
       else:
         raise ValueError('undefined data type %d' % data['type'])
     else:
@@ -955,9 +968,7 @@ class RouterCtrl:
     try: 
       self.mapping_table.update(mt)
       if self.debug:
-        print('%s: mapping table config' % self.name)
-        for key in self.mapping_table:
-          print(key, self.mapping_table[key])
+        print('%s: mapping table config' % self.name, self.mapping_table)
     finally:
       self.mapping_lock.release()
 
@@ -1019,7 +1030,16 @@ class RouterCtrl:
     print('%s Broadcasting...' % self.name)
     self.send(data['src_name'], self.name, data['type'], data['data'], data['visited'])
 
+  def handle_mapping_table(self, data):
+    mt = {}
+    for key in data:
+      mt[key] = (data[key][0], data[key][1])
+    self.configure_mapping_table(mt)
+
   def stop_listening():
     if self.thread_listen is not None:
       self.thread_listen.cancel()
       self.thread_listen = None
+    if self.thread_query_hns is not None:
+      self.thread_query_hns.cancel()
+      self.thread_query_hns = None

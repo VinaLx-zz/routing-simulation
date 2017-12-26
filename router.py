@@ -98,7 +98,12 @@ class RouterCtrl:
     #   },
     #   ...
     # }
-    self._routing_table = {}
+    self._routing_table = {
+      self.name: {
+        'next': self.name,
+        'cost': 0
+      }
+    }
     self._routing_table_lock = threading.Lock()
 
     # Link-State
@@ -161,7 +166,10 @@ class RouterCtrl:
 
     self._routing_table_lock.acquire()
     try:
-      self._routing_table[hostname] = {'next':hostname, 'cost':cost}
+      self._routing_table[hostname] = {
+        'next':hostname,
+        'cost':cost
+      }
     finally:
       self._routing_table_lock.release()
 
@@ -246,7 +254,7 @@ class RouterCtrl:
     if not isinstance(hostname, str):
       raise TypeError('hostname must be string')
     else:
-      _controller_hostname_lock.acquire()
+      self._controller_hostname_lock.acquire()
       try:
         self._controller_hostname = hostname
       finally:
@@ -370,17 +378,21 @@ class RouterCtrl:
     if self._method != RouterCtrl.CENTRAL_LS:
       raise RuntimeError('selected method is not "RouterCtrl.CENTRAL_LS"')
     
-    self._neighbor_table_lock.acquire()
+    self._alive_table_lock.acquire()
     self._link_state_lock.acquire()
     try:
+      current_time = time.time()
       data = copy.deepcopy(self._link_state)
-      neighbor_hosts = list(self._neighbor_table.keys())
+      alive_hosts = [hostname
+        for hostname in self._alive_table
+        if current_time - self._alive_table[hostname] <= self._overtime
+      ]
     finally:
       self._link_state_lock.release()
-      self._neighbor_table_lock.release()
+      self._alive_table_lock.release()
 
     self_hostname = self.get_self_name()
-    for hostname in neighbor_hosts:
+    for hostname in alive_hosts:
       self.send(self_hostname, hostname, 2, data, [])
 
     self._timer_thread = threading.Timer(interval, RouterCtrl._central_ls_controller, args=(self, interval))
@@ -389,17 +401,17 @@ class RouterCtrl:
   def _central_ls_member(self, interval):
     """Begin to exchange routing table to neighbor router periodically.
 
-    Only for members of LS routing algorithms
+    Only for members of CENTRAL_LS routing algorithms
 
     Args:
       interval: interval time, seconds
     
     Raise:
-      RuntimeError: selected routing algorithm is not LS
+      RuntimeError: selected routing algorithm is not CENTRAL_LS
     """
 
-    if self._method != RouterCtrl.LS:
-      raise RuntimeError('selected method is not "RouterCtrl.LS"')
+    if self._method != RouterCtrl.CENTRAL_LS:
+      raise RuntimeError('selected method is not "RouterCtrl.CENTRAL_LS"')
 
     self._controller_hostname_lock.acquire()
     self._neighbor_table_lock.acquire()
@@ -514,11 +526,9 @@ class RouterCtrl:
       prev_table = self._dijkstra()
       self._update_routing(prev_table)
       if self.debug:
-        # print('%s data:' % self.name)
-        # print(data)
+        print('%s received data from %s:' % (self.name, source), data)
         print('%s link state:' % self.name, self._link_state)
-        # print('%s prev_table:' % self.name)
-        # print(prev_table)
+        print('%s prev_table:' % self.name, prev_table)
         print('%s routing table:' % self.name, self._routing_table)
     finally:
       self._link_state_lock.release()
@@ -544,7 +554,7 @@ class RouterCtrl:
         'cost': 0
       }
     }
-
+    
     for hostname in self._link_state[self_hostname]:
       prev_table[hostname] = {
         'prev': self_hostname,
@@ -600,6 +610,10 @@ class RouterCtrl:
     self_hostname = self.get_self_name()
 
     self._routing_table.clear()
+    self._routing_table[self.name] = {
+      'next': self.name,
+      'cost': 0
+    }
     for destination in prev_table:
       last_hop = destination
 
@@ -622,15 +636,19 @@ class RouterCtrl:
     """
     
     modified = False
-    current_time = time.time()
     dead_hostnames = []
 
     self._alive_table_lock.acquire()
     try:
+      current_time = time.time()
+      self._alive_table[self.name] = current_time
       self._alive_table[source] = current_time
       dead_hostnames = [hostname
-        for hostname in self._alive_table
+      for hostname in self._alive_table
         if current_time - self._alive_table[hostname] > self._overtime]
+      if self.debug:
+        print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+        print('%s alive table:' % self.name, self._alive_table)
     finally:
       self._alive_table_lock.release()
 
@@ -645,7 +663,7 @@ class RouterCtrl:
       }
 
       data = {
-        k: v for k, v in data.itmes()
+        k: v for k, v in data.items()
              if k not in dead_hostnames and v['next'] not in dead_hostnames
       }
 
@@ -661,7 +679,9 @@ class RouterCtrl:
           self._routing_table[destination]['next'] = source
           self._routing_table[destination]['cost'] = indirect_cost
           modified = True
-
+      if self.debug:
+        print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+        print('%s routing table:' % self.name, self._routing_table)
     finally:
       self._routing_table_lock.release()
     
@@ -689,28 +709,41 @@ class RouterCtrl:
     """
 
     dead_hostnames = []
-    current_time = time.time()
 
     self._alive_table_lock.acquire()
     try:
+      current_time = time.time()
       self._alive_table[source] = current_time
       dead_hostnames = [hostname
         for hostname in self._alive_table
-        if current_time - self._alive_table[hostname] > self._overtime]  
+        if current_time - self._alive_table[hostname] > self._overtime]
+      if self.debug:
+        print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+        print('%s alive table:' % self.name, self._alive_table)
     finally:
       self._alive_table_lock.release()
 
+    dead_hostnames.append(self.name)
     self._link_state_lock.acquire()
     try:
       self._link_state[source] = data
+      for hostname in data:
+        if hostname not in self._link_state:
+          self._link_state[hostname] = {}
+
       for hostname in dead_hostnames:
-        self._link_state.pop(hostname)
+        if hostname in self._link_state:
+          self._link_state.pop(hostname)
 
       for hostname in self._link_state:
         self._link_state[hostname] = {
-          k: v for k, v in self._link_state[hostname].itmes()
+          k: v for k, v in self._link_state[hostname].items()
                if k not in dead_hostnames
         }
+
+      if self.debug:
+        print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+        print('%s link state:' % self.name, self._link_state)
     finally:
       self._link_state_lock.release()
 
@@ -723,12 +756,35 @@ class RouterCtrl:
       data: received data
     """
     
+    current_time = time.time()
+
+    self._controller_hostname_lock.acquire()
+    self._neighbor_table_lock.acquire()
+    try:
+      controller_hostname = self._controller_hostname
+      controller_cost = self._neighbor_table[controller_hostname]
+    finally:
+      self._neighbor_table_lock.release()
+      self._controller_hostname_lock.release()
+
     self._routing_table_lock.acquire()
     self._link_state_lock.acquire()
     try:
-      self._routing_table = data
+      self._link_state = data
+      if self.debug:
+        print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+
       prev_table = self._dijkstra()
       self._update_routing(prev_table)
+      self._routing_table[controller_hostname] = {
+        'next': controller_hostname,
+        'cost': controller_cost
+      }
+
+      if self.debug:
+        # print('%s received data from %s at %f:' % (self.name, source, current_time), data)
+        print('%s link state:' % self.name, self._link_state)
+        print('%s routing table:' % self.name, self._routing_table)
     finally:
       self._link_state_lock.release()
       self._routing_table_lock.release()

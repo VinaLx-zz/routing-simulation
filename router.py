@@ -47,11 +47,11 @@ class RouterCtrl:
       raise ValueError("port must be integer")
 
     #create a new thread and listen to specified address
-    self.thread_listen = threading.Thread(target = self.listen, args = ())
+    self.thread_listen = threading.Thread(target = self._listen, args = ())
     self.thread_listen.start()
-    self.query_hns()
+    self._query_hns()
 
-  def get_self_name(self):
+  def _get_self_name(self):
     return self.name
 
   def init(self, method, interval=60, overtime=300):
@@ -324,10 +324,10 @@ class RouterCtrl:
       self._alive_table_lock.release()
       self._neighbor_table_lock.release()
 
-    self_hostname = self.get_self_name()
+    self_hostname = self._get_self_name()
     if self.debug:
       print('%s sending router table' % self.name)
-    self.send(self_hostname, self_hostname, 3, data, [])
+    self._send(self_hostname, self_hostname, 3, data, [])
 
     self._timer_thread = threading.Timer(interval, RouterCtrl._ls_interval, args=(self, interval))
     self._timer_thread.start()
@@ -356,9 +356,9 @@ class RouterCtrl:
       self._routing_table_lock.release()
       self._neighbor_table_lock.release()
 
-    self_hostname = self.get_self_name()
+    self_hostname = self._get_self_name()
     for hostname in neighbor_hosts:
-      self.send(self_hostname, hostname, 1, data, [])
+      self._send(self_hostname, hostname, 1, data, [])
 
     self._timer_thread = threading.Timer(interval, RouterCtrl._dv_interval, args=(self, interval))
     self._timer_thread.start()
@@ -391,9 +391,9 @@ class RouterCtrl:
       self._link_state_lock.release()
       self._alive_table_lock.release()
 
-    self_hostname = self.get_self_name()
+    self_hostname = self._get_self_name()
     for hostname in alive_hosts:
-      self.send(self_hostname, hostname, 2, data, [])
+      self._send(self_hostname, hostname, 2, data, [])
 
     self._timer_thread = threading.Timer(interval, RouterCtrl._central_ls_controller, args=(self, interval))
     self._timer_thread.start()
@@ -417,7 +417,7 @@ class RouterCtrl:
     self._neighbor_table_lock.acquire()
     try:
       data = copy.deepcopy(self._neighbor_table)
-      self.send(self.get_self_name(), self._controller_hostname, 2, data, [])
+      self._send(self._get_self_name(), self._controller_hostname, 2, data, [])
     finally:
       self._neighbor_table_lock.release()
       self._controller_hostname_lock.release()
@@ -484,7 +484,7 @@ class RouterCtrl:
     self._alive_table_lock.acquire()
     try:
       current_time = time.time()
-      self._alive_table[self.get_self_name()] = current_time
+      self._alive_table[self._get_self_name()] = current_time
       # update alive table
       for hostname in data['alive']:
         if hostname not in self._alive_table:
@@ -546,7 +546,7 @@ class RouterCtrl:
       prev_table: shortest path table
     """
 
-    self_hostname = self.get_self_name()
+    self_hostname = self._get_self_name()
     visited = [self_hostname]
     prev_table = {
       self_hostname: {
@@ -607,7 +607,7 @@ class RouterCtrl:
       prev_table: calculated by _dijkstra
     """
 
-    self_hostname = self.get_self_name()
+    self_hostname = self._get_self_name()
 
     self._routing_table.clear()
     self._routing_table[self.name] = {
@@ -695,9 +695,9 @@ class RouterCtrl:
           self._routing_table_lock.release()
           self._neighbor_table_lock.release()
 
-        self_hostname = self.get_self_name()
+        self_hostname = self._get_self_name()
         for hostname in neighbor_hosts:
-          self.send(self_hostname, hostname, 1, send_data)
+          self._send(self_hostname, hostname, 1, send_data)
 
   def _central_ls_controller_receive(self, source, data):
     """Received data handler for controller of
@@ -806,7 +806,7 @@ class RouterCtrl:
     if not isinstance(hostname, str):
       raise TypeError('hostname must be string')
 
-    if self.get_self_name() == hostname:
+    if self._get_self_name() == hostname:
       next_hostname = hostname
     else:
       self._routing_table_lock.acquire()
@@ -824,7 +824,7 @@ class RouterCtrl:
   #    data transfer module                                             #
   #                                                                     #
   #######################################################################
-  def listen(self):
+  def _listen(self):
     """ Start server
 
     Create a server socket and listen to specified address. 
@@ -835,23 +835,25 @@ class RouterCtrl:
     s.bind(self.address)
     while True:
       data, addr = s.recvfrom(10240)
+      if not self._running:
+        continue
       print('%s receive data\n' % self.name)
-      t = threading.Thread(target = self.parse, args = (data.decode(),))
+      t = threading.Thread(target = self._parse, args = (data.decode(),))
       t.start()
     s.close()
 
-  def query_hns(self):
-    self.send(self.name, 'hns', 4, 'sb', [])
-    self.thread_query_hns = threading.Timer(10, RouterCtrl.query_hns, args = (self,))
+  def _query_hns(self):
+    self._send(self.name, 'hns', 4, 'sb', [])
+    self.thread_query_hns = threading.Timer(10, RouterCtrl._query_hns, args = (self,))
     self.thread_query_hns.start()
 
-  def send(self, source, destination, type = 0, data = 'default data', visited = []):
+  def _send(self, source, destination, type = 0, data = 'default data', visited = []):
     """ Send data to destination
 
     Send data, which can be normal data or router table, to destination.
 
     Args:
-      source: str, name of source host, if it is self, call self.get_self_name()
+      source: str, name of source host, if it is self, call self._get_self_name()
       destination: str, the name of destination host
       type: 0 is for normal data, 1 for dv, 2 for center-ls, 3 for no-center-ls 
       data: original data or router table
@@ -866,17 +868,19 @@ class RouterCtrl:
       raise ValueError('type must be 0, 1, 2, 3, 4')
 
     visited.append(self.name)
+
     try:
       if type == 4:
         next_address = self.hns_address
         next_name = 'sb'
       else:
-        next_address = self.get_next_address(destination)
-        next_name = self.get_next_name(destination)
+        next_address = self._get_next_address(destination)
+        next_name = self._get_next_name(destination)
     except ValueError:
       print('%s: error occur when sending' % self.name)
       return
 
+    # make a packet
     pkt = {
     'last_address': self.address,
     'last_name': self.name,
@@ -891,28 +895,39 @@ class RouterCtrl:
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+    # 3 : send with broadcasting---sending to all neighbors
     if type == 3:
+      # get neighbors
       neighbors = list(self._neighbor_table.keys())
+
       if self.debug:
         print(self.name, neighbors, pkt['visited'])
+
+      # send to all neighbors that are not visited
       for n in neighbors:
         if (n not in pkt['visited']):
+
           if self.debug:
             print('%s sending to %s' % (self.name, n))
+
           try:
-            next_address = self.get_next_address(n)
-            next_name = self.get_next_name(n)
+            next_address = self._get_next_address(n)
+            next_name = self._get_next_name(n)
           except ValueError:
             print('%s: error occur when sending' % self.name)
             next_name = None
           if next_name is None:
             continue
+
           pkt['next_address'] = next_address
           pkt['next_name'] = next_name
           pkt['dest_name'] = next_name
           s.sendto(json.dumps(pkt).encode(), pkt['next_address'])
+
           if self.debug:
             print('%s: succeed sending to %s' % (self.name, pkt['next_name']))
+    
+    # other situation : just sending
     else:  
       s.sendto(json.dumps(pkt).encode(), pkt['next_address'])
       if self.debug:
@@ -920,6 +935,16 @@ class RouterCtrl:
     
     s.close()
 
+  def send(self, destination, data):
+    """ Send data to destination
+
+    Send normal data, using _send
+
+    Args:
+      destination: str, the name of destination host 
+      data: original data or router table
+    """ 
+    self._send(_get_self_name, destination, 0, data, [])
     
 
   #######################################################################
@@ -927,7 +952,7 @@ class RouterCtrl:
   #    data parse module                                                #
   #                                                                     #
   #######################################################################
-  def parse(self, data):
+  def _parse(self, data):
     """ Parse the received data
 
     Parse the received data according to its type
@@ -942,21 +967,31 @@ class RouterCtrl:
       print('%s: parsing...' % self.name)
 
     data = json.loads(data)
-    # self.update_mapping_table(data)
 
+    # if here is destination
     if (data['dest_name'] == self.name):
-      if (data['type'] == 0):
-        self.handle_normal(data)
+
+      # 0 : normal data
+      if (data['type'] == 0): 
+        self._handle_normal(data)
+
+      # 1,2,3 : router data
       elif (data['type'] == 1 or data['type'] == 2 or data['type'] == 3):
-        self.handle_router(data['src_name'], data['data'])
+        self._handle_router(data['src_name'], data['data'])
+        # 3 : non-central router need broadcasting
         if (data['type'] == 3):
-          self.handle_broadcast(data)
+          self._handle_broadcast(data)
+
+      # 4 : hns data
       elif (data['type'] == 4):
-        self.handle_mapping_table(data['data'])
+        self._handle_mapping_table(data['data'])
       else:
         raise ValueError('undefined data type %d' % data['type'])
+
+    # if just pass by
     else:
-      self.handle_sending(data)
+      self._handle_sending(data)
+
     if self.debug:
       print('parsing finished')
 
@@ -966,7 +1001,7 @@ class RouterCtrl:
   #    data control module                                              #
   #                                                                     #
   #######################################################################
-  def get_next_address(self, dst_name):
+  def _get_next_address(self, dst_name):
     """ Get next host address according to dst_name
 
     Get next host address according to dst_name, router module and mapping table
@@ -985,7 +1020,7 @@ class RouterCtrl:
 
     
     try:
-      next_name = self.get_next_name(dst_name)
+      next_name = self._get_next_name(dst_name)
     except ValueError:
       raise ValueError('hostname not found')
 
@@ -994,7 +1029,7 @@ class RouterCtrl:
 
     return self.mapping_table[next_name]
 
-  def get_next_name(self, dst_name):
+  def _get_next_name(self, dst_name):
     """Get next host name according to dst_name
 
     Get next host name according to dst_name and router module
@@ -1012,7 +1047,7 @@ class RouterCtrl:
 
     return next_name
 
-  def configure_mapping_table(self, mt):
+  def _configure_mapping_table(self, mt):
     """ Configure mapping table
 
     Configure mapping table at first, please call this method before sending anything
@@ -1028,21 +1063,7 @@ class RouterCtrl:
     finally:
       self.mapping_lock.release()
 
-  def update_mapping_table(self, data):
-    """ Update mapping table
-
-    Update mapping table, notice that mapping table just store the neighbor's info
-
-    Args:
-      data: raw received data 
-    """
-    self.mapping_lock.acquire()
-    try:
-      self.mapping_table[data['last_name']] = data['last_address']
-    finally:
-      self.mapping_lock.release()
-
-  def handle_normal(self, data):
+  def _handle_normal(self, data):
     """ Handle normal data
 
     Handle normal data, just print them all
@@ -1052,7 +1073,7 @@ class RouterCtrl:
     """
     print('Receive data from %s: %s ' % (data['src_name'], data['data']))
 
-  def handle_router(self, src, data):
+  def _handle_router(self, src, data):
     """ Handle router table
 
     Handle router table according to its type
@@ -1064,7 +1085,7 @@ class RouterCtrl:
     self.update(src, data)
 
 
-  def handle_sending(self, data):
+  def _handle_sending(self, data):
     """Redirect the data to destination
     
     Send data to its destination, current host acts as a router
@@ -1073,9 +1094,9 @@ class RouterCtrl:
       data: data to be sended
     """
     print('Receive data from %s, and send it to %s' % (data['src_name'], data['dest_name']))
-    self.send(data['src_name'], data['dest_name'], data['type'], data['data'])
+    self._send(data['src_name'], data['dest_name'], data['type'], data['data'])
 
-  def handle_broadcast(self, data):
+  def _handle_broadcast(self, data):
     """Broadcast the data to all the neighbor
     
     Broadcast the data to all the neighbor
@@ -1084,18 +1105,15 @@ class RouterCtrl:
       data: data to be sended
     """
     print('%s Broadcasting...' % self.name)
-    self.send(data['src_name'], self.name, data['type'], data['data'], data['visited'])
+    self._send(data['src_name'], self.name, data['type'], data['data'], data['visited'])
 
-  def handle_mapping_table(self, data):
+  def _handle_mapping_table(self, data):
     mt = {}
     for key in data:
       mt[key] = (data[key][0], data[key][1])
-    self.configure_mapping_table(mt)
+    self._configure_mapping_table(mt)
 
-  def stop_listening():
-    if self.thread_listen is not None:
-      self.thread_listen.cancel()
-      self.thread_listen = None
+  def stop_query():
     if self.thread_query_hns is not None:
       self.thread_query_hns.cancel()
       self.thread_query_hns = None

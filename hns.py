@@ -2,41 +2,40 @@ import threading
 import copy
 import json
 import socket
+import transport
+import threading
 
 class HNS():
   """Hostname Server
 
   A Hostname Server, which can transfer a hostname to an address(ip, port)
   """
-  def __init__(self, ip_, port_):
+  def __init__(self, ip, port):
     """Initialize this hns
 
     Args:
       ip: str, specify the server's ip
       port: int, specify the port to be listened by server
-  
-    Raises:
-      ValueError: Args must be right
     """
     #
     # mapping_table: {
     #  name: (ip, port)
     #  }
     #
-    self.ip, self.port, self.mapping_table = ip_, port_, {}
-    self.mapping_lock = threading.Lock()
+    self.address = (ip, port)
+    self._mapping_table = {'hns':self.address}
+    self._mapping_lock = threading.Lock()
+    self.transport_module = transport.Transport()
+    self.transport_module.init('hns', ip, port, ip, port)
 
-    if not isinstance(ip_, str):
-      raise ValueError("wrong ip")
-    if not isinstance(port_, int):
-      raise ValueError("port must be an integer")
-    self.address = (ip_, port_)
-
+  def run(self):
+    """ Run the server
+    """
     #create a new thread and listen to specified address
-    self.thread_listen = threading.Thread(target = self.listen, args = ())
+    self.thread_listen = threading.Thread(target = self._listen, args = ())
     self.thread_listen.start()
 
-  def listen(self):
+  def _listen(self):
     """ Start server
 
     Create a server socket and listen to specified address. 
@@ -48,56 +47,36 @@ class HNS():
     while (True):
       data, addr = s.recvfrom(10240)
       print('receive data\n')
-      t = threading.Thread(target = self.response, args = (data.decode(),))
+      t = threading.Thread(target = self._response, args = (data.decode(),))
       t.start()
     s.close()
 
-  def response(self, data):
+  def _response(self, data):
     """Response to others' request
 
     Args:
       data: {..., 'src_name': src, ...}
     """
     data = json.loads(data)
-    self.mapping_lock.acquire()
-    try:
-      mt = copy.deepcopy(self.mapping_table)
-    finally:
-      self.mapping_lock.release()
+    data = data['datagram']['data']['data']
+    self._mapping_lock.acquire()
+    self._mapping_table.update(data)
+    self._mapping_lock.release()
 
-    if data['src_name'] in mt:
-      pkt = {
-        'last_address': self.address,
-        'last_name': 'hns',
-        'next_address': mt[data['src_name']],
-        'next_name': data['src_name'],
-        'src_name': 'hns',
-        'dest_name': data['src_name'],
-        'type': 4,
-        'visited': [],
-        'data': mt,
-          }
-      s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-      s.sendto(json.dumps(pkt).encode(), pkt['next_address'])
-      s.close()
+    self._send_update()
 
-  def configure_by_name(self, name, ip, port):
-    if isinstance(ip_, str):
-      raise ValueError("wrong ip")
-    if isinstance(port_, int):
-      raise ValueError("port must be an integer")
+  def _send_update(self):
+    """ When the table is updated, send it to all hosts
+    """
+    self._mapping_lock.acquire()
+    mt = copy.deepcopy(self._mapping_table)
+    self._mapping_lock.release()
+    data = {
+      'type': transport.Transport.TYPE,
+      'data': mt
+    }
+    self.transport_module.receive(mt)
 
-    self.mapping_lock.acquire()
-    try:
-      self.mapping_table.update({
-        name:(ip, port)
-        })
-    finally:
-      self.mapping_lock.release()
-
-  def configure_by_dict(self, mt):
-    self.mapping_lock.acquire()
-    try:
-      self.mapping_table.update(mt)
-    finally:
-      self.mapping_lock.release()
+    for key in mt:
+      if key != 'hns':
+        self.transport_module.send(key, data, True)

@@ -8,7 +8,7 @@ class DataDispatcher:
         """
         self.dispatcher[t] = receiver
 
-    def dispatch(self, t, data):
+    def dispatch(self, t, source, data):
         """
         Dispatch certain type data to proper receiver
         Returns:
@@ -17,5 +17,5 @@ class DataDispatcher:
         receiver = self.dispatcher.get(t)
         if receiver is None:
             return False
-        receiver.receive(data)
+        receiver.receive(source, data)
         return True

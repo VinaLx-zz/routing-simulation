@@ -3,20 +3,23 @@ import json
 import threading
 import socket
 
-
 class Transport:
     TYPE = 'Transport'
 
     def __init__(self):
         pass
 
-    def init(self, name, ip, port, hns_ip, hns_port):
+    def init(self, name, ip, port, hns_ip, hns_port, 
+                        routing_table, dispather, neighbor, io):
         """Initialize
         Set the listen port and create a new thread to listen the port.
         Args:
           name: name of local host,
           ip: ip to be listened,
           port: port to be listened
+          hns_ip, hns_port: hns' address, 
+                                data should be sent to (hns_ip, hns_port)
+          routing_table, dispather, neighbor, io: dependcy module
         """
         self._name, self._address = name, (ip, port)
         self._hns_address = (hns_ip, hns_port)
@@ -24,18 +27,15 @@ class Transport:
         self._mapping_lock = threading.Lock()
         self._debug = True
         self._running = False
-
-    # to be finished
-    def inject(self, routing_table, dispather, neighbor):
-        """ Inject dependency
-        """
-        self.routing_table, self.dispather, self.neighbor = routing_table, dispather, neighbor
+        self._routing_table = routing_table
+        self._dispather = dispather
+        self._neighbor = neighbor
+        self._io = io
 
     def run(self):
         """ Run this module
         """
-        # to be finished
-        self.dispather.register(Transport.TYPE, transport_module)
+        self._dispather.register(Transport.TYPE, transport_module)
 
         self._running = True
         # create a new thread and listen to specified address
@@ -43,6 +43,11 @@ class Transport:
         self._thread_listen.start()
 
         self._send_to_hns()
+
+    def stop(self):
+        """ Stop listening
+        """
+        self._running = False
 
     def _send_to_hns(self):
         """ Send to hns to register itself
@@ -55,7 +60,7 @@ class Transport:
         }
         self.send('hns', data, False)
 
-    def receive(self, data):
+    def receive(self, src, data):
         """ Receive hns data
           Args:
             data: {
@@ -73,14 +78,15 @@ class Transport:
         """ Start server
         Create a server socket and listen to specified address.
         """
-        print("Server listenning at %s:%d" % self._address)
+        self._io.print_log('Server listenning at' + 
+                        self._address[0] + ':' + self._address[1])
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
         while True:
             if not self._running:
                 break
             data, addr = s.recvfrom(10240)
-            print('%s receive data\n' % self._name)
+            self._io.print_log(self._name + ' receive data\n')
             data = parse.parse(data)
             self._process(data)
         s.close()
@@ -114,15 +120,16 @@ class Transport:
         # dispath to other module
         if data['datagram']['dest'] == self._name:
             # to be finished
-            self.dispather.dispath(data['datagram']['data']['type'],
+            self._dispather.dispath(data['datagram']['data']['type'],
+                                   data['datagram']['src'],
                                    data['datagram']['data']['data'])
             if self._debug:
-                print('receive data, need dispathing', data)
+                self._io.print_log('receive data, need dispathing')
         # just route to other host
         else:
             if self._debug:
-                print('routing from %s to %s'
-                      % (data['datagram']['src'], data['datagram']['dest']))
+                self._io.print_log('routing from ' + data['datagram']['src'] +
+                    ' to ' + data['datagram']['dest'])
             self.send(data['datagram']['dest'], data['datagram']['data'], False)
 
     def send(self, destination, data, privileged_mode=False):
@@ -136,8 +143,8 @@ class Transport:
             'type': ...
             'data': ...
           }
-          privileged_mode: if set True, it can send it to destination directly, ignoring
-                          the next hop router
+          privileged_mode: if set True, it can send it to destination directly,
+                            ignoring the next hop router
         """
         # make a frame
         datagram = self._make_datagram(self._name, destination, data)
@@ -145,7 +152,7 @@ class Transport:
 
         if frame is None:
             if self._debug:
-                print('fail to make a frame, canceling sending')
+                self._io.print_log('fail to make a frame, canceling sending')
             return
 
         self._send_by_frame(frame)
@@ -160,13 +167,15 @@ class Transport:
 
         if sending_address is None:
             if self._debug:
-                print('%s not in mapping_table, canceling sending' % frame['next_name'])
+                self._io.print_log(frame['next_name'] + 
+                    ' not in mapping_table, canceling sending')
             return
 
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(json.dumps(frame).encode(), sending_address)
         if self._debug:
-            print('%s: succeed sending to %s' % (self._name, frame['next_name']))
+            self._io.print_log(self._name + ': succeed sending to ' + 
+                                frame['next_name'])
 
         s.close()
 
@@ -183,8 +192,7 @@ class Transport:
         visited = ([], data['visited'])[data['visited'] is None]
         data = (data, data['data'])[data['src'] is None]
 
-        # to be finished
-        neighbors = list(self.neighbor.get().keys())
+        neighbors = list(self._neighbor.get().keys())
         if self._debug:
             neighbors = ['B', 'C']
         for n in neighbors:
@@ -193,7 +201,7 @@ class Transport:
                                          True, visited, False)
                 if frame is None:
                     if self._debug:
-                        print('fail to make a frame, canceling sending')
+                        self._io.print_log('fail to make a frame, canceling sending')
                     continue
 
                 self._send_by_frame(frame)
@@ -238,11 +246,9 @@ class Transport:
                 'datagram': datagram
               }
         """
-        # to be finished
         try:
-            next_name = (dest, self.routing_table.get(dest))[privileged_mode or broadcasting]
-            # if self._debug:
-            #   next_name = (dest, dest)[privileged_mode or broadcasting]
+            next_name = (dest, 
+                self._routing_table.get(dest))[privileged_mode or broadcasting]
         except:
             return None
 

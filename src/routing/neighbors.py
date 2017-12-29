@@ -7,6 +7,7 @@ NEIGHBOR_TIMEOUT = 5
 def noop():
     pass
 
+
 def del_with_lock(d, k, l):
     ret = False
     l.acquire()
@@ -16,8 +17,8 @@ def del_with_lock(d, k, l):
     l.release()
     return ret
 
-class Neighbors:
 
+class Neighbors:
     def __init__(self, transport, dispatcher):
         dispatcher.register(NEIGHBOR_TYPE, self)
 
@@ -54,6 +55,7 @@ class Neighbors:
         def success_callback():
             timer.cancel()
             success()
+
         self.pending[hostname] = success_callback
         self.__send(hostname, cost)
         timer.start()
@@ -76,7 +78,6 @@ class Neighbors:
             Dict[str, int]: a dictionary mapping host name to cost
         """
         return self.neighbors.copy()
-
 
     def __abort(self, hostname, fail):
         if not del_with_lock(self.pending, hostname, self.pending_lock):

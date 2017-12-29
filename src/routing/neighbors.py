@@ -95,9 +95,9 @@ class Neighbors:
     def __update_unsafe(self, hostname, cost):
         self.table_lock.acquire()
 
-        if self.get_cost(hostname) is None:
-            return
         if cost == -1:
+            if self.get_cost(hostname) is None:
+                return
             del self.neighbors[hostname]
         else:
             self.neighbors[hostname] = cost

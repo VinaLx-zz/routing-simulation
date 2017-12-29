@@ -1,5 +1,5 @@
-from src.routing import contentFrame
-from src.routing import configFrame
+from routing import content_frame
+from routing import config_frame
 
 
 class GUIManager:
@@ -18,6 +18,6 @@ class GUIManager:
 
     def create_frame(self, _type):
         if _type == 0:
-            return configFrame.ConfigFrame(parent=None, id=_type, UpdateUI=self.UpdateUI)
+            return config_frame.ConfigFrame(parent=None, id=_type, UpdateUI=self.UpdateUI)
         elif _type == 1:
-            return contentFrame.ContentFrame(parent=None, id=_type, UpdateUI=self.UpdateUI)
+            return content_frame.ContentFrame(parent=None, id=_type, UpdateUI=self.UpdateUI)

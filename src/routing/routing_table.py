@@ -1,7 +1,7 @@
 import threading
 
-class Routing_Table(object):
 
+class Routing_Table(object):
     def __init__(self, hostname):
         self._hostname = hostname
 
@@ -21,7 +21,7 @@ class Routing_Table(object):
             }
         }
         self._routing_table_lock = threading.Lock()
-    
+
     def update(self, table):
         self._routing_table_lock.acquire()
         try:
@@ -37,5 +37,5 @@ class Routing_Table(object):
             raise ValueError('hostname unreachable')
         finally:
             self._routing_table_lock.release()
-        
+
         return next_hop

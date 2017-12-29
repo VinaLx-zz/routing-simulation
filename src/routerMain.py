@@ -1,5 +1,5 @@
 import wx
-from src.routing import manager
+from routing import manager
 
 
 class MainAPP(wx.App):

@@ -1,5 +1,5 @@
 import wx
-from src.routing import IO
+from routing import IO
 import sys
 import os
 

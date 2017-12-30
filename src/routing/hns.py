@@ -2,16 +2,14 @@ import threading
 import copy
 import json
 import socket
-import transport
 import threading
 
 class HNS:
     """Hostname Server
-
     A Hostname Server, which can transfer a hostname to an address(ip, port)
     """
 
-    def __init__(self, ip, port, io):
+    def __init__(self, ip, port, io, transport):
         """Initialize this hns
 
         Args:
@@ -27,8 +25,7 @@ class HNS:
         self._address = (ip, port)
         self._mapping_table = {'hns': self._address}
         self._mapping_lock = threading.Lock()
-        self.transport_module = transport.Transport()
-        self.transport_module.init('hns', ip, port, ip, port)
+        self._transport_module = transport
         self.io = io
 
     def run(self):
@@ -78,8 +75,8 @@ class HNS:
             'type': transport.Transport.TYPE,
             'data': mt
         }
-        self.transport_module.receive(mt)
+        self._transport_module.receive(mt)
 
         for key in mt:
             if key != 'hns':
-                self.transport_module.send(key, data, True)
+                self._transport_module.send(key, data, True)

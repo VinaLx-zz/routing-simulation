@@ -4,12 +4,11 @@ import threading
 import socket
 
 class Transport:
+	""" Transport module, used for sending and reveiving message
+	"""
     TYPE = 'Transport'
 
-    def __init__(self):
-        pass
-
-    def init(self, name, ip, port, hns_ip, hns_port, 
+    def __init__(self, name, ip, port, hns_ip, hns_port, 
                         routing_table, dispather, neighbor, io):
         """Initialize
         Set the listen port and create a new thread to listen the port.
@@ -35,7 +34,7 @@ class Transport:
     def run(self):
         """ Run this module
         """
-        self._dispather.register(Transport.TYPE, transport_module)
+        self._dispather.register(Transport.TYPE, self)
 
         self._running = True
         # create a new thread and listen to specified address

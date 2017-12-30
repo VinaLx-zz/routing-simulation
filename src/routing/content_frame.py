@@ -1,5 +1,5 @@
 import wx
-from routing import IO
+from routing import io
 import sys
 import os
 
@@ -16,7 +16,7 @@ class ContentFrame(wx.Frame):
 
         self.UpdateUI = UpdateUI
         self.init_UI()
-        IO.init(self)
+        io.init(self)
 
     def init_UI(self):
         self.init_main()

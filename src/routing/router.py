@@ -1,14 +1,43 @@
-import transport
+from .transport import Transport
+from .routing_table import RoutingTable
+from .dispatcher import DataDispatcher
+from .algorithm import DV, LS, CentralizedMember, CentralizedController
+from .neighbors import Neighbors
+from .config import Algorithm
+
 
 class Router:
+
     def __init__(self, config):
 
         self._running = False
 
-        # Transport(self, name, ip, port, hns_ip, hns_port, 
-        #                routing_table, dispather, neighbor, io)
-        # transport_module = transport.Transport(config.hostname, config.self_addr.ip,
-        #                         config.self_addr.port, None, None, None, None)
+        self.routing_table = RoutingTable(config.hostname)
+        self.dispatcher = DataDispatcher()
+
+        self.neighbors = Neighbors(None, dispatcher)
+        self.transport = Transport(
+            config.hostname, config.self_addr.ip, config.self_addr.port,
+            config.hns_addr.ip, config.hns_addr.port,
+            self.routing_table, self.dispatcher, self.neighbors)
+        self.neighbors.transport = self.transport
+
+        self.algorithm = self.__get_algorithm()
+
+    def __get_algorithm(self, config):
+        return {
+            Algorithm.DV: DV,
+            Algorithm.LS: LS,
+            Algorithm.LS_CENTRALIZE: CentralizedMember,
+            Algorithm.LS_CONTROL: CentralizedController}[
+            config.algorithm](
+            config.hostname,
+            self.transport,
+            self.routing_table,
+            self.neighbors,
+            self.dispatcher,
+            config.update_interval,
+            config.dead_timeout)
 
     def run(self):
         """
@@ -16,7 +45,7 @@ class Router:
         """
         if not self._running:
             self._running = True
-            transport_module.run()
+            transport.run()
 
     def stop(self):
         """
@@ -25,7 +54,7 @@ class Router:
         """
         if self._running:
             self._running = False
-            transport_module.stop()
+            transport.stop()
 
     def send(destination, message):
         """
@@ -38,7 +67,7 @@ class Router:
         #     'type': ...
         #     'data': message
         # }
-        # transport_module.send(destination, data)
+        # transport.send(destination, data)
 
     def get_alive(self):
         """
@@ -52,10 +81,10 @@ class Router:
         """
         add new neighbor to this router or update the cost of a neighbor
         """
-        pass
+        self.neighbors.update(name, cost)
 
     def remove_neighbor(self, name):
         """
         remove a neighbor with specified hostname
         """
-        pass
+        self.neighbors.remove(name)

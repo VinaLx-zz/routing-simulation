@@ -12,6 +12,7 @@ class Algorithm(Enum):
     DV = 1
     LS = 2
     LS_CENTRALIZE = 3
+    LS_CONTROL = 4
 
 
 class Config:

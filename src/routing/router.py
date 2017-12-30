@@ -1,19 +1,31 @@
+import transport
+
 class Router:
     def __init__(self, config):
-        pass
+
+        self._running = False
+
+        # Transport(self, name, ip, port, hns_ip, hns_port, 
+        #                routing_table, dispather, neighbor, io)
+        # transport_module = transport.Transport(config.hostname, config.self_addr.ip,
+        #                         config.self_addr.port, None, None, None, None)
 
     def run(self):
         """
         start the router, if the router has already started, do nothing
         """
-        pass
+        if not self._running:
+            self._running = True
+            transport_module.run()
 
     def stop(self):
         """
         stop the working router, it no longer receiving or forwarding messages,
         if the router has stopped, do nothing
         """
-        pass
+        if self._running:
+            self._running = False
+            transport_module.stop()
 
     def send(destination, message):
         """
@@ -22,7 +34,11 @@ class Router:
             destination(str): hostname for the receiver
             message(str): message to send
         """
-        pass
+        # data = {
+        #     'type': ...
+        #     'data': message
+        # }
+        # transport_module.send(destination, data)
 
     def get_alive(self):
         """

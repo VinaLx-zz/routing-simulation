@@ -17,7 +17,7 @@ class Transport:
           ip: ip to be listened,
           port: port to be listened
           hns_ip, hns_port: hns' address, 
-                                data should be sent to (hns_ip, hns_port)
+                            data should be sent to (hns_ip, hns_port)
           routing_table, dispather, neighbor, io: dependcy module
         """
         self._name, self._address = name, (ip, port)

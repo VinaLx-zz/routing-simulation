@@ -1,15 +1,17 @@
-import parse
+from routing import parse
 import json
 import threading
 import socket
 from routing import io
 
+
 class Transport:
-	""" Transport module, used for sending and reveiving message
-	"""
+    """
+    Transport module, used for sending and reveiving message
+    """
     TYPE = 'Transport'
 
-    def __init__(self, name, ip, port, hns_ip, hns_port, 
+    def __init__(self, name, ip, port, hns_ip, hns_port,
                         routing_table, dispather, neighbor):
         """Initialize
         Set the listen port and create a new thread to listen the port.
@@ -17,7 +19,7 @@ class Transport:
           name: name of local host,
           ip: ip to be listened,
           port: port to be listened
-          hns_ip, hns_port: hns' address, 
+          hns_ip, hns_port: hns' address,
                             data should be sent to (hns_ip, hns_port)
           routing_table, dispather, neighbor: dependcy module
         """
@@ -77,7 +79,7 @@ class Transport:
         """ Start server
         Create a server socket and listen to specified address.
         """
-        io.print_log('Server listenning at' + 
+        io.print_log('Server listenning at' +
                         self._address[0] + ':' + self._address[1])
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
@@ -166,14 +168,14 @@ class Transport:
 
         if sending_address is None:
             if self._debug:
-                io.print_log(frame['next_name'] + 
+                io.print_log(frame['next_name'] +
                     ' not in mapping_table, canceling sending')
             return
 
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(json.dumps(frame).encode(), sending_address)
         if self._debug:
-            io.print_log(self._name + ': succeed sending to ' + 
+            io.print_log(self._name + ': succeed sending to ' +
                                 frame['next_name'])
 
         s.close()
@@ -246,7 +248,7 @@ class Transport:
               }
         """
         try:
-            next_name = (dest, 
+            next_name = (dest,
                 self._routing_table.get(dest))[privileged_mode or broadcasting]
         except:
             return None

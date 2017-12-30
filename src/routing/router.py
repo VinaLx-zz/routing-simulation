@@ -45,7 +45,7 @@ class Router:
         """
         if not self._running:
             self._running = True
-            transport.run()
+            self.transport.run()
 
     def stop(self):
         """
@@ -54,7 +54,7 @@ class Router:
         """
         if self._running:
             self._running = False
-            transport.stop()
+            self.transport.stop()
 
     def send(destination, message):
         """

@@ -56,7 +56,10 @@ class Router:
         if not self._running:
             self._running = True
             self.transport.run()
+<<<<<<< HEAD
             self.algorithm.run()
+=======
+>>>>>>> c13ca62d259ff9265c3a398dab3411bddab18a9a
 
     def stop(self):
         """
@@ -66,7 +69,10 @@ class Router:
         if self._running:
             self._running = False
             self.transport.stop()
+<<<<<<< HEAD
             self.algorithm.stop()
+=======
+>>>>>>> c13ca62d259ff9265c3a398dab3411bddab18a9a
 
     def send(destination, message):
         """

@@ -2,6 +2,7 @@ import parse
 import json
 import threading
 import socket
+from routing import io
 
 class Transport:
 	""" Transport module, used for sending and reveiving message
@@ -9,7 +10,7 @@ class Transport:
     TYPE = 'Transport'
 
     def __init__(self, name, ip, port, hns_ip, hns_port, 
-                        routing_table, dispather, neighbor, io):
+                        routing_table, dispather, neighbor):
         """Initialize
         Set the listen port and create a new thread to listen the port.
         Args:
@@ -18,7 +19,7 @@ class Transport:
           port: port to be listened
           hns_ip, hns_port: hns' address, 
                             data should be sent to (hns_ip, hns_port)
-          routing_table, dispather, neighbor, io: dependcy module
+          routing_table, dispather, neighbor: dependcy module
         """
         self._name, self._address = name, (ip, port)
         self._hns_address = (hns_ip, hns_port)
@@ -29,7 +30,6 @@ class Transport:
         self._routing_table = routing_table
         self._dispather = dispather
         self._neighbor = neighbor
-        self._io = io
 
     def run(self):
         """ Run this module
@@ -77,7 +77,7 @@ class Transport:
         """ Start server
         Create a server socket and listen to specified address.
         """
-        self._io.print_log('Server listenning at' + 
+        io.print_log('Server listenning at' + 
                         self._address[0] + ':' + self._address[1])
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
@@ -85,7 +85,7 @@ class Transport:
             if not self._running:
                 break
             data, addr = s.recvfrom(10240)
-            self._io.print_log(self._name + ' receive data\n')
+            io.print_log(self._name + ' receive data\n')
             data = parse.parse(data)
             self._process(data)
         s.close()
@@ -123,11 +123,11 @@ class Transport:
                                    data['datagram']['src'],
                                    data['datagram']['data']['data'])
             if self._debug:
-                self._io.print_log('receive data, need dispathing')
+                io.print_log('receive data, need dispathing')
         # just route to other host
         else:
             if self._debug:
-                self._io.print_log('routing from ' + data['datagram']['src'] +
+                io.print_log('routing from ' + data['datagram']['src'] +
                     ' to ' + data['datagram']['dest'])
             self.send(data['datagram']['dest'], data['datagram']['data'], False)
 
@@ -151,7 +151,7 @@ class Transport:
 
         if frame is None:
             if self._debug:
-                self._io.print_log('fail to make a frame, canceling sending')
+                io.print_log('fail to make a frame, canceling sending')
             return
 
         self._send_by_frame(frame)
@@ -166,14 +166,14 @@ class Transport:
 
         if sending_address is None:
             if self._debug:
-                self._io.print_log(frame['next_name'] + 
+                io.print_log(frame['next_name'] + 
                     ' not in mapping_table, canceling sending')
             return
 
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(json.dumps(frame).encode(), sending_address)
         if self._debug:
-            self._io.print_log(self._name + ': succeed sending to ' + 
+            io.print_log(self._name + ': succeed sending to ' + 
                                 frame['next_name'])
 
         s.close()
@@ -200,7 +200,7 @@ class Transport:
                                          True, visited, False)
                 if frame is None:
                     if self._debug:
-                        self._io.print_log('fail to make a frame, canceling sending')
+                        io.print_log('fail to make a frame, canceling sending')
                     continue
 
                 self._send_by_frame(frame)

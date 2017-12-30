@@ -3,19 +3,19 @@ import copy
 import json
 import socket
 from routing import transport
+from routing import io
 
 class HNS:
     """Hostname Server
     A Hostname Server, which can transfer a hostname to an address(ip, port)
     """
 
-    def __init__(self, ip, port, io, transport):
+    def __init__(self, ip, port, transport):
         """Initialize this hns
 
         Args:
           ip: str, specify the server's ip
           port: int, specify the port to be listened by server
-          io: used for printing log
         """
         #
         # mapping_table: {
@@ -26,7 +26,6 @@ class HNS:
         self._mapping_table = {'hns': self._address}
         self._mapping_lock = threading.Lock()
         self._transport_module = transport
-        self.io = io
 
     def run(self):
         """ Run the server
@@ -41,12 +40,12 @@ class HNS:
         Create a server socket and listen to specified address.
         When comes the new data, create a new thread to handle the data.
         """
-        print("HNS: Server listenning at %s:%d" % self._address)
+        io.print_log("HNS: Server listenning at %s:%d" % self._address)
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
         while (True):
             data, addr = s.recvfrom(10240)
-            print('receive data\n')
+            io.print_log('receive data\n')
             t = threading.Thread(target=self._response, args=(data.decode(),))
             t.start()
         s.close()

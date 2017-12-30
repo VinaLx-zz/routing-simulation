@@ -39,3 +39,12 @@ class RoutingTable(object):
             self._routing_table_lock.release()
 
         return next_hop
+    
+    def get_alive(self):
+        self._routing_table_lock.acquire()
+        try:
+            alive_list = list(self._routing_table.keys())
+        finally:
+            self._routing_table_lock.release()
+        
+        return alive_list

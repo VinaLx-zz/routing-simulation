@@ -1,4 +1,5 @@
 import threading
+from .io import print_log
 
 NEIGHBOR_TYPE = "neighbor"
 NEIGHBOR_TIMEOUT = 5
@@ -18,7 +19,20 @@ def del_with_lock(d, k, l):
     return ret
 
 
+def log(message):
+    print_log("[Neighbors] {0}".format(message))
+
+
+def info(message):
+    log("[INFO] {0}".format(message))
+
+
+def error(message):
+    log("[ERROR] {0}".format(message))
+
+
 class Neighbors:
+
     def __init__(self, transport, dispatcher):
         dispatcher.register(NEIGHBOR_TYPE, self)
 
@@ -36,6 +50,8 @@ class Neighbors:
         Args:
             cost (int): a integer indicates the cost change
         """
+
+        info("receiving cost '{0}' from host '{1}'".format(cost, source))
         if not Neighbors.validate(cost):
             return
 
@@ -49,6 +65,11 @@ class Neighbors:
         """
         asynchronizely update neighbor cost of `hostname` to `cost`
         """
+        info(
+            "updating neighbor state, host: '{0}', cost: '{1}'".format(
+                hostname,
+                cost))
+
         timer = threading.Timer(
             NEIGHBOR_TIMEOUT, self.__abort, args=(hostname, fail))
 
@@ -64,6 +85,7 @@ class Neighbors:
         """
         asynchronizely delete neighbor named `hostname`
         """
+        info("deleting host '{0}'".format(hostname))
         if self.get_cost(hostname) is None:
             return
         self.update(hostname, -1, success=success, fail=fail)
@@ -77,17 +99,21 @@ class Neighbors:
         Returns:
             Dict[str, int]: a dictionary mapping host name to cost
         """
+
+        info("getting neighbor table, content: {0}".format(self.neighbors))
         return self.neighbors.copy()
 
     def __abort(self, hostname, fail):
         if not del_with_lock(self.pending, hostname, self.pending_lock):
             return
+        info("timeout for host '{0}', aborting action".format(hostname))
         fail()
 
     def __success(self, hostname):
         self.pending_lock.acquire()
 
         if self.pending.get(hostname):
+            info("reply from host '{0}' received".format(hostname))
             self.pending[hostname]()
             del self.pending[hostname]
 
@@ -98,10 +124,13 @@ class Neighbors:
 
         if cost == -1:
             if self.get_cost(hostname) is None:
+                info("host '{0}' doesn't exists in local table", hostname)
                 return
             del self.neighbors[hostname]
+            info("host '{0}' deleted from local table", hostname)
         else:
             self.neighbors[hostname] = cost
+            info("set host '{0}' to cost {1}".format(hostname, cost))
 
         self.table_lock.release()
 
@@ -110,6 +139,7 @@ class Neighbors:
         return isinstance(data, int) and data >= -1
 
     def __send(self, to, data, new=True):
+        info("sending data '{0}' to host '{1}'".format(data, to))
         self.transport.send(to, {
             "type": NEIGHBOR_TYPE,
             "data": data

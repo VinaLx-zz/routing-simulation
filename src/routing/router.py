@@ -15,29 +15,39 @@ class Router:
         self.routing_table = RoutingTable(config.hostname)
         self.dispatcher = DataDispatcher()
 
-        self.neighbors = Neighbors(None, dispatcher)
+        self.neighbors = Neighbors(None, self.dispatcher)
         self.transport = Transport(
             config.hostname, config.self_addr.ip, config.self_addr.port,
             config.hns_addr.ip, config.hns_addr.port,
             self.routing_table, self.dispatcher, self.neighbors)
         self.neighbors.transport = self.transport
 
-        self.algorithm = self.__get_algorithm()
+        self.algorithm = self.__get_algorithm(config)
 
     def __get_algorithm(self, config):
-        return {
-            Algorithm.DV: DV,
-            Algorithm.LS: LS,
-            Algorithm.LS_CENTRALIZE: CentralizedMember,
-            Algorithm.LS_CONTROL: CentralizedController}[
-            config.algorithm](
-            config.hostname,
-            self.transport,
-            self.routing_table,
-            self.neighbors,
-            self.dispatcher,
-            config.update_interval,
-            config.dead_timeout)
+        if config.algorithm == Algorithm.LS_CENTRALIZE:
+            return CentralizedMember(
+                config.controller,
+                config.hostname,
+                self.transport,
+                self.routing_table,
+                self.neighbors,
+                self.dispatcher,
+                config.update_interval,
+                config.dead_timeout)
+        else:
+            return {
+                Algorithm.DV: DV,
+                Algorithm.LS: LS,
+                Algorithm.LS_CONTROL: CentralizedController}[
+                config.algorithm](
+                config.hostname,
+                self.transport,
+                self.routing_table,
+                self.neighbors,
+                self.dispatcher,
+                config.update_interval,
+                config.dead_timeout)
 
     def run(self):
         """
@@ -45,7 +55,8 @@ class Router:
         """
         if not self._running:
             self._running = True
-            transport.run()
+            self.transport.run()
+            self.algorithm.run()
 
     def stop(self):
         """
@@ -54,7 +65,8 @@ class Router:
         """
         if self._running:
             self._running = False
-            transport.stop()
+            self.transport.stop()
+            self.algorithm.stop()
 
     def send(destination, message):
         """
@@ -75,7 +87,7 @@ class Router:
         Returns:
             list<str>: a list of the living hosts
         """
-        pass
+        self.routing_table.get_alive()
 
     def update_neighbor(self, name, cost):
         """

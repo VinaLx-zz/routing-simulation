@@ -2,7 +2,7 @@ import threading
 import copy
 import json
 import socket
-import threading
+from routing import transport
 
 class HNS:
     """Hostname Server

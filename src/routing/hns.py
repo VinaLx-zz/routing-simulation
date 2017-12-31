@@ -5,15 +5,19 @@ import socket
 from routing import transport
 from routing import io
 
+
 def log(message):
     # io.print_log("[HNS] {0}".format(message))
     print("[HNS] {0}".format(message))
 
+
 def info(message):
     log("[INFO] {0}".format(message))
 
+
 def error(message):
     log("[ERROR] {0}".format(message))
+
 
 class HNS:
     """Hostname Server
@@ -51,7 +55,7 @@ class HNS:
         When comes the new data, create a new thread to handle the data.
         """
         info("Server listenning at {} : {}".format(self._address[0],
-                                                self._address[1]))
+                                                   self._address[1]))
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
         while (True):

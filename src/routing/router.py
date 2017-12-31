@@ -68,7 +68,7 @@ class Router:
             self.transport.stop()
             self.algorithm.stop()
 
-    def send(destination, message):
+    def send(self, destination, message):
         """
         send message
         Args:
@@ -99,4 +99,4 @@ class Router:
         """
         remove a neighbor with specified hostname
         """
-        self.neighbors.remove(name)
+        self.neighbors.delete(name)

@@ -4,15 +4,19 @@ import threading
 import socket
 from routing import io
 
+
 def log(message):
     # io.print_log("[Transport] {0}".format(message))
     print("[Transport] {0}".format(message))
 
+
 def info(message):
     log("[INFO] {0}".format(message))
 
+
 def error(message):
     log("[ERROR] {0}".format(message))
+
 
 class Transport:
     """
@@ -21,7 +25,7 @@ class Transport:
     TYPE = 'Transport'
 
     def __init__(self, name, ip, port, hns_ip, hns_port,
-                        routing_table, dispather, neighbor):
+                 routing_table, dispather, neighbor):
         """Initialize
         Set the listen port and create a new thread to listen the port.
         Args:
@@ -130,15 +134,15 @@ class Transport:
         if data['datagram']['dest'] == self._name:
             # to be finished
             self._dispather.dispatch(data['datagram']['data']['type'],
-                                   data['datagram']['src'],
-                                   data['datagram']['data']['data'])
+                                     data['datagram']['src'],
+                                     data['datagram']['data']['data'])
             if self._debug:
                 info('Need dispatching data')
         # just route to other host
         else:
             if self._debug:
                 info('Routing from {} to {} '.format(data['datagram']['src'],
-                        data['datagram']['dest']))
+                                                     data['datagram']['dest']))
             self.send(data['datagram']['dest'], data['datagram']['data'], False)
 
     def send(self, destination, data, privileged_mode=False):
@@ -259,7 +263,8 @@ class Transport:
                 next_name = dest
             else:
                 next_name = self._routing_table.get(dest)
-        except:
+        except Exception as err:
+            log(err)
             return None
 
         if broadcasting:
@@ -283,8 +288,9 @@ class Transport:
         self._mapping_lock.acquire()
         try:
             address = self._mapping_table[dest]
-        except:
+        except Exception as err:
             address = None
+            log(err)
         self._mapping_lock.release()
 
         return address

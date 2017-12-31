@@ -43,6 +43,7 @@ class Neighbors:
 
         self.table_lock = threading.Lock()
         self.pending_lock = threading.Lock()
+        self.observers = list()
 
     def receive(self, source, cost):
         """
@@ -60,6 +61,10 @@ class Neighbors:
         else:
             self.__success(source)
         self.__update_unsafe(source, cost)
+        self.__notify_all()
+
+    def on_update(self, callback):
+        self.observers.append(callback)
 
     def update(self, hostname: str, cost: int, success=noop, fail=noop):
         """
@@ -133,6 +138,10 @@ class Neighbors:
             info("set host '{0}' to cost {1}".format(hostname, cost))
 
         self.table_lock.release()
+
+    def __notify_all(self):
+        for observer in self.observers:
+            observer(self.get())
 
     @classmethod
     def validate(cls, data):

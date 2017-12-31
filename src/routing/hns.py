@@ -5,12 +5,22 @@ import socket
 from routing import transport
 from routing import io
 
+def log(message):
+    # io.print_log("[HNS] {0}".format(message))
+    print("[HNS] {0}".format(message))
+
+def info(message):
+    log("[INFO] {0}".format(message))
+
+def error(message):
+    log("[ERROR] {0}".format(message))
+
 class HNS:
     """Hostname Server
     A Hostname Server, which can transfer a hostname to an address(ip, port)
     """
 
-    def __init__(self, ip, port, transport):
+    def __init__(self, ip, port):
         """Initialize this hns
 
         Args:
@@ -25,7 +35,7 @@ class HNS:
         self._address = (ip, port)
         self._mapping_table = {'hns': self._address}
         self._mapping_lock = threading.Lock()
-        self._transport_module = transport
+        self._transport_module = transport.Transport('hns', ip, port, ip, port)
 
     def run(self):
         """ Run the server
@@ -40,12 +50,13 @@ class HNS:
         Create a server socket and listen to specified address.
         When comes the new data, create a new thread to handle the data.
         """
-        io.print_log("HNS: Server listenning at %s:%d" % self._address)
+        info("Server listenning at {} : {}".format(self._address[0],
+                                                self._address[1]))
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
         while (True):
             data, addr = s.recvfrom(10240)
-            io.print_log('receive data\n')
+            info('Receive data')
             t = threading.Thread(target=self._response, args=(data.decode(),))
             t.start()
         s.close()
@@ -74,7 +85,7 @@ class HNS:
             'type': transport.Transport.TYPE,
             'data': mt
         }
-        self._transport_module.receive(mt)
+        self._transport_module.receive('noname', mt)
 
         for key in mt:
             if key != 'hns':

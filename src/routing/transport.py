@@ -4,6 +4,15 @@ import threading
 import socket
 from routing import io
 
+def log(message):
+    # io.print_log("[Transport] {0}".format(message))
+    print("[Transport] {0}".format(message))
+
+def info(message):
+    log("[INFO] {0}".format(message))
+
+def error(message):
+    log("[ERROR] {0}".format(message))
 
 class Transport:
     """
@@ -59,7 +68,7 @@ class Transport:
                 self._name: self._address
             }
         }
-        self.send('hns', data, False)
+        self.send('hns', data, True)
 
     def receive(self, src, data):
         """ Receive hns data
@@ -79,15 +88,14 @@ class Transport:
         """ Start server
         Create a server socket and listen to specified address.
         """
-        io.print_log('Server listenning at' +
-                        self._address[0] + ':' + self._address[1])
+        info('Server listenning at {} : {}'.format(self._address[0], self._address[1]))
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
         while True:
             if not self._running:
                 break
             data, addr = s.recvfrom(10240)
-            io.print_log(self._name + ' receive data\n')
+            info('Receive data')
             data = parse.parse(data)
             self._process(data)
         s.close()
@@ -121,16 +129,16 @@ class Transport:
         # dispath to other module
         if data['datagram']['dest'] == self._name:
             # to be finished
-            self._dispather.dispath(data['datagram']['data']['type'],
+            self._dispather.dispatch(data['datagram']['data']['type'],
                                    data['datagram']['src'],
                                    data['datagram']['data']['data'])
             if self._debug:
-                io.print_log('receive data, need dispathing')
+                info('Need dispatching data')
         # just route to other host
         else:
             if self._debug:
-                io.print_log('routing from ' + data['datagram']['src'] +
-                    ' to ' + data['datagram']['dest'])
+                info('Routing from {} to {} '.format(data['datagram']['src'],
+                        data['datagram']['dest']))
             self.send(data['datagram']['dest'], data['datagram']['data'], False)
 
     def send(self, destination, data, privileged_mode=False):
@@ -153,7 +161,7 @@ class Transport:
 
         if frame is None:
             if self._debug:
-                io.print_log('fail to make a frame, canceling sending')
+                error('Fail to make a frame, canceling sending')
             return
 
         self._send_by_frame(frame)
@@ -168,15 +176,14 @@ class Transport:
 
         if sending_address is None:
             if self._debug:
-                io.print_log(frame['next_name'] +
-                    ' not in mapping_table, canceling sending')
+                error('{} not in mapping_table, canceling sending'.format(
+                    frame['next_name']))
             return
 
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(json.dumps(frame).encode(), sending_address)
         if self._debug:
-            io.print_log(self._name + ': succeed sending to ' +
-                                frame['next_name'])
+            info('Succeed sending to '.format(frame['next_name']))
 
         s.close()
 
@@ -202,7 +209,7 @@ class Transport:
                                          True, visited, False)
                 if frame is None:
                     if self._debug:
-                        io.print_log('fail to make a frame, canceling sending')
+                        error('Fail to make a frame, canceling sending')
                     continue
 
                 self._send_by_frame(frame)
@@ -248,8 +255,10 @@ class Transport:
               }
         """
         try:
-            next_name = (dest,
-                self._routing_table.get(dest))[privileged_mode or broadcasting]
+            if privileged_mode or broadcasting:
+                next_name = dest
+            else:
+                next_name = self._routing_table.get(dest)
         except:
             return None
 

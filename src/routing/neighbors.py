@@ -20,15 +20,18 @@ def del_with_lock(d, k, l):
 
 
 def log(message):
-    print_log("[Neighbors] {0}".format(message))
+    # print_log("[Neighbors] {0}".format(message))
+    print("[Neighbors] {0}".format(message))
 
 
 def info(message):
-    log("[INFO] {0}".format(message))
+    # log("[INFO] {0}".format(message))
+    print("[INFO] {0}".format(message))
 
 
 def error(message):
-    log("[ERROR] {0}".format(message))
+    # log("[ERROR] {0}".format(message))
+    print("[ERROR] {0}".format(message))
 
 
 class Neighbors:

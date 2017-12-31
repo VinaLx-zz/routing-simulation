@@ -135,10 +135,10 @@ class DV(Algorithm):
                     self._routing_table[destination]['cost'] = indirect_cost
                     modified = True
 
-            io.print_log('{}  {} receive routing data from {}:'.format(
+            print('{}  {} receive routing data from {}:'.format(
                                time.ctime(current_time), self._hostname,
                                data['source']), data)
-            io.print_log('{}  {}\'s routing table:'.format(
+            print('{}  {}\'s routing table:'.format(
                                time.ctime(current_time), self._hostname),
                                data['routing'])
         finally:
@@ -174,7 +174,7 @@ class DV(Algorithm):
         for hostname in list(neighbor_table.keys()):
             self._transport.send(hostname, send_data)
 
-        io.print_log('{}  {} send routing data:'.format(
+        print('{}  {} send routing data:'.format(
                            time.ctime(), self._hostname),
                            send_data['data']['routing'])
 
@@ -230,10 +230,10 @@ class LS(Algorithm):
             self._update_routing(prev_table)
             self._routing.update(copy.deepcopy(self._routing_table))
 
-            io.print_log('{}  {} receive routing data from {}:'.format(
+            print('{}  {} receive routing data from {}:'.format(
                                time.ctime(current_time), self._hostname,
                                data['source']), data['neighbor'])
-            io.print_log('{}  {} update routing table:'.format(
+            print('{}  {} update routing table:'.format(
                                time.ctime(current_time), self._hostname),
                                self._routing_table)
         finally:
@@ -260,7 +260,7 @@ class LS(Algorithm):
             self._alive_table_lock.release()
 
         self._transport.broadcast(send_data)
-        io.print_log('{}  {} send neighbor information:'.format(
+        print('{}  {} send neighbor information:'.format(
                            time.ctime(), self._hostname),
                            send_data['data']['neighbor'])
 
@@ -388,10 +388,10 @@ class CentralizedMember(LS):
                 'cost': central_cost
             }
 
-            io.print_log('{}  {} receive routing data from {}:'.format(
+            print('{}  {} receive routing data from {}:'.format(
                                time.ctime(current_time), self._hostname,
                                data['source']), data['link'])
-            io.print_log('{}  {} update routing table:'.format(
+            print('{}  {} update routing table:'.format(
                                time.ctime(current_time), self._hostname),
                                self._routing_table)
         finally:
@@ -411,7 +411,7 @@ class CentralizedMember(LS):
         
         self._running = True
         self._transport.send(self._central_hostname, send_data)
-        io.print_log('{}  {} send neighbor information:'.format(
+        print('{}  {} send neighbor information:'.format(
                            time.ctime(), self._hostname),
                            send_data['data']['neighbor'])
 
@@ -451,7 +451,7 @@ class CentralizedController(Algorithm):
                              if k not in dead_hostnames
                 }
 
-            io.print_log('{}  {} receive routing data from {}:'.format(
+            print('{}  {} receive routing data from {}:'.format(
                                time.ctime(current_time), self._hostname,
                                data['source']), data['neighbor'])
         finally:
@@ -481,7 +481,7 @@ class CentralizedController(Algorithm):
         for hostname in alive_hosts:
             self._transport.send(hostname, send_data)
 
-        io.print_log('{}  {} send routing data:'.format(
+        print('{}  {} send routing data:'.format(
                            time.ctime(), self._hostname),
                            send_data['data']['link'])
 

@@ -3,13 +3,11 @@ import copy
 import json
 import socket
 from routing import transport
-from routing import io
+from .io import print_log
 
 
 def log(message):
-    # io.print_log("[HNS] {0}".format(message))
-    print("[HNS] {0}".format(message))
-
+    print_log("[HNS] {0}".format(message))
 
 def info(message):
     log("[INFO] {0}".format(message))

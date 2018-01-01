@@ -2,13 +2,10 @@ from routing import parse
 import json
 import threading
 import socket
-from routing import io
-
+from .io import print_log
 
 def log(message):
-    # io.print_log("[Transport] {0}".format(message))
-    print("[Transport] {0}".format(message))
-
+    print_log("[Transport] {0}".format(message))
 
 def info(message):
     log("[INFO] {0}".format(message))

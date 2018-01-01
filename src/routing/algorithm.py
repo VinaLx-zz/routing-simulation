@@ -1,14 +1,12 @@
 import threading
 import copy
 import time
-from routing import io
+from .io import print_log
 
 ALGORITHM_TYPE = "algorithm"
 
 def log(message):
-    # print_log("[Algorithm] {0}".format(message))
-    print("[Algorithm] {0}".format(message))
-
+    print_log("[Algorithm] {0}".format(message))
 
 def info(message):
     log("[INFO] {0}".format(message))

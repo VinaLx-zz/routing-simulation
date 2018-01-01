@@ -2,7 +2,8 @@ import threading
 from .io import print_log
 
 NEIGHBOR_TYPE = "neighbor"
-NEIGHBOR_TIMEOUT = 5
+NEIGHBOR_TIMEOUT = 2
+MAX_RETRY = 3
 
 
 def noop():
@@ -32,6 +33,7 @@ def error(message):
 
 
 class Neighbors:
+
     def __init__(self, transport, dispatcher):
         dispatcher.register(NEIGHBOR_TYPE, self)
 
@@ -71,11 +73,22 @@ class Neighbors:
         """
         info(
             "updating neighbor state, host: '{0}', cost: '{1}'".format(
-                hostname,
-                cost))
+                hostname, cost))
+        self.__update_with_retry(hostname, cost, MAX_RETRY, success, fail)
 
-        timer = threading.Timer(
-            NEIGHBOR_TIMEOUT, self.__abort, args=(hostname, fail))
+    def __update_with_retry(self, hostname, cost, retry, success, fail):
+        if retry == 0:
+            self.__abort(hostname, fail)
+            return
+
+        def timeout_handler():
+            retry_left = retry - 1
+            info("neighbor {0} timeout, retry left: {1}".format(
+                hostname, retry_left))
+            self.__update_with_retry(
+                hostname, cost, retry_left, success, fail)
+
+        timer = threading.Timer(NEIGHBOR_TIMEOUT, timeout_handler)
 
         def success_callback():
             timer.cancel()
@@ -106,7 +119,8 @@ class Neighbors:
 
         info("getting neighbor table, content: {0}".format(self.neighbors))
         # return self.neighbors.copy()
-        return {h: self.neighbors[h] for h in self.neighbors if self.neighbors[h] != -1}
+        return {h: self.neighbors[h]
+                for h in self.neighbors if self.neighbors[h] != -1}
 
     def __abort(self, hostname, fail):
         if not del_with_lock(self.pending, hostname, self.pending_lock):
@@ -119,7 +133,7 @@ class Neighbors:
 
         if self.pending.get(hostname):
             info("reply from host '{0}' received".format(hostname))
-            self.pending[hostname]()
+            self.pending[hostname]() # calling success callback
             del self.pending[hostname]
 
         self.pending_lock.release()

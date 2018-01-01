@@ -143,7 +143,19 @@ class Transport:
             if self._debug:
                 info('Routing from {} to {} '.format(data['datagram']['src'],
                                                      data['datagram']['dest']))
-            self.send(data['datagram']['dest'], data['datagram']['data'], False)
+            datagram = self._make_datagram(data['datagram']['src'], 
+                                           data['datagram']['dest'],
+                                           data['datagram']['data'])
+
+            frame = self._make_frame(data['datagram']['dest'], 
+                            datagram, False, [], False)
+
+            if frame is None:
+                if self._debug:
+                    error('Fail to make a frame, canceling sending')
+                return
+
+            self._send_by_frame(frame)
 
     def send(self, destination, data, privileged_mode=False):
         """ Send data to destination

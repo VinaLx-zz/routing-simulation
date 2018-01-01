@@ -2,7 +2,7 @@ from .io import print_message
 
 
 def pm(src, message):
-    print_message("[Message] from {0}: {}".format(src, message))
+    print_message("[Message] from {0}: {1}".format(src, message))
 
 
 class Message:

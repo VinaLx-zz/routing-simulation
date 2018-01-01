@@ -2,7 +2,7 @@ from .io import print_message
 
 
 def pm(src, message):
-    print_message("[Message] from {0}: {1}".format(src, message))
+    print_message("{0}: {1}".format(src, message))
 
 
 class Message:
@@ -20,7 +20,6 @@ class Message:
             destination: str, destination hostname
             message: str, text message only
         """
-        self._transport.send()
         data = {
             'type': Message.TYPE,
             'data': message

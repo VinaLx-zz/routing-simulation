@@ -27,6 +27,8 @@ def log(message):
 def info(message):
     log("[INFO] {0}".format(message))
 
+def warning(message):
+    log("[WARNING] {0}".format(message))
 
 def error(message):
     log("[ERROR] {0}".format(message))
@@ -55,7 +57,10 @@ class Neighbors:
 
         info("receiving cost '{0}' from host '{1}'".format(cost, source))
         if not Neighbors.validate(cost):
+            warning("invalid data '{0}'".format(cost))
             return
+
+        cost = int(cost)
 
         if self.pending.get(source) is None:
             self.__send(source, cost)  # ack
@@ -159,7 +164,13 @@ class Neighbors:
 
     @classmethod
     def validate(cls, data):
-        return isinstance(data, int) and data >= -1
+        try:
+            if int(data) >= -1:
+                return True
+            else:
+                raise Exception("data must be greater or equal to -1")
+        except Exception:
+            return False
 
     def __send(self, to, data, new=True):
         info("sending data '{0}' to host '{1}'".format(data, to))

@@ -1,6 +1,9 @@
 import datetime
+import threading
+from threading import Lock
 
 view = None
+mutex = threading.Lock()
 
 
 def init(_view):
@@ -14,13 +17,17 @@ def now():
 
 def print_message(message):
     if view:
-        view.add_message("[%s] %s \n" % (now(), message))
+        mutex.acquire()
+        view.listen_message_event("[%s] %s \n" % (now(), message))
+        mutex.release()
     else:
         print("[%s] %s \n" % (now(), message))
 
 
 def print_log(log):
     if view:
-        view.add_log("[%s] %s \n" % (now(), log))
+        mutex.acquire()
+        view.listen_log_event("[%s] %s \n" % (now(), log))
+        mutex.release()
     else:
         print("[%s] %s \n" % (now(), log))

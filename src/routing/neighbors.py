@@ -2,7 +2,7 @@ import threading
 from .io import print_log
 
 NEIGHBOR_TYPE = "neighbor"
-NEIGHBOR_TIMEOUT = 2
+NEIGHBOR_TIMEOUT = 10
 MAX_RETRY = 3
 
 

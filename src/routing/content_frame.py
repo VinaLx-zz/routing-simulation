@@ -92,19 +92,15 @@ class ContentFrame(wx.Frame):
 
         config_menu = wx.Menu()
 
-        edit_submenu = wx.Menu()
-
-        add_neighbor_item = wx.MenuItem(edit_submenu, wx.ID_ADD, text="Add New Neighbor", kind=wx.ITEM_NORMAL)
+        add_neighbor_item = wx.MenuItem(config_menu, wx.ID_ADD, text="Add New Neighbor", kind=wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self._add_neighbor_item_handler, add_neighbor_item)
-        edit_submenu.Append(add_neighbor_item)
+        config_menu.Append(add_neighbor_item)
 
-        remove_neighbor_item = wx.MenuItem(edit_submenu, wx.ID_REMOVE, text="Remove Neighbor", kind=wx.ITEM_NORMAL)
+        remove_neighbor_item = wx.MenuItem(config_menu, wx.ID_REMOVE, text="Remove Neighbor", kind=wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self._remove_neighbor_item_handler, remove_neighbor_item)
-        edit_submenu.Append(remove_neighbor_item)
+        config_menu.Append(remove_neighbor_item)
 
-        config_menu.Append(wx.ID_ANY, "Edit", edit_submenu)
-
-        menu_bar.Append(config_menu, "&Config")
+        menu_bar.Append(config_menu, "&Neighbor")
 
         self.SetMenuBar(menu_bar)
         self.SetSize((350, 250))
@@ -114,11 +110,11 @@ class ContentFrame(wx.Frame):
         self._update_hostnames()
         self.hostname_choice.SetItems(self.hostnames)
 
-    def add_message(self, message):
-        self.message_text.AppendText(message)
+    def listen_message_event(self, data):
+        wx.CallAfter(self.message_text.AppendText, data)
 
-    def add_log(self, log):
-        self.log_text.AppendText(log)
+    def listen_log_event(self, data):
+        wx.CallAfter(self.log_text.AppendText, data)
 
     def _save_message_handler(self, _):
         dlg = wx.FileDialog(self, "Create a file", os.getcwd(), "message.txt", style=wx.FD_SAVE)
@@ -152,24 +148,25 @@ class ContentFrame(wx.Frame):
         myDialog.ShowModal()
 
     def _remove_neighbor_item_handler(self, _):
-        self.add_message("remove_neighbor_item")
         dlg = wx.SingleChoiceDialog(self, "Which hostname you want to remove", "Remove neighbor", self.hostnames)
 
         if dlg.ShowModal() == wx.ID_OK:
-            print(dlg.GetStringSelection())
+            self.router.remove_neighbor(dlg.GetStringSelection())
         dlg.Destroy()
 
     def _send_data_handler(self, _):
-        self.add_message("Send Message\n")
-        print(self.hostname_choice.GetStringSelection())
-        print(self.data_text.GetValue())
-        wx.MessageBox("This is a Message Box", "Message", wx.OK | wx.ICON_INFORMATION)
+        if self.hostname_choice.GetStringSelection() == '' or self.data_text.GetValue() == '':
+            wx.MessageBox("Please enter the receiver's hostname and data.", "Error", wx.OK | wx.ICON_ERROR)
+        else:
+            print(self.hostname_choice.GetStringSelection())
+            print(self.data_text.GetValue())
+            self.router.send(self.hostname_choice.GetStringSelection(), self.data_text.GetValue())
+            self.data_text.Clear()
 
     def _clear_handler(self, _):
         self.data_text.Clear()
 
     def _update_hostnames(self):
-        # ...
         self.hostnames = self.router.get_alive()
         self.hostnames.remove(self.router.hostname)
 

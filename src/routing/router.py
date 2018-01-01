@@ -4,6 +4,7 @@ from .dispatcher import DataDispatcher
 from .algorithm import DV, LS, CentralizedMember, CentralizedController
 from .neighbors import Neighbors
 from .config import Algorithm
+from .message import Message
 
 
 class Router:
@@ -23,6 +24,8 @@ class Router:
         self.neighbors.transport = self.transport
 
         self.algorithm = self.__get_algorithm(config)
+
+        self.message = Message(self.transport, self.dispatcher)
 
     def __get_algorithm(self, config):
         if config.algorithm == Algorithm.LS_CENTRALIZE:
@@ -75,11 +78,7 @@ class Router:
             destination(str): hostname for the receiver
             message(str): message to send
         """
-        # data = {
-        #     'type': ...
-        #     'data': message
-        # }
-        # transport.send(destination, data)
+        self.message.send(destination, message)
 
     def get_alive(self):
         """

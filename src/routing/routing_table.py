@@ -44,7 +44,7 @@ class RoutingTable(object):
         try:
             next_hop = self._routing_table[destination]['next']
         except KeyError:
-            raise ValueError('hostname unreachable')
+            raise ValueError('hostname "{}" unreachable'.format(destination))
         finally:
             self._routing_table_lock.release()
 

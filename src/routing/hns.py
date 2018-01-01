@@ -39,7 +39,7 @@ class HNS:
         self._address = (ip, port)
         self._mapping_table = {'hns': self._address}
         self._mapping_lock = threading.Lock()
-        self._transport_module = transport.Transport('hns', ip, port, ip, port)
+        self._transport_module = transport.Transport('hns', ip, port, ip, port, None, None, None)
 
     def run(self):
         """ Run the server

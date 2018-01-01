@@ -79,7 +79,7 @@ class Transport:
 
         self._mapping_lock.acquire()
         if self._name not in self._mapping_table:
-            self._timer_thread = threading.Timer(10, self._send_to_hns, args=(self,))
+            self._timer_thread = threading.Timer(10, self._send_to_hns)
             self._timer_thread.start()
         self._mapping_lock.release()
 
@@ -153,7 +153,7 @@ class Transport:
                 for host in data['datagram']['data']['passed_by']:
                     message = message + host + ' -> '
                 message = message + self._name
-                info(message) 
+                info(message)
         # just route to other host
         else:
             if self._debug:
@@ -168,7 +168,7 @@ class Transport:
         """
         data['passed_by'] = []
         self._send(self._name, destination, data, privileged_mode)
-        
+
 
     def _send(self, src, destination, data, privileged_mode):
         """ Send data to destination

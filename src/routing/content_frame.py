@@ -38,7 +38,7 @@ class ContentFrame(wx.Frame):
         fgs = wx.FlexGridSizer(5, 2, 10, 10)
 
         hostname_label = wx.StaticText(panel, label="Hostname:")
-        self.hostname_choice = wx.ComboBox(panel, choices=self.hostnames, style=wx.CB_READONLY)
+        self.hostname_choice = wx.ComboBox(panel, choices=self.hostnames, style=wx.CB_READONLY | wx.CB_DROPDOWN)
         self.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.update_hostnames_handler, self.hostname_choice)
 
         data_label = wx.StaticText(panel, label="Data:")

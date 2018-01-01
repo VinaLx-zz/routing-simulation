@@ -187,7 +187,7 @@ class Transport:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(json.dumps(frame).encode(), sending_address)
         if self._debug:
-            info('Succeed sending to '.format(frame['next_name']))
+            info('Succeed sending to {}'.format(frame['next_name']))
 
         s.close()
 
@@ -197,16 +197,14 @@ class Transport:
             data: {                        {
               'type': ...,        or          'visited': list,
                                               'src': str, source hostname
-              'data': ...                      'data': data same as left data
+              'data': ...                     'data': data same as left data
             }                                }
         """
-        src = (self._name, data['src'])[data['src'] is None]
-        visited = ([], data['visited'])[data['visited'] is None]
-        data = (data, data['data'])[data['src'] is None]
+        src = data['src'] if 'src' in data.keys() else self._name
+        visited = data['visited'] if 'visited' in data.keys() else []
+        data = data['data'] if 'src' in data.keys() else data
 
         neighbors = list(self._neighbor.get().keys())
-        if self._debug:
-            neighbors = ['B', 'C']
         for n in neighbors:
             if n not in visited:
                 frame = self._make_frame(n, self._make_datagram(src, n, data),

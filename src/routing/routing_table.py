@@ -29,6 +29,16 @@ class RoutingTable(object):
         finally:
             self._routing_table_lock.release()
 
+    def update_one(self, destination, next, cost):
+        self._routing_table_lock.acquire()
+        try:
+            self._routing_table[destination] = {
+                'next': next,
+                'cost': cost
+            }
+        finally:
+            self._routing_table_lock.release()
+
     def get(self, destination):
         self._routing_table_lock.acquire()
         try:

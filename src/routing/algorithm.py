@@ -3,6 +3,8 @@ import copy
 import time
 from routing import io
 
+ALGORITHM_TYPE = "algorithm"
+
 def log(message):
     # print_log("[Algorithm] {0}".format(message))
     print("[Algorithm] {0}".format(message))
@@ -16,10 +18,8 @@ def error(message):
     log("[ERROR] {0}".format(message))
 
 class Algorithm(object):
-    TYPE = "algorithm"
-
     def __init__(self, hostname, transport, routing_table, neighbor,
-                 dispather, update_interval=30, timeout=180):
+                 dispatcher, update_interval=30, timeout=180):
         self._hostname = hostname
         self._interval = update_interval
         self._timeout = timeout
@@ -27,7 +27,6 @@ class Algorithm(object):
         self._transport = transport
         self._routing = routing_table
         self._neighbor = neighbor
-        self._dispather = dispather
 
         self._timer_thread = None
         self._running = False
@@ -72,6 +71,9 @@ class Algorithm(object):
         self._alive_table = {}
         self._alive_table_lock = threading.Lock()
 
+        dispatcher.register(ALGORITHM_TYPE, self)
+        self._neighbor.on_update(self._neighbor_update)
+
     # def inject(self, transport, routing_table, neighbor, dispather):
     #     self._transport = transport
     #     self._routing = routing_table
@@ -98,6 +100,19 @@ class Algorithm(object):
         finally:
             self._routing_table_lock.release()
 
+    def _neighbor_update(self, neighbor_table):
+        log('on update {}'.format(neighbor_table))
+        self._routing_table_lock.acquire()
+        try:
+            for hostname in neighbor_table:
+                if neighbor_table[hostname] != -1:
+                    self._routing_table[hostname] = {
+                        'next': hostname,
+                        'cost': neighbor_table[hostname]
+                    }
+                    self._routing.update_one(hostname, hostname, neighbor_table[hostname])
+        finally:
+            self._routing_table_lock.release()
 
 class DV(Algorithm):
     def receive(self, src, data):
@@ -144,12 +159,10 @@ class DV(Algorithm):
                     self._routing_table[destination]['cost'] = indirect_cost
                     modified = True
 
-            log('{}  {} receive routing data from {}: {}'.format(
-                time.ctime(current_time), self._hostname,
-                data['source'], data))
-            log('{}  {}\'s routing table: {}'.format(
-                time.ctime(current_time), self._hostname,
-                data['routing']))
+            log('{} receive routing data from {}: {}'.format(
+                self._hostname, data['source'], data['routing']))
+            log('{}\'s routing table: {}'.format(
+                self._hostname, self._routing_table))
         finally:
             self._routing_table_lock.release()
 
@@ -171,7 +184,7 @@ class DV(Algorithm):
         self._routing_table_lock.acquire()
         try:
             send_data = {
-                'type': DV.TYPE,
+                'type': ALGORITHM_TYPE,
                 'data': {
                     'source': self._hostname,
                     'routing': copy.deepcopy(self._routing_table)
@@ -183,9 +196,8 @@ class DV(Algorithm):
         for hostname in list(neighbor_table.keys()):
             self._transport.send(hostname, send_data)
 
-        log('{}  {} send routing data: {}'.format(
-            time.ctime(), self._hostname,
-            send_data['data']['routing']))
+        log('{} send routing data: {}'.format(
+            self._hostname, send_data['data']['routing']))
 
 
 class LS(Algorithm):
@@ -238,13 +250,11 @@ class LS(Algorithm):
             self._update_routing(prev_table)
             self._routing.update(copy.deepcopy(self._routing_table))
 
-            log('{}  {} receive routing data from {}: {}'.format(time.ctime(current_time),
-                                                                          self._hostname,
-                                                                          data['source'],
-                                                                          data['neighbor']))
-            log('{}  {} update routing table: {}'.format(
-                time.ctime(current_time), self._hostname,
-                self._routing_table))
+            log('{} receive routing data from {}: {}'.format(self._hostname,
+                                                            data['source'],
+                                                            data['neighbor']))
+            log('{} update routing table: {}'.format(
+                self._hostname, self._routing_table))
         finally:
             self._link_state_lock.release()
             self._routing_table_lock.release()
@@ -258,7 +268,7 @@ class LS(Algorithm):
         self._alive_table_lock.acquire()
         try:
             send_data = {
-                'type': LS.TYPE,
+                'type': ALGORITHM_TYPE,
                 'data': {
                     'source': self._hostname,
                     'neighbor': neighbor_table,
@@ -269,9 +279,8 @@ class LS(Algorithm):
             self._alive_table_lock.release()
 
         self._transport.broadcast(send_data)
-        log('{}  {} send neighbor information: {}'.format(
-            time.ctime(), self._hostname,
-            send_data['data']['neighbor']))
+        log('{} send neighbor information: {}'.format(
+            self._hostname, send_data['data']['neighbor']))
 
         self._timer_thread = threading.Timer(self._interval, LS.run, args=(self,))
         self._timer_thread.start()
@@ -396,12 +405,10 @@ class CentralizedMember(LS):
                 'cost': central_cost
             }
 
-            log('{}  {} receive routing data from {}: {}'.format(
-                time.ctime(current_time), self._hostname,
-                data['source'], data['link']))
-            log('{}  {} update routing table: {}'.format(
-                time.ctime(current_time), self._hostname,
-                self._routing_table))
+            log('{} receive routing data from {}: {}'.format(
+                self._hostname, data['source'], data['link']))
+            log('{} update routing table: {}'.format(
+                self._hostname, self._routing_table))
         finally:
             self._link_state_lock.release()
             self._routing_table_lock.release()
@@ -410,7 +417,7 @@ class CentralizedMember(LS):
 
     def run(self):
         send_data = {
-            'type': CentralizedMember.TYPE,
+            'type': ALGORITHM_TYPE,
             'data': {
                 'source': self._hostname,
                 'neighbor': self._neighbor.get()
@@ -419,9 +426,8 @@ class CentralizedMember(LS):
 
         self._running = True
         self._transport.send(self._central_hostname, send_data)
-        log('{}  {} send neighbor information: {}'.format(
-            time.ctime(), self._hostname,
-            send_data['data']['neighbor']))
+        log('{} send neighbor information: {}'.format(
+            self._hostname, send_data['data']['neighbor']))
 
         self._timer_thread = threading.Timer(self._interval, LS.run, args=(self,))
         self._timer_thread.start()
@@ -459,9 +465,8 @@ class CentralizedController(Algorithm):
                     if k not in dead_hostnames
                 }
 
-            log('{}  {} receive routing data from {}: {}'.format(
-                time.ctime(current_time), self._hostname,
-                data['source'], data['neighbor']))
+            log('{} receive routing data from {}: {}'.format(
+                self._hostname, data['source'], data['neighbor']))
         finally:
             self._link_state_lock.release()
 
@@ -472,7 +477,7 @@ class CentralizedController(Algorithm):
         try:
             current_time = time.time()
             send_data = {
-                'type': CentralizedController.TYPE,
+                'type': ALGORITHM_TYPE,
                 'data': {
                     'source': self._hostname,
                     'link': copy.deepcopy(self._link_state)
@@ -489,8 +494,7 @@ class CentralizedController(Algorithm):
         for hostname in alive_hosts:
             self._transport.send(hostname, send_data)
 
-        log('{}  {} send routing data: {}'.format(
-            time.ctime(), self._hostname,
-            send_data['data']['link']))
+        log('{} send routing data: {}'.format(
+            self._hostname, send_data['data']['link']))
 
         self._timer_thread = threading.Timer(self._interval, CentralizedController.run, args=(self,))

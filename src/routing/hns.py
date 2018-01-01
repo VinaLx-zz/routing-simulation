@@ -3,11 +3,11 @@ import copy
 import json
 import socket
 from routing import transport
-from .io import print_log
 
 
 def log(message):
-    print_log("[HNS] {0}".format(message))
+    print("[HNS] {0}".format(message))
+
 
 def info(message):
     log("[INFO] {0}".format(message))
@@ -56,12 +56,11 @@ class HNS:
                                                    self._address[1]))
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
-        while (True):
+        while True:
             data, addr = s.recvfrom(10240)
             info('Receive data')
             t = threading.Thread(target=self._response, args=(data.decode(),))
             t.start()
-        s.close()
 
     def _response(self, data):
         """Response to others' request

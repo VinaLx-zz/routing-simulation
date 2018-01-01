@@ -1,5 +1,6 @@
 import argparse
 import json
+from routing import hns
 
 
 def load(file):
@@ -10,14 +11,16 @@ def load(file):
 
 def main():
     parser = argparse.ArgumentParser(description='Run Hostname Domain Server')
-    parser.add_argument('--config', type=str, default="hns_config.txt")
+    parser.add_argument('--ip', type=str, default="127.0.0.1")
+    parser.add_argument('--port', type=int, default=8888)
     args = parser.parse_args()
     try:
-        data = load(args.config)
-        print(data)
+        h = hns.HNS(args.ip, args.port)
+        h.run()
     except Exception as err:
         print(err)
         return 1
+
 
 if __name__ == '__main__':
     main()

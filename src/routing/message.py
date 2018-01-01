@@ -1,8 +1,9 @@
-
 from .io import print_message
+
 
 def pm(src, message):
     print_message("[Message] from {0}: {}".format(src, message))
+
 
 class Message:
     """A module used for sending and receiving message"""
@@ -19,12 +20,12 @@ class Message:
             destination: str, destination hostname
             message: str, text message only
         """
-        self.transport.send()
+        self._transport.send()
         data = {
-            'type': Message.TYPE
+            'type': Message.TYPE,
             'data': message
         }
-        transport.send(destination, data)
+        self._transport.send(destination, data)
 
     def receive(self, src, data):
         """ Receive hns data
@@ -32,4 +33,3 @@ class Message:
             data: str
         """
         pm(src, data)
-

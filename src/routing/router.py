@@ -12,6 +12,7 @@ class Router:
     def __init__(self, config):
 
         self._running = False
+        self.hostname = config.hostname
 
         self.routing_table = RoutingTable(config.hostname)
         self.dispatcher = DataDispatcher()
@@ -86,7 +87,7 @@ class Router:
         Returns:
             list<str>: a list of the living hosts
         """
-        self.routing_table.get_alive()
+        return self.routing_table.get_alive()
 
     def update_neighbor(self, name, cost):
         """

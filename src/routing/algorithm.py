@@ -5,8 +5,10 @@ from .io import print_log
 
 ALGORITHM_TYPE = "algorithm"
 
+
 def log(message):
     print_log("[Algorithm] {0}".format(message))
+
 
 def info(message):
     log("[INFO] {0}".format(message))
@@ -14,6 +16,7 @@ def info(message):
 
 def error(message):
     log("[ERROR] {0}".format(message))
+
 
 class Algorithm(object):
     def __init__(self, hostname, transport, routing_table, neighbor,
@@ -109,8 +112,8 @@ class Algorithm(object):
         finally:
             self._routing_table_lock.release()
 
-class DV(Algorithm):
 
+class DV(Algorithm):
     def receive(self, src, data):
         modified = False
         dead_hostnames = []
@@ -204,7 +207,6 @@ class DV(Algorithm):
 
 
 class LS(Algorithm):
-
     def receive(self, src, data):
         dead_hostnames = []
         neighbor_table = self._neighbor.get()
@@ -433,7 +435,6 @@ class CentralizedMember(LS):
 
 
 class CentralizedController(Algorithm):
-
     def receive(self, src, data):
         dead_hostnames = []
 
@@ -446,7 +447,7 @@ class CentralizedController(Algorithm):
                               if current_time - self._alive_table[hostname] > self._timeout]
         finally:
             self._alive_table_lock.release()
-        
+
         if len(dead_hostnames) != 0:
             log('{} dead hostnames: {}'.format(time.ctime(), dead_hostnames))
 

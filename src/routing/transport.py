@@ -4,8 +4,10 @@ import threading
 import socket
 from .io import print_log
 
+
 def log(message):
     print_log("[Transport] {0}".format(message))
+
 
 def info(message):
     log("[INFO] {0}".format(message))
@@ -84,6 +86,7 @@ class Transport:
         self._mapping_lock.acquire()
         self._mapping_table.update(mt)
         self._mapping_lock.release()
+        info(str(mt))
 
     def _listen(self):
         """ Start server

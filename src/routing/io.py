@@ -13,8 +13,14 @@ def now():
 
 
 def print_message(message):
-    view.add_message("[%s] %s \n" % (now(), message))
+    if view:
+        view.add_message("[%s] %s \n" % (now(), message))
+    else:
+        print("[%s] %s \n" % (now(), message))
 
 
 def print_log(log):
-    view.add_log("[%s] %s \n" % (now(), log))
+    if view:
+        view.add_log("[%s] %s \n" % (now(), log))
+    else:
+        print("[%s] %s \n" % (now(), log))

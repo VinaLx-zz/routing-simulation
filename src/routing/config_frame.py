@@ -1,6 +1,18 @@
 import wx
 import os
+import json
 import wx.lib.buttons as wxButton
+from routing import router
+from routing import config
+from routing import manager
+
+
+alg = {
+    "DV": router.Algorithm.DV,
+    "LS": router.Algorithm.LS,
+    "LS_CENTRALIZE": router.Algorithm.LS_CENTRALIZE,
+    "LS_CONTROL": router.Algorithm.LS_CONTROL
+}
 
 
 class ConfigFrame(wx.Frame):
@@ -30,7 +42,7 @@ class ConfigFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.config, button_config)
 
     def config(self, _):
-        wildcard = "Text Files (*.txt)|*.txt"
+        wildcard = "Text Files (*.json)|*.json"
         dlg = wx.FileDialog(self, "Choose a file", os.getcwd(), "", wildcard)
 
         if dlg.ShowModal() == wx.ID_OK:
@@ -38,14 +50,32 @@ class ConfigFrame(wx.Frame):
 
             with f:
                 data = f.read()
-                print(data)
-                if self._validate_init():
+                _config = json.loads(data)
+
+                try:
+                    self._validate_init(_config)
                     self.UpdateUI(1)
-                else:
-                    wx.MessageBox("This is a Message Box", "Message", wx.OK | wx.ICON_INFORMATION)
+                except Exception as err:
+                    wx.MessageBox(err, "Error", wx.OK | wx.ICON_ERROR)
                     dlg.Destroy()
         else:
             dlg.Destroy()
 
-    def _validate_init(self):
-        return True
+    def _validate_init(self, _config):
+        try:
+            hns_addr = config.Address(_config['hns_ip'], _config['hns_port'])
+            self_addr = config.Address(_config['ip'], _config['port'])
+
+            c = config.Config(algorithm=alg[_config['algorithm']],
+                              hostname=_config['hostname'],
+                              self_addr=self_addr,
+                              hns_addr=hns_addr,
+                              dead_timeout=_config['dead_timeout'],
+                              update_interval=_config['update_interval'],
+                              controller_hostname=_config['controller_hostname'])
+            _router = router.Router(c)
+            for each in _config['neighbors']:
+                _router.update_neighbor(each['hostname'], each['cost'])
+            manager.init_router(_router)
+        except Exception as err:
+            raise err

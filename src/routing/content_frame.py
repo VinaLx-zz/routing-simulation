@@ -1,13 +1,19 @@
 import wx
-from routing import io
+from routing import io, manager
 import sys
 import os
 
 
 class ContentFrame(wx.Frame):
     def __init__(self, parent=None, id=-1, UpdateUI=None):
-        wx.Frame.__init__(self, parent, id, title="Router", size=(350, 1000), pos=(500, 200))
-        self.hostnames = None
+        self.router = manager.router
+        wx.Frame.__init__(self,
+                          parent,
+                          id,
+                          title="Router-{}".format(self.router.hostname),
+                          size=(350, 1000),
+                          pos=(500, 200))
+        self.hostnames = []
         self._update_hostnames()
         self.hostname_choice = None
         self.data_text = None
@@ -164,7 +170,8 @@ class ContentFrame(wx.Frame):
 
     def _update_hostnames(self):
         # ...
-        self.hostnames = ["A", "B"]
+        self.hostnames = self.router.get_alive()
+        self.hostnames.remove(self.router.hostname)
 
 
 class MyDialog(wx.Dialog):
@@ -213,6 +220,7 @@ class MyDialog(wx.Dialog):
         panel.Fit()
 
     def _ok_handler(self, _):
+        manager.router.update_neighbor(self.hostname_text.GetValue(), self.cost_text.GetValue())
         self.EndModal(wx.ID_CANCEL)
 
     def _close_handler(self, _):

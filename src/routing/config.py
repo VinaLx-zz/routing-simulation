@@ -20,7 +20,7 @@ class Config:
     def __init__(
             self,
             algorithm, hostname, self_addr, hns_addr,
-            dead_timeout=180, update_interval=30):
+            dead_timeout=180, update_interval=30, controller_hostname=None):
 
         self.algorithm = algorithm
         self.hostname = hostname
@@ -28,3 +28,4 @@ class Config:
         self.hns_addr = hns_addr
         self.dead_timeout = dead_timeout
         self.update_interval = update_interval
+        self.controller = controller_hostname

@@ -428,13 +428,14 @@ class CentralizedMember(LS):
         }
 
         self._transport.send(self._central_hostname, send_data)
-        log('send neighbor information: {}'.format(send_data['data']['neighbor']))
+        log('send neighbor information to {}: {}'.format(self._central_hostname, send_data['data']['neighbor']))
 
-        self._timer_thread = threading.Timer(self._interval, LS.run, args=(self,))
+        self._timer_thread = threading.Timer(self._interval, CentralizedMember.run, args=(self,))
         self._timer_thread.start()
 
 
 class CentralizedController(Algorithm):
+
     def receive(self, src, data):
         dead_hostnames = []
 
@@ -454,7 +455,7 @@ class CentralizedController(Algorithm):
         dead_hostnames.append(self._hostname)
         self._link_state_lock.acquire()
         try:
-            self._link_state[data['source']] = data
+            self._link_state[data['source']] = data['neighbor']
             for hostname in data['neighbor']:
                 if hostname not in self._link_state:
                     self._link_state[hostname] = {}
@@ -499,3 +500,4 @@ class CentralizedController(Algorithm):
         log('send routing data: {}'.format(send_data['data']['link']))
 
         self._timer_thread = threading.Timer(self._interval, CentralizedController.run, args=(self,))
+        self._timer_thread.start()

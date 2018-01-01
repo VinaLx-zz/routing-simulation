@@ -187,7 +187,8 @@ class Transport:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(json.dumps(frame).encode(), sending_address)
         if self._debug:
-            info('Succeed sending to {}'.format(frame['next_name']))
+            info('Succeed sending {1} to {0}'.format(
+                frame['next_name'], frame['datagram']['data']))
 
         s.close()
 

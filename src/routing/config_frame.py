@@ -8,10 +8,10 @@ from routing import manager
 
 
 alg = {
-    "DV": router.Algorithm.DV,
-    "LS": router.Algorithm.LS,
-    "LS_CENTRALIZE": router.Algorithm.LS_CENTRALIZE,
-    "LS_CONTROL": router.Algorithm.LS_CONTROL
+    "DV": config.Algorithm.DV,
+    "LS": config.Algorithm.LS,
+    "LS_CENTRALIZE": config.Algorithm.LS_CENTRALIZE,
+    "LS_CONTROL": config.Algorithm.LS_CONTROL
 }
 
 
@@ -65,7 +65,7 @@ class ConfigFrame(wx.Frame):
         try:
             hns_addr = config.Address(_config['hns_ip'], _config['hns_port'])
             self_addr = config.Address(_config['ip'], _config['port'])
-
+            print(alg[_config['algorithm']])
             c = config.Config(algorithm=alg[_config['algorithm']],
                               hostname=_config['hostname'],
                               self_addr=self_addr,

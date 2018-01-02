@@ -112,6 +112,9 @@ class Neighbors:
             return
         self.update(hostname, -1, success=success, fail=fail)
 
+    def delete_unsafe(self, hostname):
+        self.__update_unsafe(hostname, -1)
+
     def get_cost(self, hostname):
         return self.neighbors.get(hostname)
 

@@ -18,16 +18,14 @@ def now():
 def print_message(message):
     if view:
         mutex.acquire()
-        view.listen_message_event("[%s] %s \n" % (now(), message))
+        view.listen_message_event("[%s] %s\n" % (now(), message))
         mutex.release()
-    else:
-        print("[%s] %s \n" % (now(), message))
+    print("[%s] %s" % (now(), message))
 
 
 def print_log(log):
     if view:
         mutex.acquire()
-        view.listen_log_event("[%s] %s \n" % (now(), log))
+        view.listen_log_event("[%s] %s\n" % (now(), log))
         mutex.release()
-    else:
-        print("[%s] %s \n" % (now(), log))
+    print("[%s] %s" % (now(), log))

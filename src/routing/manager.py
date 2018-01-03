@@ -8,7 +8,6 @@ def init_router(_router):
     global router
     router = _router
     router.run()
-    router.stop()
 
 
 class GUIManager:

@@ -112,7 +112,7 @@ class Neighbors:
             return
         self.update(hostname, -1, success=success, fail=fail)
 
-    def delete_unsafe(self, hostname):
+    def timeout(self, hostname):
         self.__update_unsafe(hostname, -1)
 
     def get_cost(self, hostname):

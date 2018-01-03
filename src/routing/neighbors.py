@@ -126,9 +126,7 @@ class Neighbors:
         """
 
         info("getting neighbor table, content: {0}".format(self.neighbors))
-        # return self.neighbors.copy()
-        return {h: self.neighbors[h]
-                for h in self.neighbors if self.neighbors[h] != -1}
+        return self.neighbors.copy()
 
     def __abort(self, hostname, fail):
         if not del_with_lock(self.pending, hostname, self.pending_lock):

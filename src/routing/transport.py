@@ -40,6 +40,7 @@ class Transport:
         self._mapping_table = {'hns': self._hns_address}
         self._mapping_lock = threading.Lock()
         self._debug = True
+        self._run_lock = threading.Lock()
         self._running = False
         self._routing_table = routing_table
         self._dispather = dispather
@@ -50,9 +51,11 @@ class Transport:
         """ Run this module
         """
         self._dispather.register(Transport.TYPE, self)
-
+        
+        self._run_lock.acquire()
         self._running = True
-        # create a new thread and listen to specified address
+        self._run_lock.release()
+
         self._thread_listen = threading.Thread(target=self._listen, args=())
         self._thread_listen.start()
 
@@ -62,6 +65,13 @@ class Transport:
         """ Stop listening
         """
         self._running = False
+
+        data = {
+            'type': Transport.TYPE,
+            'data': 'stop'
+        }
+
+        self.send(self._name, data, True)
         if self._timer_thread is not None:
             self._timer_thread.cancel()
             self._timer_thread = None
@@ -91,6 +101,8 @@ class Transport:
               'data': dict, a mapping table
             }
         """
+        if data == 'stop':
+            return
         mt = {}
         for key in data:
             mt[key] = (data[key][0], data[key][1])
@@ -107,9 +119,16 @@ class Transport:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.bind(self._address)
         while True:
-            if not self._running:
-                break
             data, addr = s.recvfrom(10240)
+
+            self._run_lock.acquire()
+            if not self._running:
+                self._run_lock.release()
+                if self._debug:
+                    info('Stop...')
+                break
+            self._run_lock.release()
+
             info('Receive data')
             data = parse.parse(data)
             self._process(data)
@@ -187,6 +206,8 @@ class Transport:
                             ignoring the next hop router
           passed_by: router host passed_by, used for printing router message
         """
+        if self._debug:
+            info('Ready for sending {}'.format(data))
         # update passed_by
         data['passed_by'].append(self._name)
 

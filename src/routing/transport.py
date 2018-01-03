@@ -147,8 +147,8 @@ class Transport:
               'datagram': {
                 'src': src
                 'dest': dest
+                'passed_by': []
                 'data': {
-                  'passed_by': []
                   'type':...
                   'data':...
                 }
@@ -171,7 +171,7 @@ class Transport:
                                      data['datagram']['data']['data'])
             if self._debug:
                 message = 'Receive data from path: '
-                for host in data['datagram']['data']['passed_by']:
+                for host in data['datagram']['passed_by']:
                     message = message + host + ' -> '
                 message = message + self._name
                 info(message)
@@ -181,17 +181,9 @@ class Transport:
                 info('Routing from {} to {} '.format(data['datagram']['src'],
                                                      data['datagram']['dest']))
 
-            self._send(data['datagram']['src'], data['datagram']['dest'],
-                        data['datagram']['data'], False)
+            self._route(data['datagram'])
 
     def send(self, destination, data, privileged_mode=False):
-        """ API send
-        """
-        data['passed_by'] = []
-        self._send(self._name, destination, data, privileged_mode)
-
-
-    def _send(self, src, destination, data, privileged_mode):
         """ Send data to destination
 
         Send data, which can be normal data or router table, to destination.
@@ -200,21 +192,17 @@ class Transport:
           src: str, the source hostname
           destination: str, the name of destination host
           data: dict, {
-            'passed_by': []
             'type': ...
             'data': ...
           }
           privileged_mode: if set True, it can send it to destination directly,
                             ignoring the next hop router
-          passed_by: router host passed_by, used for printing router message
         """
         if self._debug:
             info('Ready for sending {}'.format(data))
-        # update passed_by
-        data['passed_by'].append(self._name)
 
         # make a frame
-        datagram = self._make_datagram(src, destination, data)
+        datagram = self._make_datagram(self._name, destination, data)
         frame = self._make_frame(destination, datagram, False, [], privileged_mode)
 
         if frame is None:
@@ -224,6 +212,28 @@ class Transport:
 
         self._send_by_frame(frame)
 
+    def _route(self, datagram):
+        """ Route the data to destination
+        Args:
+            'datagram': {
+                'src': src
+                'dest': dest
+                'passed_by': []
+                'data': {
+                  'type':...
+                  'data':...
+                }
+            }
+        """
+        datagram['passed_by'].append(self._name)
+        frame = self._make_frame(datagram['dest'], datagram, False, [], False)
+
+        if frame is None:
+            if self._debug:
+                error('Fail to make a frame, canceling sending')
+            return
+
+        self._send_by_frame(frame)
 
     def _send_by_frame(self, frame):
         """ Send a frame to destination
@@ -280,15 +290,17 @@ class Transport:
             data: data to be encapsulated
 
           Returns:
-            datagram: json-like dict, {
+            datagram: {
               'src': src
               'dest': dest
+              'passed_by': [self]
               'data': data
             }
         """
         return {
             'src': src,
             'dest': dest,
+            'passed_by': [self._name],
             'data': data
         }
 

@@ -171,8 +171,6 @@ class ContentFrame(wx.Frame):
         if self.hostname_choice.GetStringSelection() == '' or self.data_text.GetValue() == '':
             wx.MessageBox("Please enter the receiver's hostname and data.", "Error", wx.OK | wx.ICON_ERROR)
         else:
-            print(self.hostname_choice.GetStringSelection())
-            print(self.data_text.GetValue())
             self.router.send(self.hostname_choice.GetStringSelection(), self.data_text.GetValue())
             self.data_text.Clear()
 

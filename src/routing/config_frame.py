@@ -28,11 +28,11 @@ class ConfigFrame(wx.Frame):
 
         vbox = wx.BoxSizer(wx.VERTICAL)
 
-        self.help_info = wx.StaticText(panel, -1, "Please config the router!", style=wx.ALIGN_CENTRE)
+        self.help_info = wx.StaticText(panel, -1, "Please config the router!", style=wx.ALIGN_CENTER)
         self.help_info.SetForegroundColour('#0a74f7')
         vbox.Add(self.help_info, 0, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_HORIZONTAL, 20)
 
-        button_config = wxButton.GenButton(panel, -1, 'Configure', style=wx.BORDER_MASK | wx.ALIGN_CENTER)
+        button_config = wxButton.GenButton(panel, -1, 'Configure', style=wx.BORDER_NONE)
         button_config.SetBackgroundColour('#0a74f7')
         button_config.SetForegroundColour('white')
 

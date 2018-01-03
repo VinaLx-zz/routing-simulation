@@ -44,6 +44,7 @@ class Transport:
         self._routing_table = routing_table
         self._dispather = dispather
         self._neighbor = neighbor
+        self._timer_thread = None
 
     def run(self):
         """ Run this module
@@ -61,6 +62,9 @@ class Transport:
         """ Stop listening
         """
         self._running = False
+        if self._timer_thread is not None:
+            self._timer_thread.cancel()
+            self._timer_thread = None
 
     def _send_to_hns(self):
         """ Send to hns to register itself
@@ -72,6 +76,13 @@ class Transport:
             }
         }
         self.send('hns', data, True)
+
+        self._mapping_lock.acquire()
+        if self._name not in self._mapping_table:
+            self._timer_thread = threading.Timer(10, self._send_to_hns)
+            self._timer_thread.start()
+        self._mapping_lock.release()
+
 
     def receive(self, src, data):
         """ Receive hns data
@@ -116,6 +127,7 @@ class Transport:
                 'src': src
                 'dest': dest
                 'data': {
+                  'passed_by': []
                   'type':...
                   'data':...
                 }
@@ -137,42 +149,49 @@ class Transport:
                                      data['datagram']['src'],
                                      data['datagram']['data']['data'])
             if self._debug:
-                info('Need dispatching data')
+                message = 'Receive data from path: '
+                for host in data['datagram']['data']['passed_by']:
+                    message = message + host + ' -> '
+                message = message + self._name
+                info(message)
         # just route to other host
         else:
             if self._debug:
                 info('Routing from {} to {} '.format(data['datagram']['src'],
                                                      data['datagram']['dest']))
-            datagram = self._make_datagram(data['datagram']['src'], 
-                                           data['datagram']['dest'],
-                                           data['datagram']['data'])
 
-            frame = self._make_frame(data['datagram']['dest'], 
-                            datagram, False, [], False)
-
-            if frame is None:
-                if self._debug:
-                    error('Fail to make a frame, canceling sending')
-                return
-
-            self._send_by_frame(frame)
+            self._send(data['datagram']['src'], data['datagram']['dest'],
+                        data['datagram']['data'], False)
 
     def send(self, destination, data, privileged_mode=False):
+        """ API send
+        """
+        data['passed_by'] = []
+        self._send(self._name, destination, data, privileged_mode)
+
+
+    def _send(self, src, destination, data, privileged_mode):
         """ Send data to destination
 
         Send data, which can be normal data or router table, to destination.
 
         Args:
+          src: str, the source hostname
           destination: str, the name of destination host
           data: dict, {
+            'passed_by': []
             'type': ...
             'data': ...
           }
           privileged_mode: if set True, it can send it to destination directly,
                             ignoring the next hop router
+          passed_by: router host passed_by, used for printing router message
         """
+        # update passed_by
+        data['passed_by'].append(self._name)
+
         # make a frame
-        datagram = self._make_datagram(self._name, destination, data)
+        datagram = self._make_datagram(src, destination, data)
         frame = self._make_frame(destination, datagram, False, [], privileged_mode)
 
         if frame is None:
@@ -181,6 +200,7 @@ class Transport:
             return
 
         self._send_by_frame(frame)
+
 
     def _send_by_frame(self, frame):
         """ Send a frame to destination

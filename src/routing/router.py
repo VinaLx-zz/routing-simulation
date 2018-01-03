@@ -112,3 +112,11 @@ class Router:
             }
         """
         return self.routing_table.get_all()
+
+    def get_neighbor_table(self):
+        """
+        get neighbor of this router
+        Returns:
+            dict[str, int]: a mapping maps hostname of neighbor to the cost to it
+        """
+        return self.neighbors.get()

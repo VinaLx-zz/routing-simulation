@@ -126,9 +126,7 @@ class Neighbors:
         """
 
         info("getting neighbor table, content: {0}".format(self.neighbors))
-        # return self.neighbors.copy()
-        return {h: self.neighbors[h]
-                for h in self.neighbors if self.neighbors[h] != -1}
+        return self.neighbors.copy()
 
     def __abort(self, hostname, fail):
         if not del_with_lock(self.pending, hostname, self.pending_lock):
@@ -151,10 +149,10 @@ class Neighbors:
 
         if cost == -1:
             if self.get_cost(hostname) is None:
-                info("host '{0}' doesn't exists in local table" % hostname)
+                info("host '{0}' doesn't exists in local table".format(hostname))
                 return
             del self.neighbors[hostname]
-            info("host '{0}' deleted from local table" % hostname)
+            info("host '{0}' deleted from local table".format(hostname))
         else:
             self.neighbors[hostname] = cost
             info("set host '{0}' to cost {1}".format(hostname, cost))

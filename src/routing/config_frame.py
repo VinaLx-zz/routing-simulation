@@ -17,7 +17,7 @@ alg = {
 
 class ConfigFrame(wx.Frame):
     def __init__(self, parent=None, id=-1, UpdateUI=None):
-        wx.Frame.__init__(self, parent, id, title='Configure Router', size=(300, 120), pos=(500, 200))
+        wx.Frame.__init__(self, parent, id, title='Configure Router', size=(300, 120), pos=(500, 300))
 
         self.help_info = None
         self.UpdateUI = UpdateUI

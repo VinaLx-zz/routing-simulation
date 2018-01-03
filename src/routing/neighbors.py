@@ -149,10 +149,10 @@ class Neighbors:
 
         if cost == -1:
             if self.get_cost(hostname) is None:
-                info("host '{0}' doesn't exists in local table" % hostname)
+                info("host '{0}' doesn't exists in local table".format(hostname))
                 return
             del self.neighbors[hostname]
-            info("host '{0}' deleted from local table" % hostname)
+            info("host '{0}' deleted from local table".format(hostname))
         else:
             self.neighbors[hostname] = cost
             info("set host '{0}' to cost {1}".format(hostname, cost))

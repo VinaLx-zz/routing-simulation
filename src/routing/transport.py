@@ -144,7 +144,7 @@ class Transport:
 
         # dispath to other module
         if data['datagram']['dest'] == self._name:
-            # to be finished
+
             self._dispather.dispatch(data['datagram']['data']['type'],
                                      data['datagram']['src'],
                                      data['datagram']['data']['data'])

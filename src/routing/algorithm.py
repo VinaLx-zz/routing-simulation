@@ -30,6 +30,7 @@ class Algorithm(object):
         self._neighbor = neighbor
 
         self._timer_thread = None
+        self._check_alive_thread = None
 
         # dynamic update, structure
         #
@@ -74,12 +75,6 @@ class Algorithm(object):
         dispatcher.register(ALGORITHM_TYPE, self)
         self._neighbor.on_update(self._neighbor_update)
 
-    # def inject(self, transport, routing_table, neighbor, dispather):
-    #     self._transport = transport
-    #     self._routing = routing_table
-    #     self._neighbor = neighbor
-    #     self._dispather = dispather
-
     def receive(self, src, data):
         pass
 
@@ -90,6 +85,10 @@ class Algorithm(object):
         if self._timer_thread is not None:
             self._timer_thread.cancel()
             self._timer_thread = None
+
+        if self._check_alive_thread is not None:
+            self._check_alive_thread.cancel()
+            self._check_alive_thread = None
 
     def _push_to_routing_model(self):
         self._routing_table_lock.acquire()
@@ -117,6 +116,17 @@ class Algorithm(object):
             self._neighbor.timeout(hostname)
 
 class DV(Algorithm):
+    def __init__(self, hostname, transport, routing_table, neighbor,
+                 dispatcher, update_interval=30, timeout=180):
+        super(DV, self).__init__(hostname,
+                                 transport,
+                                 routing_table,
+                                 neighbor,
+                                 dispatcher,
+                                 update_interval,
+                                 timeout)
+        self._check_timeout()
+
     def receive(self, src, data):
         modified = False
         dead_hostnames = []
@@ -129,6 +139,8 @@ class DV(Algorithm):
             dead_hostnames = [hostname
                               for hostname in self._alive_table
                               if current_time - self._alive_table[hostname] > self._timeout]
+            for hostname in dead_hostnames:
+                self._alive_table.pop(hostname)
         finally:
             self._alive_table_lock.release()
 
@@ -209,6 +221,47 @@ class DV(Algorithm):
             self._transport.send(hostname, send_data)
             log('send routing data to {}: {}'.format(hostname, send_data['data']['routing']))
 
+    def _check_timeout(self):
+        self._alive_table_lock.acquire()
+        try:
+            current_time = time.time()
+            self._alive_table[self._hostname] = current_time
+            dead_hostnames = [hostname
+                              for hostname in self._alive_table
+                              if current_time - self._alive_table[hostname] > self._timeout]
+            for hostname in dead_hostnames:
+                self._alive_table.pop(hostname)
+        finally:
+            self._alive_table_lock.release()
+
+        if len(dead_hostnames) != 0:
+            log('{} dead hostnames: {}'.format(time.ctime(current_time), dead_hostnames))
+            self._neighbor_timeout(dead_hostnames)
+
+        self._routing_table_lock.acquire()
+        try:
+            self._routing_table = {
+                k: v for k, v in self._routing_table.items()
+                if k not in dead_hostnames and v['next'] not in dead_hostnames
+            }
+
+            neighbor_table = self._neighbor.get()
+            for hostname in neighbor_table:
+                if hostname not in dead_hostnames and hostname not in self._routing_table:
+                    self._routing_table[hostname] = {
+                        'next': hostname,
+                        'cost': neighbor_table[hostname]
+                    }
+
+            log('routing table: {}'.format(self._routing_table))
+        finally:
+            self._routing_table_lock.release()
+
+        self._notice_neighbor()
+        self._push_to_routing_model()
+
+        self._check_alive_thread = threading.Timer(self._timeout, DV._check_timeout, args=(self,))
+        self._check_alive_thread.start()
 
 class LS(Algorithm):
     def receive(self, src, data):
@@ -230,6 +283,9 @@ class LS(Algorithm):
             for hostname in self._alive_table:
                 if current_time - self._alive_table[hostname] > self._timeout:
                     dead_hostnames.append(hostname)
+
+            for hostname in dead_hostnames:
+                self._alive_table.pop(hostname)
         finally:
             self._alive_table_lock.release()
 
@@ -450,6 +506,8 @@ class CentralizedController(Algorithm):
             dead_hostnames = [hostname
                               for hostname in self._alive_table
                               if current_time - self._alive_table[hostname] > self._timeout]
+            for hostname in dead_hostnames:
+                self._alive_table.pop(hostname)
         finally:
             self._alive_table_lock.release()
 

@@ -455,6 +455,7 @@ class CentralizedController(Algorithm):
 
         if len(dead_hostnames) != 0:
             log('{} dead hostnames: {}'.format(time.ctime(), dead_hostnames))
+            self._neighbor_timeout(dead_hostnames)
 
         dead_hostnames.append(self._hostname)
         self._link_state_lock.acquire()

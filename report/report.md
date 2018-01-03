@@ -82,6 +82,223 @@ by @叶佳全
 
 <!-- DV, LS, 中心化LS, 超时检测 -->
 
+无论哪种路由选择算法，大体流程如下
+
+1. 定期向邻居或全局发送状态信息。通过新开一个线程，在新开的线程中周期发送路由选择算法对应所需的状态信息，以避免阻塞主线程。
+
+2. 接收其他路由发送的包，维护存活表以用来检测超时，更新路由表。若所选算法不为`DV`则还需要同时维护系统全局抽象出的带权无向图。
+
+#### 数据结构
+
+```python
+# 链路状态图，储存系统全局抽象出的带权无向图
+link_state = {
+    hostname: {
+        neighbor: cost,
+    }
+}
+
+# 路由表，存储执行路由选择算法后的结果
+routing_table = {
+    destination: {
+        next: hostname,
+        cost: integer
+    }
+}
+
+# 存活表，记录系统中主机上次活跃时间
+alive_table = {
+    hostname: last_time
+}
+```
+
+#### DV
+
+定期向`Neighbors`请求当前邻居，向所有邻居发送路由表。
+
+```python
+data = {
+    'routing': routing_table
+}
+
+for hostname in neighbor_table:
+    send(hostname, data)
+```
+
+接收邻居发送的路由表，依次进行如下操作：
+
+1. 更新存活表，将邻居与自身对应的字段更新为当前时间。
+
+2. 扫描存活表，用当前时间减去每个`Host`上次活跃时间，将所有差值大于阈值`timeout`的`Host`记录在数组`dead_hostnames`中，并通知`Neighbors`以更新邻居状态。
+
+3. 对当前路由表，以及接收到的路由表进行过滤，将与超时主机相关的表项删除。
+
+4. 运行`DV`算法的核心部分，更新路由表。
+
+5. 若第4步有修改路由表，则立刻向邻居发送新的路由表。
+
+```python
+# 接收到的数据为 data，来源主机为 source
+
+alive_table[self] = current_time
+alive_table[source] = current_time
+
+dead_hostnames = get_dead_hosts(alive_table, timeout)
+notify_neighbor_to_update(dead_hostnames)
+
+for hostname in dead_hostnames:
+    delete item whose hostname or next_hop is hostname from routing_table
+    delete item whose hostname or next_hop is hostname from data['routing']
+
+# let D represent routing_table for simplification
+for destination in data['routing']:
+    if D[destination]['cost'] > D[source]['cost'] + data[destination]['cost']:
+        D[destination]['cost'] = D[source]['cost'] + data[destination]['cost']
+        D[destination]['next'] = source
+
+if routing_table changed for any destination:
+    for hostname in neighbor_table:
+        send(hostname, {'routing': routing_table})
+```
+
+#### LS
+
+`LS`算法中，存活表的使用与`DV`算法有些不同。所有主机共同维护同一张存活表，并且每台主机同时有独立的存活表。由于数据包的发送过程会有传输时延，发送数据包的顺序与接收到的顺序不一定相同，如果没有独立的存活表，可能会出现旧的记录覆盖当前记录，导致误判超时，因此独立存活表是有必需的，接收数据包部分再详细说明更新存活表的方法。
+
+定期向整个系统广播邻居表与存活表。
+
+```python
+data = {
+    'neighbor': neighbor_table,
+    'alive': alive_table
+}
+
+broadcast(data)
+```
+
+接收邻居发送的数据包`data`，依次进行如下操作：
+
+1. 更新存活表，将自身对应的字段更新为当前时间。
+
+2. 对于`data['alive']`中的每一项，若自身存活表中没有对应项，则添加进存活表；若自身存活表中有对应项，则更新为两者中较新的值。
+
+3. 扫描存活表，用当前时间减去每个`Host`上次活跃时间，将所有差值大于阈值`timeout`的`Host`记录在数组`dead_hostnames`中，并通知`Neighbors`以更新邻居状态。
+
+4. 对当前链路状态图进行过滤，将与超时主机相关的边删除。
+
+5. 根据`data['neighbor']`更新链路状态图中与来源主机`source`相关的边。
+
+6. 运行`Dijkstra`算法，获取该主机为起点的单源最短路径，并更新路由表。
+
+```python
+alive_table[self] = current_time
+
+for hostname in data['alive']:
+    if hostname not in alive_table:
+        alive_table[hostname] = data['alive'][hostname]
+    else:
+        alive_table[hostname] = max(alive_table[hostname], data['alive'][hostname])
+
+dead_hostnames = get_dead_hosts(alive_table, timeout)
+notify_neighbor_to_update(dead_hostnames)
+
+link_state[source] = data['neighbor']
+link_state = update_other_relative_edges(source)
+
+# Dijkstra
+visited = [self]
+prev_table = {}
+for hostname in link_state:
+    prev_table[hostname] = {
+        'prev': None,
+        'cost': -1
+    }
+
+while True:
+    next_hostname = nearest_hostname_not_in_visited()
+    
+    if next_hostname is None:
+        break
+
+    add next_hostname to visited
+    for hostname in link_state[next_hostname]:
+        cost = prev_table[next_hostname]['cost'] + link_state[next_hostname][hostname]
+        
+        if prev_table[hostname]['cost'] > cost:
+            prev_table[hostname] = {
+                'prev': next_hostname,
+                'cost': cost
+            }
+
+# update routing table
+for destination in prev_table:
+    last_hop = destination
+
+    if prev_table[last_hop]['prev'] is None:
+        continue
+
+    while prev_table[last_hop]['prev'] != self:
+        last_hop = prev_table[last_hop]['prev']
+
+    routing_table[destination] = {
+        'next': last_hop,
+        'cost': prev_table[destination]['cost']
+    }
+```
+
+#### 中心化LS
+
+##### 主控
+定期向所有成员主机发送全局链路状态图。
+
+```python
+data = {
+    'link': link_state
+}
+
+for all hostname:
+    send(hostname, data)
+```
+
+接收成员发送的数据包邻居表，依次进行如下操作：
+
+1. 更新存活表，将来源主机对应的字段更新为当前时间。
+
+2. 扫描存活表，用当前时间减去每个`Host`上次活跃时间，将所有差值大于阈值`timeout`的`Host`记录在数组`dead_hostnames`中，并通知`Neighbors`以更新邻居状态。
+
+3. 根据收到的邻居表，更新链路状态图。
+
+4. 对当前链路状态图进行过滤，将与超时主机相关的边删除。
+
+##### 普通成员主机
+定期向主控发送邻居表。
+
+```python
+data = {
+    'neighbor': neighbor_table
+}
+
+send(controller, data)
+```
+
+接收主控发送的链路状态图，依次进行如下操作：
+
+1. 直接覆盖当前链路状态图。
+
+2. 运行`Dijkstra`算法，获取该主机为起点的单源最短路径，并更新路由表。
+
+伪代码与`LS`算法差不多，只是链路状态图的更新方式不同。
+
+```python
+link_state = data['link']
+
+# Dijkstra
+...
+
+# update routing table
+...
+```
+
 ### Neighbors具体实现
 
 by @薛明淇

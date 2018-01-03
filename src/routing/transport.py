@@ -64,6 +64,7 @@ class Transport:
     def stop(self):
         """ Stop listening
         """
+        info('stop')
         self._running = False
 
         data = {
@@ -85,7 +86,8 @@ class Transport:
                 self._name: self._address
             }
         }
-        self.send('hns', data, True)
+        if self._name not in self._mapping_table:
+            self.send('hns', data, True)
 
         self._mapping_lock.acquire()
         if self._name not in self._mapping_table:

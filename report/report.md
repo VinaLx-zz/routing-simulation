@@ -163,9 +163,70 @@ def get_routing_table() -> Dict[str, Info]:
 
 ### UI
 
-by @颜泽鑫
+#### Router 配置界面
+在运行Router之前需要对router进行配置。
 
-<!-- 实现，提供的功能，简单截图 -->
+![Stary 2018-01-03 at 9.53.23 PM](./config.png)
+
+选择配置文件。
+
+![Stary 2018-01-03 at 9.53.33 PM](./config_file.png)
+
+配置文件格式为Json，格式如下所示。
+
+```
+{
+  "hostname": "主机名",
+  "ip": "IP地址",
+  "port": 端口号,
+  "hns_ip": "HNS IP地址",
+  "hns_port": HNS 端口号,
+  "algorithm": "使用的算法，具体有以下四个选择",
+  # DV 距离矩阵算法
+  # LS 链路状态算法
+  # LS_CENTRALIZE 中心化的链路状态算法
+  # LS_CONTROL 有中控的链路状态算法
+  "dead_timeout": 180, # router在不进行操作之后自动dead
+  "update_interval": 30, # 发送更新数据包的时间间隔
+  "controller_hostname": "", # 控制主机名
+  "neighbors": [
+  ] # 启动路由器时所写入的静态邻居表
+}
+```
+
+#### Router 主界面
+![Stary 2018-01-03 at 10.05.12 PM](./main.png)
+
+界面的上半部分用于发送数据包。可以选择能够发送的对象（即该路由器的邻居），第二个文本框则是用于输入发送的文本数据。点击Send便可以发送数据，再发送完后，Data文本框会自动清空。Clear也可以清空输入的文本框。
+界面的下半部分则是用于接受数据。Message是用于显示目前接受的到数据包内容，Log则是用于Debug的信息，包括接收的广播包内容，发送的数据包内容等。
+
+
+在程序上方还有一个菜单栏。
+
+![Stary 2018-01-03 at 10.08.49 PM](./menu.png)
+
+第一个菜单选项是与文件相关功能。提供了可以保存Message和Log记录到本地的功能。
+![Stary 2018-01-03 at 10.09.19 PM](./file_menu.png)
+
+![Stary 2018-01-03 at 10.09.24 PM](./message.png)
+
+![Stary 2018-01-03 at 10.09.42 PM](./log.png)
+
+
+第二个菜单选项则是与动态修改邻居有关的功能。我们提供了可以动态增加、删除邻居和修改到邻居开销的功能。在进行相应操作之后会关闭窗口，需要在Log信息框中查看是否修改成功。
+
+![Stary 2018-01-03 at 10.09.52 PM](./neighbor.png)
+
+![Stary 2018-01-03 at 10.10.02 PM](./add.png)
+
+![Stary 2018-01-03 at 10.10.15 PM](./remove.png)
+
+第三个菜单选项则是提供了显示路由器路由表的功能。
+
+![Stary 2018-01-03 at 10.10.25 PM](./display.png)
+
+![Stary 2018-01-03 at 10.10.30 PM](./routing_table.png)
+
 
 ## 程序运行测试
 
@@ -178,3 +239,5 @@ by @颜泽鑫
 #### LS
 
 #### 中心化LS
+
+

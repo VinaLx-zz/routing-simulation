@@ -1,7 +1,7 @@
 {
-    "hostname": "C",
+    "hostname": "D",
     "ip": "127.0.0.1",
-    "port": 8891,
+    "port": 8892,
     "hns_ip": "127.0.0.1",
     "hns_port": 8888,
     "algorithm": "DV",
@@ -11,10 +11,10 @@
     "neighbors": [
         {
             "hostname": "B",
-            "cost": 3
+            "cost": 1
         },
         {
-            "hostname": "A",
+            "hostname": "C",
             "cost": 1
         }
     ]

@@ -4,15 +4,9 @@
   "port": 8889,
   "hns_ip": "127.0.0.1",
   "hns_port": 8888,
-<<<<<<< HEAD
   "algorithm": "LS",
   "dead_timeout": 180,
   "update_interval": 30,
-=======
-  "algorithm": "DV",
-  "dead_timeout": 5,
-  "update_interval": 1,
->>>>>>> b17957b520c4f10d73bcf29b3c3a54e4b48d9793
   "controller_hostname": "",
   "neighbors": []
 }

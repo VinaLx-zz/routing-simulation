@@ -1,6 +1,7 @@
 import threading
 import copy
 
+
 class RoutingTable(object):
     def __init__(self, hostname):
         self._hostname = hostname

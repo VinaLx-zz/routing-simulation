@@ -16,7 +16,7 @@ class ContentFrame(wx.Frame):
         wx.Frame.__init__(self,
                           parent,
                           id,
-                          size=(500, 500),
+                          size=(700, 600),
                           title="Router-{}".format(self.router.hostname),
                           pos=(-1, -1))
         self.hostnames = []
@@ -270,12 +270,7 @@ class DisplayDialog(wx.Dialog):
         panel.Fit()
 
     def _get_routint_table(self):
-        routing_table = {
-            'destination': {
-                'next': 'B',
-                'cost': 10
-            }
-        }
+        routing_table = manager.router.get_routing_table()
         matrix = []
         for each in routing_table:
             matrix.append([each, routing_table[each]['next'], routing_table[each]['cost']])

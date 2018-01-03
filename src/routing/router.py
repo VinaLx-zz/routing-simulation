@@ -8,7 +8,6 @@ from .message import Message
 
 
 class Router:
-
     def __init__(self, config):
 
         self._running = False

@@ -1,3 +1,9 @@
+import matplotlib
+
+matplotlib.use('WXAgg')
+
+from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
+from matplotlib.figure import Figure
 import wx
 from routing import io, manager
 import sys
@@ -10,9 +16,9 @@ class ContentFrame(wx.Frame):
         wx.Frame.__init__(self,
                           parent,
                           id,
+                          size=(700, 600),
                           title="Router-{}".format(self.router.hostname),
-                          size=(350, 1000),
-                          pos=(500, 200))
+                          pos=(-1, -1))
         self.hostnames = []
         self._update_hostnames()
         self.hostname_choice = None
@@ -102,8 +108,15 @@ class ContentFrame(wx.Frame):
 
         menu_bar.Append(config_menu, "&Neighbor")
 
+        display_menu = wx.Menu()
+
+        show_routing_table = wx.MenuItem(display_menu, wx.ID_DEFAULT, text="Show Routing Table", kind=wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self._show_routing_table_handler, show_routing_table)
+        display_menu.Append(show_routing_table)
+
+        menu_bar.Append(display_menu, "&Display")
+
         self.SetMenuBar(menu_bar)
-        self.SetSize((350, 250))
         self.Center()
 
     def update_hostnames_handler(self, _):
@@ -170,6 +183,10 @@ class ContentFrame(wx.Frame):
         self.hostnames = self.router.get_alive()
         self.hostnames.remove(self.router.hostname)
 
+    def _show_routing_table_handler(self, _):
+        dlg = DisplayDialog(self)
+        dlg.ShowModal()
+
 
 class MyDialog(wx.Dialog):
     def __init__(self, parent, text):
@@ -222,3 +239,39 @@ class MyDialog(wx.Dialog):
 
     def _close_handler(self, _):
         self.EndModal(wx.ID_CANCEL)
+
+
+class DisplayDialog(wx.Dialog):
+    def __init__(self, parent):
+        wx.Dialog.__init__(self, parent, -1, "Routing Table", size=(400, 300))
+        self.init_UI()
+
+    def init_UI(self):
+        panel = wx.Panel(self)
+        self.figure = Figure()
+        self.axes = self.figure.add_subplot(111)
+
+        collabel = ("Destination", "Next Hop", "Cost")
+        self.axes.axis('off')
+
+        the_table = self.axes.table(cellText=self._get_routint_table(),
+                                    colLabels=collabel,
+                                    cellLoc='center',
+                                    loc='center',
+                                    alpha=1)
+        the_table.set_fontsize(15)
+        the_table.scale(1, 3)
+
+        self.canvas = FigureCanvas(panel, -1, self.figure)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.canvas, 1, wx.LEFT | wx.TOP | wx.GROW)
+        self.SetSizer(self.sizer)
+        self.Center()
+        panel.Fit()
+
+    def _get_routint_table(self):
+        routing_table = manager.router.get_routing_table()
+        matrix = []
+        for each in routing_table:
+            matrix.append([each, routing_table[each]['next'], routing_table[each]['cost']])
+        return matrix

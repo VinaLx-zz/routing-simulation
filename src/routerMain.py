@@ -9,9 +9,9 @@ class MainAPP(wx.App):
         self.frame.Show()
         return True
 
-    def update_UI(self, type):
+    def update_UI(self, _type):
         self.frame.Show(False)
-        self.frame = self.manager.get_frame(type)
+        self.frame = self.manager.get_frame(_type)
         self.frame.Show(True)
 
 

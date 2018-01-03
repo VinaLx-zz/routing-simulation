@@ -100,3 +100,16 @@ class Router:
         remove a neighbor with specified hostname
         """
         self.neighbors.delete(name)
+
+    def get_routing_table(self):
+        """
+        get routing table on this routers' perspective
+        Returns:
+            dict: {
+                destination: {
+                    next: str,
+                    cost: int
+                }
+            }
+        """
+        return self.routing_table.get_all()

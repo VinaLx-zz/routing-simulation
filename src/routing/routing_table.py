@@ -1,5 +1,5 @@
 import threading
-
+import copy
 
 class RoutingTable(object):
     def __init__(self, hostname):
@@ -58,3 +58,12 @@ class RoutingTable(object):
             self._routing_table_lock.release()
 
         return alive_list
+
+    def get_all(self):
+        self._routing_table_lock.acquire()
+        try:
+            table = copy.deepcopy(self._routing_table)
+        finally:
+            self._routing_table_lock.release()
+
+        return table

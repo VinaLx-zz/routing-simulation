@@ -68,13 +68,17 @@ class HNS:
         Args:
           data: {..., 'src_name': src, ...}
         """
-        data = json.loads(data)
-        data = data['datagram']['data']['data']
-        self._mapping_lock.acquire()
-        self._mapping_table.update(data)
-        self._mapping_lock.release()
+        try:
+            data = json.loads(data)
+            data = data['datagram']['data']['data']
+            self._mapping_lock.acquire()
+            self._mapping_table.update(data)
+            self._mapping_lock.release()
 
-        self._send_update()
+            self._send_update()
+        except:
+            error('Receive wrong data...')
+            return
 
     def _send_update(self):
         """ When the table is updated, send it to all hosts

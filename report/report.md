@@ -21,16 +21,17 @@
 
 分别使用
 
-- 类[Distance Vector Routing Protocal](https://en.wikipedia.org/wiki/Distance-vector_routing_protocol)(DV)
-- 类[Link State Routing Protocal](https://en.wikipedia.org/wiki/Link-state_routing_protocol)(LS)
+- 类[Distance Vector Routing Protocol](https://en.wikipedia.org/wiki/Distance-vector_routing_protocol)(DV)
+- 类[Link State Routing Protocol](https://en.wikipedia.org/wiki/Link-state_routing_protocol)(LS)
 - 有中控系统的类LS协议
 
-实现路由系统，这个系统需要满足要求`R`，`R`的描述大致如下：
+实现路由系统，这个系统`S`需要满足要求`R`，`R`的描述大致如下：
 
-1. 系统可抽象为一个带权的无向图，其中"主机"为"节点"，"主机之间的消息传递代价"为"边权"
-2. 在系统稳定时，任意两个可达节点之间的消息传递选择的路径需要是最优的
-3. 在系统运行时，可以向系统中添加节点，并指定新节点和原节点的某个子集中所有节点的代价，新系统满足要求`R`
-4. 在系统运行时，可以从系统中删除节点，任何的消息传递不再可以经过被删除的节点，新系统满足要求`R`
+1. `S`可抽象为一个带权的无向图，其中"主机"为"**节点**"，"主机之间的逻辑链路"为"**边**"，"主机之间的消息传递代价"为"**边权**"
+2. `S`中的任意一个节点可以选择另一个相对其可达的目标节点发送消息`M`，目标节点可以完整接受`M`
+3. 在`S`稳定时，`S`为节点之间的消息传递选择的路径的**边权**总和需要时所有可能的路径中最小的（之一）
+4. 在`S`运行时，可以向系统中添加**节点**，并添加与新**节点**相关的**边**，产生一个新系统`S'`，`S'`满足要求`R`
+5. 在`S`运行时，可以从系统中删除**节点**，并删除所有与之相关的**边**，产生一个新系统`S'`，`S'`满足要求`R`
 
 ## 实现
 

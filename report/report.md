@@ -13,9 +13,9 @@
 - 15331371 姚志立
 - 15331373 叶佳全
 
-### Github Repository
+### 运行环境与依赖
 
-[https://github.com/VinaLx/routing-simulation](https://github.com/VinaLx/routing-simulation)
+见[github仓库](https://github.com/VinaLx/routing-simulation)
 
 ## 具体需求
 
@@ -25,12 +25,12 @@
 - 类[Link State Routing Protocal](https://en.wikipedia.org/wiki/Link-state_routing_protocol)(LS)
 - 有中控系统的类LS协议
 
-实现路由系统，在此系统中
+实现路由系统，这个系统需要满足要求`R`，`R`的描述大致如下：
 
 1. 系统可抽象为一个带权的无向图，其中"主机"为"节点"，"主机之间的消息传递代价"为"边权"
 2. 在系统稳定时，任意两个可达节点之间的消息传递选择的路径需要是最优的
-3. 在系统运行时，可以向系统中添加节点，并指定新节点和原节点的某个子集中所有节点的代价，新系统满足要求2
-4. 在系统运行时，可以从系统中删除节点，任何的消息传递不再可以经过被删除的节点，新系统满足要求2
+3. 在系统运行时，可以向系统中添加节点，并指定新节点和原节点的某个子集中所有节点的代价，新系统满足要求`R`
+4. 在系统运行时，可以从系统中删除节点，任何的消息传递不再可以经过被删除的节点，新系统满足要求`R`
 
 ## 实现
 
@@ -172,7 +172,7 @@ by @姚志立
 路由转发的逻辑为：
 
 ```
-  
+
 1. 更新数据报的passed_by字段，加入自身
 2. 成帧。将数据报包装成帧，下一跳主机名通过调用routing_table模块的get函数获得，
    上一跳主机为自身
@@ -355,14 +355,14 @@ for hostname in link_state:
 
 while True:
     next_hostname = nearest_hostname_not_in_visited()
-    
+
     if next_hostname is None:
         break
 
     add next_hostname to visited
     for hostname in link_state[next_hostname]:
         cost = prev_table[next_hostname]['cost'] + link_state[next_hostname][hostname]
-        
+
         if prev_table[hostname]['cost'] > cost:
             prev_table[hostname] = {
                 'prev': next_hostname,
@@ -604,15 +604,109 @@ def get_routing_table() -> Dict[str, Info]:
 
     等待系统稳定。查看A路由表，应当看到A到B下一跳主机为C，从A发送数据给B，路径应当为 A -> C -> D -> B
 
-4. 删除B、D之间的邻居关系
+4. 删除节点D
 
     等待系统稳定。从A发送数据给B，情况应当与步骤2相同
 
-5. 删除B、C之间的邻居关系
+5. 删除节点C
 
     等待系统稳定。从A发送数据给B，情况应当与步骤1相同
 
+### 测试流程
+
+1. 运行HostnameServer(HNS)主机
+2. 准备好A、B、C、D主机的配置文件，配置文件格式如UI节所描述
+3. 按照测试场景逐步向系统中添加、从系统中删除主机，过程中观察路由表、各模块输出日志、消息发送情况符合预期
+
 ### 运行测试
+
+主机A、B、C、D的配置文件如下所示：
+
+_注：任何协议下配置文件内容类似，除了`algorithm`字段和`controller_hostname`字段不同之外_
+
+A:
+```json
+{
+  "hostname": "A",
+  "ip": "127.0.0.1",
+  "port": 8889,
+  "hns_ip": "127.0.0.1",
+  "hns_port": 8888,
+  "algorithm": "DV",
+  "dead_timeout": 5,
+  "update_interval": 1,
+  "controller_hostname": "",
+  "neighbors": []
+}
+```
+B:
+```json
+{
+  "hostname": "B",
+  "ip": "127.0.0.1",
+  "port": 8890,
+  "hns_ip": "127.0.0.1",
+  "hns_port": 8888,
+  "algorithm": "..",
+  "dead_timeout": 5,
+  "update_interval": 1,
+  "controller_hostname": "",
+  "neighbors": [
+    {
+      "hostname": "A",
+      "cost": 5
+    }
+  ]
+}
+```
+C:
+```json
+{
+    "hostname": "C",
+    "ip": "127.0.0.1",
+    "port": 8891,
+    "hns_ip": "127.0.0.1",
+    "hns_port": 8888,
+    "algorithm": "..",
+    "dead_timeout": 5,
+    "update_interval": 1,
+    "controller_hostname": "",
+    "neighbors": [
+        {
+            "hostname": "B",
+            "cost": 3
+        },
+        {
+            "hostname": "A",
+            "cost": 1
+        }
+    ]
+}
+```
+D:
+```json
+{
+    "hostname": "D",
+    "ip": "127.0.0.1",
+    "port": 8892,
+    "hns_ip": "127.0.0.1",
+    "hns_port": 8888,
+    "algorithm": "..",
+    "dead_timeout": 5,
+    "update_interval": 1,
+    "controller_hostname": "",
+    "neighbors": [
+        {
+            "hostname": "B",
+            "cost": 1
+        },
+        {
+            "hostname": "C",
+            "cost": 1
+        }
+    ]
+}
+```
 
 #### DV
 

@@ -546,6 +546,8 @@ class CentralizedMember(LS):
         self._timer_thread = threading.Timer(self._interval, CentralizedMember.run, args=(self,))
         self._timer_thread.start()
 
+    def _check_timeout(self):
+        pass
 
 class CentralizedController(Algorithm):
     def receive(self, src, data):

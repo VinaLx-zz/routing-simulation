@@ -124,25 +124,21 @@ class DV(Algorithm):
         modified = False
         dead_hostnames = []
 
-        self._alive_table_lock.acquire()
-        try:
+        with self._alive_table_lock:
             current_time = time.time()
             self._alive_table[self._hostname] = current_time
-            self._alive_table[data['source']] = current_time
+            self._alive_table[src] = current_time
             dead_hostnames = [hostname
                               for hostname in self._alive_table
                               if current_time - self._alive_table[hostname] > self._timeout]
             for hostname in dead_hostnames:
                 self._alive_table.pop(hostname)
-        finally:
-            self._alive_table_lock.release()
 
         if len(dead_hostnames) != 0:
             log('dead hostnames: {}'.format(dead_hostnames))
             self._neighbor_timeout(dead_hostnames)
 
-        self._routing_table_lock.acquire()
-        try:
+        with self._routing_table_lock:
             if len(set(self._routing_table.keys()) & set(dead_hostnames)) > 0:
                 modified = True
 
@@ -165,24 +161,25 @@ class DV(Algorithm):
                     }
 
             for destination in data_routing_table:
-                indirect_cost = self._routing_table[data['source']]['cost'] + \
+                if src not in self._routing_table:
+                    break
+
+                indirect_cost = self._routing_table[src]['cost'] + \
                                 data_routing_table[destination]['cost']
                 if destination not in self._routing_table:
                     self._routing_table[destination] = {
-                        'next': data['source'],
+                        'next': src,
                         'cost': indirect_cost
                     }
                     modified = True
                 elif self._routing_table[destination]['cost'] > indirect_cost:
-                    self._routing_table[destination]['next'] = data['source']
+                    self._routing_table[destination]['next'] = src
                     self._routing_table[destination]['cost'] = indirect_cost
                     modified = True
 
-            log('receive routing data from {}: {}'.format(data['source'],
+            log('receive routing data from {}: {}'.format(src,
                                                           data['routing']))
             log('routing table: {}'.format(self._routing_table))
-        finally:
-            self._routing_table_lock.release()
 
         if modified is True:
             self._notice_neighbor()
@@ -207,7 +204,6 @@ class DV(Algorithm):
             send_data = {
                 'type': ALGORITHM_TYPE,
                 'data': {
-                    'source': self._hostname,
                     'routing': copy.deepcopy(self._routing_table)
                 }
             }
@@ -215,7 +211,7 @@ class DV(Algorithm):
             self._routing_table_lock.release()
 
         for hostname in list(neighbor_table.keys()):
-            self._transport.send(hostname, send_data)
+            self._transport.send(hostname, send_data, True)
             log('send routing data to {}: {}'.format(hostname, send_data['data']['routing']))
 
     def _check_timeout(self):

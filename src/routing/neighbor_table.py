@@ -37,7 +37,7 @@ class NeighborTable:
 
     def remove(self, hostname):
         with self.table_lock:
-            self.remove(hostname)
+            self.__remove(hostname)
         self.__notify_all()
 
     def __update(self, hostname, cost):

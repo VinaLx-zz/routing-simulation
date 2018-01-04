@@ -36,17 +36,12 @@ def error(message):
 
 class Neighbors:
 
-    def __init__(self, transport, dispatcher):
+    def __init__(self, transport, dispatcher, table):
         dispatcher.register(NEIGHBOR_TYPE, self)
-
-        self.neighbors = dict()
-        self.pending = dict()
-
+        self.neighbors = table
         self.transport = transport
-
-        self.table_lock = threading.Lock()
+        self.pending = dict()
         self.pending_lock = threading.Lock()
-        self.observers = list()
 
     def receive(self, source, cost):
         """
@@ -67,10 +62,6 @@ class Neighbors:
         else:
             self.__success(source)
         self.__update_unsafe(source, cost)
-        self.__notify_all()
-
-    def on_update(self, callback):
-        self.observers.append(callback)
 
     def update(self, hostname: str, cost: int, success=noop, fail=noop):
         """
@@ -108,25 +99,9 @@ class Neighbors:
         asynchronizely delete neighbor named `hostname`
         """
         info("deleting host '{0}'".format(hostname))
-        if self.get_cost(hostname) is None:
+        if self.neighbors.get_cost(hostname) is None:
             return
         self.update(hostname, -1, success=success, fail=fail)
-
-    def timeout(self, hostname):
-        self.__update_unsafe(hostname, -1)
-
-    def get_cost(self, hostname):
-        return self.neighbors.get(hostname)
-
-    def get(self):
-        """
-        get a copy of the neighbor table:
-        Returns:
-            Dict[str, int]: a dictionary mapping host name to cost
-        """
-
-        info("getting neighbor table, content: {0}".format(self.neighbors))
-        return self.neighbors.copy()
 
     def __abort(self, hostname, fail):
         if not del_with_lock(self.pending, hostname, self.pending_lock):
@@ -145,23 +120,10 @@ class Neighbors:
         self.pending_lock.release()
 
     def __update_unsafe(self, hostname, cost):
-        self.table_lock.acquire()
-
         if cost == -1:
-            if self.get_cost(hostname) is None:
-                info("host '{0}' doesn't exists in local table".format(hostname))
-                return
-            del self.neighbors[hostname]
-            info("host '{0}' deleted from local table".format(hostname))
+            self.neighbors.remove(hostname)
         else:
-            self.neighbors[hostname] = cost
-            info("set host '{0}' to cost {1}".format(hostname, cost))
-
-        self.table_lock.release()
-
-    def __notify_all(self):
-        for observer in self.observers:
-            observer(self.get())
+            self.neighbors.update(hostname, cost)
 
     @classmethod
     def validate(cls, data):

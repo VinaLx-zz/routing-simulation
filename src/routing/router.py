@@ -5,6 +5,7 @@ from .algorithm import DV, LS, CentralizedMember, CentralizedController
 from .neighbors import Neighbors
 from .config import Algorithm
 from .message import Message
+from .neighbor_table import NeighborTable
 
 
 class Router:
@@ -16,12 +17,13 @@ class Router:
         self.routing_table = RoutingTable(config.hostname)
         self.dispatcher = DataDispatcher()
 
-        self.neighbors = Neighbors(None, self.dispatcher)
+        self.neighbor_table = NeighborTable()
         self.transport = Transport(
             config.hostname, config.self_addr.ip, config.self_addr.port,
             config.hns_addr.ip, config.hns_addr.port,
-            self.routing_table, self.dispatcher, self.neighbors)
-        self.neighbors.transport = self.transport
+            self.routing_table, self.dispatcher, self.neighbor_table)
+        self.neighbors = Neighbors(
+            self.transport, self.dispatcher, self.neighbor_table)
 
         self.algorithm = self.__get_algorithm(config)
 
@@ -34,7 +36,7 @@ class Router:
                 config.hostname,
                 self.transport,
                 self.routing_table,
-                self.neighbors,
+                self.neighbor_table,
                 self.dispatcher,
                 config.update_interval,
                 config.dead_timeout)
@@ -47,7 +49,7 @@ class Router:
                 config.hostname,
                 self.transport,
                 self.routing_table,
-                self.neighbors,
+                self.neighbor_table,
                 self.dispatcher,
                 config.update_interval,
                 config.dead_timeout)
@@ -119,4 +121,4 @@ class Router:
         Returns:
             dict[str, int]: a mapping maps hostname of neighbor to the cost to it
         """
-        return self.neighbors.get()
+        return self.neighbor_table.get()

@@ -74,6 +74,7 @@ class Algorithm(object):
 
         dispatcher.register(ALGORITHM_TYPE, self)
         self._neighbor.on_update(self._neighbor_update)
+        self._check_timeout()
 
     def receive(self, src, data):
         pass
@@ -115,18 +116,10 @@ class Algorithm(object):
         for hostname in dead_hostnames:
             self._neighbor.timeout(hostname)
 
-class DV(Algorithm):
-    def __init__(self, hostname, transport, routing_table, neighbor,
-                 dispatcher, update_interval=30, timeout=180):
-        super(DV, self).__init__(hostname,
-                                 transport,
-                                 routing_table,
-                                 neighbor,
-                                 dispatcher,
-                                 update_interval,
-                                 timeout)
-        self._check_timeout()
+    def _check_timeout(self):
+        pass
 
+class DV(Algorithm):
     def receive(self, src, data):
         modified = False
         dead_hostnames = []
@@ -145,7 +138,7 @@ class DV(Algorithm):
             self._alive_table_lock.release()
 
         if len(dead_hostnames) != 0:
-            log('{} dead hostnames: {}'.format(time.ctime(), dead_hostnames))
+            log('dead hostnames: {}'.format(dead_hostnames))
             self._neighbor_timeout(dead_hostnames)
 
         self._routing_table_lock.acquire()
@@ -202,6 +195,10 @@ class DV(Algorithm):
         self._timer_thread = threading.Timer(self._interval, DV.run, args=(self,))
         self._timer_thread.start()
 
+    def stop(self):
+        super(DV, self).stop()
+
+
     def _notice_neighbor(self):
         neighbor_table = self._neighbor.get()
 
@@ -235,7 +232,7 @@ class DV(Algorithm):
             self._alive_table_lock.release()
 
         if len(dead_hostnames) != 0:
-            log('{} dead hostnames: {}'.format(time.ctime(current_time), dead_hostnames))
+            log('dead hostnames: {}'.format(dead_hostnames))
             self._neighbor_timeout(dead_hostnames)
 
         self._routing_table_lock.acquire()
@@ -290,7 +287,7 @@ class LS(Algorithm):
             self._alive_table_lock.release()
 
         if len(dead_hostnames) != 0:
-            log('{} dead hostnames: {}'.format(time.ctime(), dead_hostnames))
+            log('dead hostnames: {}'.format(dead_hostnames))
             self._neighbor_timeout(dead_hostnames)
 
         self._routing_table_lock.acquire()
@@ -441,19 +438,74 @@ class LS(Algorithm):
                 'cost': prev_table[destination]['cost']
             }
 
+    def _check_timeout(self):
+        dead_hostnames = []
+        neighbor_table = self._neighbor.get()
+
+        self._alive_table_lock.acquire()
+        try:
+            current_time = time.time()
+            self._alive_table[self._hostname] = current_time
+
+            # collect dead hostnames
+            for hostname in self._alive_table:
+                if current_time - self._alive_table[hostname] > self._timeout:
+                    dead_hostnames.append(hostname)
+
+            for hostname in dead_hostnames:
+                self._alive_table.pop(hostname)
+        finally:
+            self._alive_table_lock.release()
+
+        if len(dead_hostnames) != 0:
+            log('dead hostnames: {}'.format(dead_hostnames))
+            self._neighbor_timeout(dead_hostnames)
+
+        self._routing_table_lock.acquire()
+        self._link_state_lock.acquire()
+        try:
+            self._link_state[self._hostname] = neighbor_table
+            for hostname in neighbor_table:
+                if hostname not in self._link_state:
+                    self._link_state[hostname] = {}
+
+            for hostname in dead_hostnames:
+                if hostname in self._link_state:
+                    self._link_state.pop(hostname)
+
+            for hostname in self._link_state:
+                self._link_state[hostname] = {
+                    k: v for k, v in self._link_state[hostname].items()
+                    if k not in dead_hostnames
+                }
+
+            prev_table = self._dijkstra()
+            self._update_routing(prev_table)
+            self._routing.update(copy.deepcopy(self._routing_table))
+
+            log('update routing table: {}'.format(self._routing_table))
+        finally:
+            self._link_state_lock.release()
+            self._routing_table_lock.release()
+
+        self._push_to_routing_model()
+        self._check_alive_thread = threading.Timer(self._timeout, LS._check_timeout, args=(self,))
+        self._check_alive_thread.start()
 
 class CentralizedMember(LS):
     def __init__(self, central_hostname, hostname, transport, routing_table,
                  neighbor, dispather, update_interval=30, timeout=180):
         super(CentralizedMember, self).__init__(hostname,
-                                                transport, routing_table, neighbor, dispather,
-                                                update_interval, timeout)
+                                                transport,
+                                                routing_table,
+                                                neighbor,
+                                                dispather,
+                                                update_interval,
+                                                timeout)
 
         self._central_hostname = central_hostname
 
     def receive(self, src, data):
-        current_time = time.time()
-
         neighbor_table = self._neighbor.get()
 
         # there is a time central_hostname not in neighbor table !!!
@@ -512,7 +564,7 @@ class CentralizedController(Algorithm):
             self._alive_table_lock.release()
 
         if len(dead_hostnames) != 0:
-            log('{} dead hostnames: {}'.format(time.ctime(), dead_hostnames))
+            log('dead hostnames: {}'.format(dead_hostnames))
             self._neighbor_timeout(dead_hostnames)
 
         dead_hostnames.append(self._hostname)

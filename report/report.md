@@ -610,11 +610,16 @@ def get_routing_table() -> Dict[str, Info]:
 
 ![Stary 2018-01-03 at 10.10.15 PM](./pics/remove.png)
 
-第三个菜单选项则是提供了显示路由器路由表的功能。
+第三个菜单选项则是提供了显示路由器路由表和邻居表的功能。
 
-![Stary 2018-01-03 at 10.10.25 PM](./pics/display.png)
+![Stary 2018-01-03 at 10.10.25 PM](./dis.png)
 
 ![Stary 2018-01-03 at 10.10.30 PM](./pics/routing_table.png)
+
+![Stary 2018-01-03 at 10.10.30 PM](./null_neighbor.png)
+
+![Stary 2018-01-03 at 10.10.30 PM](./neighbor_graph.png)
+
 
 
 ## 程序运行测试
@@ -828,3 +833,4 @@ D:
 ![ls-cent-path](./pics/test/ls-centralize/path.png)
 
 注：路由表中的control即为中心化类LS协议中的中控主机，从步骤一，步骤三，步骤五可以看出路由主机向中控主机汇报邻居情况以及从中控主机接收全局路由拓扑情况。
+

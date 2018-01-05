@@ -612,7 +612,7 @@ def get_routing_table() -> Dict[str, Info]:
 
 第三个菜单选项则是提供了显示路由器路由表和邻居表的功能。
 
-![Stary 2018-01-03 at 10.10.25 PM](./display.png)
+![Stary 2018-01-03 at 10.10.25 PM](./dis.png)
 
 ![Stary 2018-01-03 at 10.10.30 PM](./routing_table.png)
 

@@ -483,8 +483,11 @@ class CentralizedMember(LS):
     def receive(self, src, data):
         neighbor_table = self._neighbor.get()
 
-        # there is a time central_hostname not in neighbor table !!!
         central_cost = neighbor_table[self._central_hostname]
+
+        for hostname in data['dead']:
+            if hostname in neighbor_table:
+                self._neighbor.timeout(hostname)
 
         self._routing_table_lock.acquire()
         self._link_state_lock.acquire()
@@ -534,8 +537,6 @@ class CentralizedController(Algorithm):
             dead_hostnames = [hostname
                               for hostname in self._alive_table
                               if current_time - self._alive_table[hostname] > self._timeout]
-            # for hostname in dead_hostnames:
-            #     self._alive_table.pop(hostname)
 
         if len(dead_hostnames) != 0:
             log('dead hostnames: {}'.format(dead_hostnames))
@@ -565,17 +566,19 @@ class CentralizedController(Algorithm):
         self._link_state_lock.acquire()
         try:
             current_time = time.time()
-            send_data = {
-                'type': ALGORITHM_TYPE,
-                'data': {
-                    'source': self._hostname,
-                    'link': copy.deepcopy(self._link_state)
-                }
-            }
             alive_hosts = [hostname
                            for hostname in self._alive_table
                            if current_time - self._alive_table[hostname] <= self._timeout]
             dead_hosts = set(self._alive_table.keys()) - set(alive_hosts)
+
+            send_data = {
+                'type': ALGORITHM_TYPE,
+                'data': {
+                    'source': self._hostname,
+                    'link': copy.deepcopy(self._link_state),
+                    'dead': dead_hosts
+                }
+            }
         finally:
             self._link_state_lock.release()
             self._alive_table_lock.release()

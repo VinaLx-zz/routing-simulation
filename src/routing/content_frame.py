@@ -20,7 +20,9 @@ class ContentFrame(wx.Frame):
                           title="Router-{}".format(self.router.hostname),
                           pos=(-1, -1))
         self.hostnames = []
+        self.neighbor = []
         self._update_hostnames()
+        self._update_neighbor()
         self.hostname_choice = None
         self.data_text = None
         self.message_text = None
@@ -50,10 +52,10 @@ class ContentFrame(wx.Frame):
         data_label = wx.StaticText(panel, label="Data:")
         self.data_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE)
 
-        send_btn = wx.Button(panel, label="Ok")
+        send_btn = wx.Button(panel, label="Send")
         self.Bind(wx.EVT_BUTTON, self._send_data_handler, send_btn)
 
-        clear_btn = wx.Button(panel, label="Close")
+        clear_btn = wx.Button(panel, label="Clear")
         self.Bind(wx.EVT_BUTTON, self._clear_handler, clear_btn)
 
         message = wx.StaticText(panel, label="Message")
@@ -114,6 +116,10 @@ class ContentFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self._show_routing_table_handler, show_routing_table)
         display_menu.Append(show_routing_table)
 
+        show_neighbor_table = wx.MenuItem(display_menu, wx.ID_DEFAULT, text="Show Neighbor Table", kind=wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self._show_neigbor_table_handler, show_neighbor_table)
+        display_menu.Append(show_neighbor_table)
+
         menu_bar.Append(display_menu, "&Display")
 
         self.SetMenuBar(menu_bar)
@@ -161,7 +167,8 @@ class ContentFrame(wx.Frame):
         myDialog.ShowModal()
 
     def _remove_neighbor_item_handler(self, _):
-        dlg = wx.SingleChoiceDialog(self, "Which hostname you want to remove", "Remove neighbor", self.hostnames)
+        self._update_neighbor()
+        dlg = wx.SingleChoiceDialog(self, "Which hostname you want to remove", "Remove neighbor", self.neighbor)
 
         if dlg.ShowModal() == wx.ID_OK:
             self.router.remove_neighbor(dlg.GetStringSelection())
@@ -182,8 +189,18 @@ class ContentFrame(wx.Frame):
         self.hostnames.remove(self.router.hostname)
 
     def _show_routing_table_handler(self, _):
-        dlg = DisplayDialog(self)
+        dlg = DisplayRoutingTableDialog(self)
         dlg.ShowModal()
+
+    def _show_neigbor_table_handler(self, _):
+        dlg = DisplayNeighborTableDialog(self)
+        dlg.ShowModal()
+
+    def _update_neighbor(self):
+        self.neighbor = []
+        neighbor_table = self.router.get_neighbor_table()
+        for key in neighbor_table:
+            self.neighbor.append(key)
 
 
 class MyDialog(wx.Dialog):
@@ -239,7 +256,7 @@ class MyDialog(wx.Dialog):
         self.EndModal(wx.ID_CANCEL)
 
 
-class DisplayDialog(wx.Dialog):
+class DisplayRoutingTableDialog(wx.Dialog):
     def __init__(self, parent):
         wx.Dialog.__init__(self, parent, -1, "Routing Table", size=(400, 300))
         self.init_UI()
@@ -272,4 +289,42 @@ class DisplayDialog(wx.Dialog):
         matrix = []
         for each in routing_table:
             matrix.append([each, routing_table[each]['next'], routing_table[each]['cost']])
+        return matrix
+
+
+class DisplayNeighborTableDialog(wx.Dialog):
+    def __init__(self, parent):
+        wx.Dialog.__init__(self, parent, -1, "Neighbor Table", size=(400, 300))
+        self.init_UI()
+
+    def init_UI(self):
+        panel = wx.Panel(self)
+        self.figure = Figure()
+        self.axes = self.figure.add_subplot(111)
+
+        collabel = ("Destination", "Cost")
+        self.axes.axis('off')
+
+        the_table = self.axes.table(cellText=self._get_neighbor_table(),
+                                    colLabels=collabel,
+                                    cellLoc='center',
+                                    loc='center',
+                                    alpha=1)
+        the_table.set_fontsize(15)
+        the_table.scale(1, 3)
+
+        self.canvas = FigureCanvas(panel, -1, self.figure)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.canvas, 1, wx.LEFT | wx.TOP | wx.GROW)
+        self.SetSizer(self.sizer)
+        self.Center()
+        panel.Fit()
+
+    def _get_neighbor_table(self):
+        routing_table = manager.router.get_neighbor_table()
+        matrix = []
+        for key in routing_table:
+            matrix.append([key, routing_table[key]])
+        if len(matrix) == 0:
+            matrix.append(["----", "----"])
         return matrix

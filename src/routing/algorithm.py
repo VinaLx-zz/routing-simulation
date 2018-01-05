@@ -623,7 +623,7 @@ class CentralizedController(Algorithm):
                 }
             }
 
-        # self._neighbor_timeout(dead_hosts)
+        self._neighbor_timeout(dead_hosts)
         for hostname in alive_hosts:
             self._transport.send(hostname, send_data, True)
 

@@ -39,7 +39,7 @@
 
 在此路由系统中，单个主机的整体模块结构大体上如图所示：
 
-![uml](./uml.png)
+![uml](./pics/uml.png)
 
 `RoutingTable`是全局单例的路由表，逻辑上内容是目标主机到下一跳主机的映射。因此可以通过`RoutingTable.get`以及其它方法来查询路由表内部封装的信息。
 
@@ -555,11 +555,11 @@ def get_routing_table() -> Dict[str, Info]:
 #### Router 配置界面
 在运行Router之前需要对router进行配置。
 
-![Stary 2018-01-03 at 9.53.23 PM](./config.png)
+![Stary 2018-01-03 at 9.53.23 PM](./pics/config.png)
 
 选择配置文件。
 
-![Stary 2018-01-03 at 9.53.33 PM](./config_file.png)
+![Stary 2018-01-03 at 9.53.33 PM](./pics/config_file.png)
 
 配置文件格式为Json，格式如下所示。
 
@@ -584,7 +584,7 @@ def get_routing_table() -> Dict[str, Info]:
 ```
 
 #### Router 主界面
-![Stary 2018-01-03 at 10.05.12 PM](./main.png)
+![Stary 2018-01-03 at 10.05.12 PM](./pics/main.png)
 
 界面的上半部分用于发送数据包。可以选择能够发送的对象（即该路由器的邻居），第二个文本框则是用于输入发送的文本数据。点击Send便可以发送数据，再发送完后，Data文本框会自动清空。Clear也可以清空输入的文本框。
 界面的下半部分则是用于接受数据。Message是用于显示目前接受的到数据包内容，Log则是用于Debug的信息，包括接收的广播包内容，发送的数据包内容等。
@@ -592,29 +592,29 @@ def get_routing_table() -> Dict[str, Info]:
 
 在程序上方还有一个菜单栏。
 
-![Stary 2018-01-03 at 10.08.49 PM](./menu.png)
+![Stary 2018-01-03 at 10.08.49 PM](./pics/menu.png)
 
 第一个菜单选项是与文件相关功能。提供了可以保存Message和Log记录到本地的功能。
-![Stary 2018-01-03 at 10.09.19 PM](./file_menu.png)
+![Stary 2018-01-03 at 10.09.19 PM](./pics/file_menu.png)
 
-![Stary 2018-01-03 at 10.09.24 PM](./message.png)
+![Stary 2018-01-03 at 10.09.24 PM](./pics/message.png)
 
-![Stary 2018-01-03 at 10.09.42 PM](./log.png)
+![Stary 2018-01-03 at 10.09.42 PM](./pics/log.png)
 
 
 第二个菜单选项则是与动态修改邻居有关的功能。我们提供了可以动态增加、删除邻居和修改到邻居开销的功能。在进行相应操作之后会关闭窗口，需要在Log信息框中查看是否修改成功。
 
-![Stary 2018-01-03 at 10.09.52 PM](./neighbor.png)
+![Stary 2018-01-03 at 10.09.52 PM](./pics/neighbor.png)
 
-![Stary 2018-01-03 at 10.10.02 PM](./add.png)
+![Stary 2018-01-03 at 10.10.02 PM](./pics/add.png)
 
-![Stary 2018-01-03 at 10.10.15 PM](./remove.png)
+![Stary 2018-01-03 at 10.10.15 PM](./pics/remove.png)
 
 第三个菜单选项则是提供了显示路由器路由表的功能。
 
-![Stary 2018-01-03 at 10.10.25 PM](./display.png)
+![Stary 2018-01-03 at 10.10.25 PM](./pics/display.png)
 
-![Stary 2018-01-03 at 10.10.30 PM](./routing_table.png)
+![Stary 2018-01-03 at 10.10.30 PM](./pics/routing_table.png)
 
 
 ## 程序运行测试
@@ -623,7 +623,7 @@ def get_routing_table() -> Dict[str, Info]:
 
 测试完整拓扑图：
 
-![topo](./test-topo.png)
+![topo](./pics/test-topo.png)
 
 1. 系统起始状态
 
@@ -749,53 +749,53 @@ D:
 
 **步骤一：起始状态**
 
-![dv-step1](./test/dv/1.png)
+![dv-step1](./pics/test/dv/1.png)
 
 **步骤二：加入C**
 
-![dv-step2](./test/dv/2.png)
+![dv-step2](./pics/test/dv/2.png)
 
 **步骤三：加入D**
 
-![dv-step3](./test/dv/3.png)
+![dv-step3](./pics/test/dv/3.png)
 
 **步骤四：退出D**
 
-![dv-step4](./test/dv/4.png)
+![dv-step4](./pics/test/dv/4.png)
 
 **步骤五：退出C**
 
-![dv-step5](./test/dv/5.png)
+![dv-step5](./pics/test/dv/5.png)
 
 **确认路径**
 
-![dv-path](./test/ls/path.png)
+![dv-path](./pics/test/ls/path.png)
 
 #### LS
 
 **步骤一：起始状态**
 
-![ls-step1](./test/ls/1.png)
+![ls-step1](./pics/test/ls/1.png)
 
 **步骤二：加入C**
 
-![ls-step2](./test/ls/2.png)
+![ls-step2](./pics/test/ls/2.png)
 
 **步骤三：加入D**
 
-![ls-step3](./test/ls/3.png)
+![ls-step3](./pics/test/ls/3.png)
 
 **步骤四：退出D**
 
-![ls-step4](./test/ls/4.png)
+![ls-step4](./pics/test/ls/4.png)
 
 **步骤五：退出C**
 
-![ls-step5](./test/ls/5.png)
+![ls-step5](./pics/test/ls/5.png)
 
 **确认路径**
 
-![ls-path](./test/ls/path.png)
+![ls-path](./pics/test/ls/path.png)
 
 注1：从步骤一、步骤三、步骤五的图中的log框，可以看出Algorithm模块发送的信息与之前介绍的LS算法所使用的数据结构相对应。
 
@@ -805,26 +805,26 @@ D:
 
 **步骤一：起始状态**
 
-![ls-cent-step1](./test/ls-centralize/1.png)
+![ls-cent-step1](./pics/test/ls-centralize/1.png)
 
 **步骤二：加入C**
 
-![ls-cent-step2](./test/ls-centralize/2.png)
+![ls-cent-step2](./pics/test/ls-centralize/2.png)
 
 **步骤三：加入D**
 
-![ls-cent-step3](./test/ls-centralize/3.png)
+![ls-cent-step3](./pics/test/ls-centralize/3.png)
 
 **步骤四：退出D**
 
-![ls-cent-step4](./test/ls-centralize/4.png)
+![ls-cent-step4](./pics/test/ls-centralize/4.png)
 
 **步骤五：退出C**
 
-![ls-cent-step5](./test/ls-centralize/5.png)
+![ls-cent-step5](./pics/test/ls-centralize/5.png)
 
 **确认路径**
 
-![ls-cent-path](./test/ls-centralize/path.png)
+![ls-cent-path](./pics/test/ls-centralize/path.png)
 
 注：路由表中的control即为中心化类LS协议中的中控主机，从步骤一，步骤三，步骤五可以看出路由主机向中控主机汇报邻居情况以及从中控主机接收全局路由拓扑情况。

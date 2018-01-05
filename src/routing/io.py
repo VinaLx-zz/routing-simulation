@@ -17,7 +17,7 @@ def now():
 
 def make_message(msg):
     if view:
-        return "[Hostname: {0} {1}] {2}".format(view.hostname, now(), msg)
+        return "[{0}] [{1}] {2}".format(view.hostname, now(), msg)
     return "[{0}] {1}".format(now(), msg)
 
 

@@ -1,10 +1,10 @@
 # 路由系统模拟
 
-> 2015级计算机网络期末项目
+> 2015级计算机网络期末项目
 
 ## 简介
 
-在应用层模拟一个可以在运行时动态添加、减少节点的路由系统。
+在应用层模拟一个可以在运行时动态添加、减少节点的路由系统。
 
 ### 小组成员
 
@@ -37,17 +37,17 @@
 
 ### 整体结构
 
-在此路由系统中，单个主机的整体模块结构大体上如图所示：
+在此路由系统中，单个主机的整体模块结构大体上如图所示：
 
 ![uml](./uml.png)
 
 `RoutingTable`是全局单例的路由表，逻辑上内容是目标主机到下一跳主机的映射。因此可以通过`RoutingTable.get`以及其它方法来查询路由表内部封装的信息。
 
-`Transport`负责封装底层的数据传输，`Transport.send`将各模块的结构化数据包装为数据包并且序列化，查询`RoutingTable`确定下一跳主机进行发送。而目标（下一跳）节点的`Transport`收到消息并进行反序列化后，将接收到的`data`和`type`共同交给`DataDispatcher`进行处理。`Transport`之外的模块不需要关心在进行底层数据传输时使用的报文格式和数据，可以只关心自身要传输的数据。
+`Transport`负责封装底层的数据传输，`Transport.send`将各模块的结构化数据包装为数据包并且序列化，查询`RoutingTable`确定下一跳主机进行发送。而目标（下一跳）节点的`Transport`收到消息并进行反序列化后，将接收到的`data`和`type`共同交给`DataDispatcher`进行处理。`Transport`之外的模块不需要关心在进行底层数据传输时使用的报文格式和数据，可以只关心自身要传输的数据。
 
 `DataDispatcher`负责分派`Transport`接收到的数据给各个模块，各个模块在初始化阶段向`DataDispatcher.register`注册回调，在`DataDispatcher`收到数据后，根据`type`查找登记过的`receiver`，将`data`进行分发。这样在`Transport`之外，根据各个模块的需要可以定义非提前约定的报文结构。
 
-不同的`Algorithm`负责实现不同的路由协议的算法部分，例如`DV`协议，`Algorithm`会定期通过`Transport`向其它主机发送自身的路由信息，并且在通过`DataDispatcher`接收到邻居的路由信息后，对`RoutingTable`进行更新。其它算法类似，通过算法自身内部的逻辑，对路由表进行更新。除了`Algorithm`之外的模块不需要关心`Algorithm`使用的具体算法和协议也可以进行正常工作。
+不同的`Algorithm`负责实现不同的路由协议的算法部分，例如`DV`协议，`Algorithm`会定期通过`Transport`向其它主机发送自身的路由信息，并且在通过`DataDispatcher`接收到邻居的路由信息后，对`RoutingTable`进行更新。其它算法类似，通过算法自身内部的逻辑，对路由表进行更新。除了`Algorithm`之外的模块不需要关心`Algorithm`使用的具体算法和协议也可以进行正常工作。
 
 `NeighborTable`保存邻居的状态，逻辑上为邻居主机到代价的映射，在邻居内容更新时，`NeighborTable`会通知自己的观察者（这里唯一的观察者是算法，所有的算法都需要在邻居状态变化时对应地更新路由表）。
 
@@ -310,7 +310,7 @@ neighbor_routing_table[source] = data['routing']
 destinations = get_all_hostnames()
 
 for dest in destinations:
-    # find the next_hop through which the cost from self to dest is minimum  
+    # find the next_hop through which the cost from self to dest is minimum
     # D_self(dest) = min(c(self, v) + D_v(dest))
 
     min_next, min_cost = None, -1
@@ -627,7 +627,7 @@ def get_routing_table() -> Dict[str, Info]:
 
 1. 系统起始状态
 
-    拓扑中仅有A与B两台主机，它们之间的代价为5。从A发送消息给B可以成功发送。
+    拓扑中仅有A与B两台主机，它们之间的代价为5。从A发送消息给B可以成功发送。
 
 2. 加入C，指定A与B为邻居，代价分别为1与3
 
@@ -635,20 +635,20 @@ def get_routing_table() -> Dict[str, Info]:
 
 3. 加入D，指定B与C为邻居，代价均为1
 
-    等待系统稳定。查看A路由表，应当看到A到B下一跳主机为C，从A发送数据给B，路径应当为 A -> C -> D -> B
+    等待系统稳定。查看A路由表，应当看到A到B下一跳主机为C，从A发送数据给B，路径应当为 A -> C -> D -> B
 
 4. 删除节点D
 
-    等待系统稳定。从A发送数据给B，情况应当与步骤2相同
+    等待系统稳定。从A发送数据给B，情况应当与步骤2相同
 
 5. 删除节点C
 
-    等待系统稳定。从A发送数据给B，情况应当与步骤1相同
+    等待系统稳定。从A发送数据给B，情况应当与步骤1相同
 
 ### 测试流程
 
 1. 运行HostnameServer(HNS)主机
-2. 准备好A、B、C、D主机的配置文件，配置文件格式如UI节所描述
+2. 准备好A、B、C、D主机的配置文件，配置文件格式如UI节所描述
 3. 按照测试场景逐步向系统中添加、从系统中删除主机，过程中观察路由表、各模块输出日志、消息发送情况符合预期
 
 ### 运行测试
@@ -667,9 +667,9 @@ A:
   "hns_ip": "127.0.0.1",
   "hns_port": 8888,
   "algorithm": "DV",
-  "dead_timeout": 5,
-  "update_interval": 1,
-  "controller_hostname": "",
+  "dead_timeout": 10,
+  "update_interval": 3,
+  "controller_hostname": "Control",
   "neighbors": []
 }
 ```
@@ -683,9 +683,9 @@ B:
   "hns_ip": "127.0.0.1",
   "hns_port": 8888,
   "algorithm": "..",
-  "dead_timeout": 5,
-  "update_interval": 1,
-  "controller_hostname": "",
+  "dead_timeout": 10,
+  "update_interval": 3,
+  "controller_hostname": "Control",
   "neighbors": [
     {
       "hostname": "A",
@@ -704,9 +704,9 @@ C:
     "hns_ip": "127.0.0.1",
     "hns_port": 8888,
     "algorithm": "..",
-    "dead_timeout": 5,
-    "update_interval": 1,
-    "controller_hostname": "",
+    "dead_timeout": 10,
+    "update_interval": 3,
+    "controller_hostname": "Control",
     "neighbors": [
         {
             "hostname": "B",
@@ -729,9 +729,9 @@ D:
     "hns_ip": "127.0.0.1",
     "hns_port": 8888,
     "algorithm": "..",
-    "dead_timeout": 5,
-    "update_interval": 1,
-    "controller_hostname": "",
+    "dead_timeout": 10,
+    "update_interval": 3,
+    "controller_hostname": "Control",
     "neighbors": [
         {
             "hostname": "B",

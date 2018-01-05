@@ -612,13 +612,13 @@ def get_routing_table() -> Dict[str, Info]:
 
 第三个菜单选项则是提供了显示路由器路由表和邻居表的功能。
 
-![Stary 2018-01-03 at 10.10.25 PM](./dis.png)
+![Stary 2018-01-03 at 10.10.25 PM](./pics/dis.png)
 
 ![Stary 2018-01-03 at 10.10.30 PM](./pics/routing_table.png)
 
-![Stary 2018-01-03 at 10.10.30 PM](./null_neighbor.png)
+![Stary 2018-01-03 at 10.10.30 PM](./pics/null_neighbor.png)
 
-![Stary 2018-01-03 at 10.10.30 PM](./neighbor_graph.png)
+![Stary 2018-01-03 at 10.10.30 PM](./pics/neighbor_graph.png)
 
 
 
@@ -750,6 +750,10 @@ D:
 }
 ```
 
+_注1：DV/LS的测试配置文件可以在`src/test-config/dv-ls-test`下查看，中心化LS的测试配置文件可以在`src/test-config/ls-centralize/`下查看_
+
+_注2: 三种算法测试的完整日志可以在`logs/`下查看_
+
 #### DV
 
 **步骤一：起始状态**
@@ -774,7 +778,9 @@ D:
 
 **确认路径**
 
-![dv-path](./pics/test/ls/path.png)
+![dv-path](./pics/test/dv/path.png)
+
+_注：从步骤一、步骤三、步骤五的图中的log框，可以看出Algorithm模块发送的信息与之前介绍的DV算法所使用的数据结构相对应。_
 
 #### LS
 
@@ -802,9 +808,7 @@ D:
 
 ![ls-path](./pics/test/ls/path.png)
 
-注1：从步骤一、步骤三、步骤五的图中的log框，可以看出Algorithm模块发送的信息与之前介绍的LS算法所使用的数据结构相对应。
-
-注2：LS协议测试A、B、C、D的运行完整log见[github仓库](https://github.com/VinaLx/routing-simulation/tree/master/logs/ls)
+_注：从步骤一、步骤三、步骤五的图中的log框，可以看出Algorithm模块发送的信息与之前介绍的LS算法所使用的数据结构相对应。_
 
 #### 中心化LS
 
@@ -832,5 +836,19 @@ D:
 
 ![ls-cent-path](./pics/test/ls-centralize/path.png)
 
-注：路由表中的control即为中心化类LS协议中的中控主机，从步骤一，步骤三，步骤五可以看出路由主机向中控主机汇报邻居情况以及从中控主机接收全局路由拓扑情况。
+_注：路由表中的control即为中心化类LS协议中的中控主机，从步骤一，步骤三，步骤五可以看出路由主机向中控主机汇报邻居情况以及从中控主机接收全局路由拓扑情况。_
 
+## 最终分工
+
+### 薛明淇
+
+- 具体需求确定、模块结构设计
+- Neighbor相关模块实现
+- 协助debug与测试
+- 实验报告与幻灯片制作
+
+### 颜泽鑫
+
+### 叶佳全
+
+### 姚志立

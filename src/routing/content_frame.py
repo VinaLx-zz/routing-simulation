@@ -116,7 +116,7 @@ class ContentFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self._show_routing_table_handler, show_routing_table)
         display_menu.Append(show_routing_table)
 
-        show_neighbor_table = wx.MenuItem(display_menu, wx.ID_DEFAULT, text="Show Neighbor Table", kind=wx.ITEM_NORMAL)
+        show_neighbor_table = wx.MenuItem(display_menu, wx.ID_ANY, text="Show Neighbor Table", kind=wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self._show_neigbor_table_handler, show_neighbor_table)
         display_menu.Append(show_neighbor_table)
 

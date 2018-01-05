@@ -534,8 +534,8 @@ class CentralizedController(Algorithm):
             dead_hostnames = [hostname
                               for hostname in self._alive_table
                               if current_time - self._alive_table[hostname] > self._timeout]
-            for hostname in dead_hostnames:
-                self._alive_table.pop(hostname)
+            # for hostname in dead_hostnames:
+            #     self._alive_table.pop(hostname)
 
         if len(dead_hostnames) != 0:
             log('dead hostnames: {}'.format(dead_hostnames))

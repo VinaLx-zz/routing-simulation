@@ -12,20 +12,24 @@ def init(_view):
 
 
 def now():
-    return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.datetime.now().strftime('%H:%M:%S')
 
+def make_message(msg):
+    return "[{0}] {1}".format(now(), msg)
 
 def print_message(message):
+    item = make_message(message)
     if view:
         mutex.acquire()
-        view.listen_message_event("[%s] %s\n" % (now(), message))
+        view.listen_message_event(item + '\n')
         mutex.release()
-    print("[%s] %s" % (now(), message))
+    print(item)
 
 
 def print_log(log):
+    item = make_message(log)
     if view:
         mutex.acquire()
-        view.listen_log_event("[%s] %s\n" % (now(), log))
+        view.listen_log_event(item + '\n')
         mutex.release()
-    print("[%s] %s" % (now(), log))
+    print(item)

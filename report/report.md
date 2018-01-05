@@ -717,6 +717,30 @@ D:
 
 #### LS
 
+**步骤一：起始状态**
+
+![ls-step1](./test/ls/1.png)
+
+**步骤二：加入C**
+
+![ls-step2](./test/ls/2.png)
+
+**步骤三：加入D**
+
+![ls-step3](./test/ls/3.png)
+
+**步骤四：退出D**
+
+![ls-step4](./test/ls/4.png)
+
+**步骤五：退出C**
+
+![ls-step5](./test/ls/5.png)
+
+**确认路径**
+
+![ls-path](./test/ls/path.png)
+
+注1：从步骤一、步骤三、步骤五的图中的log框，可以看出Algorithm模块发送的信息与之前介绍的LS算法所使用的数据结构相对应。
+
 #### 中心化LS
-
-

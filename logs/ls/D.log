@@ -1,0 +1,992 @@
+[D] [21:11:01] [Algorithm] send neighbor information: {}
+[D] [21:11:04] [Algorithm] send neighbor information: {}
+[D] [21:11:07] [Algorithm] send neighbor information: {}
+[D] [21:11:08] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}}
+[D] [21:11:08] [Neighbors] [INFO] neighbor C timeout, retry left: 2
+[D] [21:11:08] [Neighbors] [INFO] neighbor B timeout, retry left: 2
+[D] [21:11:08] [Neighbors] [INFO] sending data '1' to host 'C'
+[D] [21:11:08] [Neighbors] [INFO] sending data '1' to host 'B'
+[D] [21:11:08] [Transport] [INFO] Sending {'type': 'neighbor', 'data': 1} to C
+[D] [21:11:08] [Transport] [INFO] Sending {'type': 'neighbor', 'data': 1} to B
+[D] [21:11:08] [Transport] [INFO] Receive data
+[D] [21:11:08] [Neighbors] [INFO] receiving cost '1' from host 'C'
+[D] [21:11:08] [Neighbors] [INFO] reply from host 'C' received
+[D] [21:11:08] [NeighborTable] [INFO] set host 'C' to cost '1'
+[D] [21:11:08] [Algorithm] new neighbor table: {'C': 1}
+[D] [21:11:08] [Transport] [INFO] Receive data {'type': 'neighbor', 'data': 1} from path: C -> D
+[D] [21:11:08] [Transport] [INFO] Receive data
+[D] [21:11:08] [Neighbors] [INFO] receiving cost '1' from host 'B'
+[D] [21:11:08] [Neighbors] [INFO] reply from host 'B' received
+[D] [21:11:08] [NeighborTable] [INFO] set host 'B' to cost '1'
+[D] [21:11:08] [Algorithm] new neighbor table: {'C': 1, 'B': 1}
+[D] [21:11:08] [Transport] [INFO] Receive data {'type': 'neighbor', 'data': 1} from path: B -> D
+[D] [21:11:09] [Transport] [INFO] Receive data
+[D] [21:11:09] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157869.028589, 'A': 1515157866.239347, 'B': 1515157867.369715}}} to B
+[D] [21:11:09] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:09] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:09] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157869.028589, 'A': 1515157866.239347, 'B': 1515157867.369715}}} from path: C -> D
+[D] [21:11:09] [Transport] [INFO] Receive data
+[D] [21:11:09] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:09] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:09] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157869.028589, 'A': 1515157866.239347, 'B': 1515157867.369715}}} from path: B -> D
+[D] [21:11:09] [Transport] [INFO] Receive data
+[D] [21:11:09] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:09] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:09] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157869.028589, 'A': 1515157866.239347, 'B': 1515157867.369715}}} from path: B -> D
+[D] [21:11:10] [Transport] [INFO] Receive data
+[D] [21:11:10] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157869.292585, 'B': 1515157867.369715, 'C': 1515157869.028589}}} to C
+[D] [21:11:10] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:10] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:10] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157869.292585, 'B': 1515157867.369715, 'C': 1515157869.028589}}} from path: B -> D
+[D] [21:11:10] [Transport] [INFO] Receive data
+[D] [21:11:10] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:10] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:10] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157869.292585, 'B': 1515157867.369715, 'C': 1515157869.028589}}} from path: C -> D
+[D] [21:11:10] [Transport] [INFO] Receive data
+[D] [21:11:10] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157869.292585, 'B': 1515157867.369715, 'C': 1515157869.028589}}} to B
+[D] [21:11:10] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:10] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:10] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157869.292585, 'B': 1515157867.369715, 'C': 1515157869.028589}}} from path: C -> D
+[D] [21:11:10] [Transport] [INFO] Receive data
+[D] [21:11:10] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:10] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:10] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157869.292585, 'B': 1515157867.369715, 'C': 1515157869.028589}}} from path: B -> D
+[D] [21:11:10] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157870.430536, 'C': 1515157869.028589, 'A': 1515157869.292585, 'B': 1515157867.369715}}} to C
+[D] [21:11:10] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157870.430536, 'C': 1515157869.028589, 'A': 1515157869.292585, 'B': 1515157867.369715}}} to B
+[D] [21:11:10] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:11] [Transport] [INFO] Receive data
+[D] [21:11:11] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:11] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:11] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157870.50017, 'A': 1515157869.292585, 'C': 1515157869.028589, 'D': 1515157870.430536}}} from path: C -> D
+[D] [21:11:11] [Transport] [INFO] Receive data
+[D] [21:11:11] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157870.50017, 'A': 1515157869.292585, 'C': 1515157869.028589, 'D': 1515157870.430536}}} to C
+[D] [21:11:11] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:11] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:11] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157870.50017, 'A': 1515157869.292585, 'C': 1515157869.028589, 'D': 1515157870.430536}}} from path: B -> D
+[D] [21:11:11] [Transport] [INFO] Receive data
+[D] [21:11:11] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:11] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:11] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157870.50017, 'A': 1515157869.292585, 'C': 1515157869.028589, 'D': 1515157870.430536}}} from path: C -> D
+[D] [21:11:12] [Transport] [INFO] Receive data
+[D] [21:11:12] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:12] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:12] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157871.070029, 'A': 1515157869.292585, 'B': 1515157870.50017, 'D': 1515157870.430536}}} from path: B -> D
+[D] [21:11:12] [Transport] [INFO] Receive data
+[D] [21:11:12] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157871.070029, 'A': 1515157869.292585, 'B': 1515157870.50017, 'D': 1515157870.430536}}} to B
+[D] [21:11:12] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:12] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:12] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157871.070029, 'A': 1515157869.292585, 'B': 1515157870.50017, 'D': 1515157870.430536}}} from path: C -> D
+[D] [21:11:12] [Transport] [INFO] Receive data
+[D] [21:11:12] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:12] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:12] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157871.070029, 'A': 1515157869.292585, 'B': 1515157870.50017, 'D': 1515157870.430536}}} from path: B -> D
+[D] [21:11:13] [Transport] [INFO] Receive data
+[D] [21:11:13] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157872.3209522, 'B': 1515157870.50017, 'C': 1515157871.070029, 'D': 1515157870.430536}}} to C
+[D] [21:11:13] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:13] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:13] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157872.3209522, 'B': 1515157870.50017, 'C': 1515157871.070029, 'D': 1515157870.430536}}} from path: B -> D
+[D] [21:11:13] [Transport] [INFO] Receive data
+[D] [21:11:13] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:13] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:13] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157872.3209522, 'B': 1515157870.50017, 'C': 1515157871.070029, 'D': 1515157870.430536}}} from path: C -> D
+[D] [21:11:13] [Transport] [INFO] Receive data
+[D] [21:11:13] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157872.3209522, 'B': 1515157870.50017, 'C': 1515157871.070029, 'D': 1515157870.430536}}} to B
+[D] [21:11:13] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:13] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:13] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157872.3209522, 'B': 1515157870.50017, 'C': 1515157871.070029, 'D': 1515157870.430536}}} from path: C -> D
+[D] [21:11:13] [Transport] [INFO] Receive data
+[D] [21:11:13] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:13] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:13] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157872.3209522, 'B': 1515157870.50017, 'C': 1515157871.070029, 'D': 1515157870.430536}}} from path: B -> D
+[D] [21:11:13] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157873.4464252, 'C': 1515157871.070029, 'A': 1515157872.3209522, 'B': 1515157870.50017}}} to C
+[D] [21:11:13] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157873.4464252, 'C': 1515157871.070029, 'A': 1515157872.3209522, 'B': 1515157870.50017}}} to B
+[D] [21:11:13] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:14] [Transport] [INFO] Receive data
+[D] [21:11:14] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157873.78783, 'A': 1515157872.3209522, 'C': 1515157871.070029, 'D': 1515157873.4464252}}} to C
+[D] [21:11:14] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:14] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:14] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157873.78783, 'A': 1515157872.3209522, 'C': 1515157871.070029, 'D': 1515157873.4464252}}} from path: B -> D
+[D] [21:11:14] [Transport] [INFO] Receive data
+[D] [21:11:14] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:14] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:14] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157873.78783, 'A': 1515157872.3209522, 'C': 1515157871.070029, 'D': 1515157873.4464252}}} from path: C -> D
+[D] [21:11:14] [Transport] [INFO] Receive data
+[D] [21:11:14] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:14] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:14] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157873.78783, 'A': 1515157872.3209522, 'C': 1515157871.070029, 'D': 1515157873.4464252}}} from path: C -> D
+[D] [21:11:15] [Transport] [INFO] Receive data
+[D] [21:11:15] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:15] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:15] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157874.09653, 'A': 1515157872.3209522, 'B': 1515157873.78783, 'D': 1515157873.4464252}}} from path: B -> D
+[D] [21:11:15] [Transport] [INFO] Receive data
+[D] [21:11:15] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157874.09653, 'A': 1515157872.3209522, 'B': 1515157873.78783, 'D': 1515157873.4464252}}} to B
+[D] [21:11:15] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:15] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:15] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157874.09653, 'A': 1515157872.3209522, 'B': 1515157873.78783, 'D': 1515157873.4464252}}} from path: C -> D
+[D] [21:11:15] [Transport] [INFO] Receive data
+[D] [21:11:15] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:15] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:15] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157874.09653, 'A': 1515157872.3209522, 'B': 1515157873.78783, 'D': 1515157873.4464252}}} from path: B -> D
+[D] [21:11:16] [Transport] [INFO] Receive data
+[D] [21:11:16] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157875.331696, 'B': 1515157873.78783, 'C': 1515157874.09653, 'D': 1515157873.4464252}}} to C
+[D] [21:11:16] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:16] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:16] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157875.331696, 'B': 1515157873.78783, 'C': 1515157874.09653, 'D': 1515157873.4464252}}} from path: B -> D
+[D] [21:11:16] [Transport] [INFO] Receive data
+[D] [21:11:16] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:16] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:16] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157875.331696, 'B': 1515157873.78783, 'C': 1515157874.09653, 'D': 1515157873.4464252}}} from path: C -> D
+[D] [21:11:16] [Transport] [INFO] Receive data
+[D] [21:11:16] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157875.331696, 'B': 1515157873.78783, 'C': 1515157874.09653, 'D': 1515157873.4464252}}} to B
+[D] [21:11:16] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:16] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:16] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157875.331696, 'B': 1515157873.78783, 'C': 1515157874.09653, 'D': 1515157873.4464252}}} from path: C -> D
+[D] [21:11:16] [Transport] [INFO] Receive data
+[D] [21:11:16] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:16] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:16] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157875.331696, 'B': 1515157873.78783, 'C': 1515157874.09653, 'D': 1515157873.4464252}}} from path: B -> D
+[D] [21:11:16] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157876.422109, 'C': 1515157874.09653, 'A': 1515157875.331696, 'B': 1515157873.78783}}} to C
+[D] [21:11:16] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157876.422109, 'C': 1515157874.09653, 'A': 1515157875.331696, 'B': 1515157873.78783}}} to B
+[D] [21:11:16] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:17] [Transport] [INFO] Receive data
+[D] [21:11:17] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157876.5704992, 'A': 1515157875.331696, 'C': 1515157874.09653, 'D': 1515157876.422109}}} to C
+[D] [21:11:17] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:17] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:17] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157876.5704992, 'A': 1515157875.331696, 'C': 1515157874.09653, 'D': 1515157876.422109}}} from path: B -> D
+[D] [21:11:17] [Transport] [INFO] Receive data
+[D] [21:11:17] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:17] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:17] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157876.5704992, 'A': 1515157875.331696, 'C': 1515157874.09653, 'D': 1515157876.422109}}} from path: C -> D
+[D] [21:11:17] [Transport] [INFO] Receive data
+[D] [21:11:17] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:17] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:17] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157876.5704992, 'A': 1515157875.331696, 'C': 1515157874.09653, 'D': 1515157876.422109}}} from path: C -> D
+[D] [21:11:18] [Transport] [INFO] Receive data
+[D] [21:11:18] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:18] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:18] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157877.044258, 'A': 1515157875.331696, 'B': 1515157876.5704992, 'D': 1515157876.422109}}} from path: B -> D
+[D] [21:11:18] [Transport] [INFO] Receive data
+[D] [21:11:18] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157877.044258, 'A': 1515157875.331696, 'B': 1515157876.5704992, 'D': 1515157876.422109}}} to B
+[D] [21:11:18] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:18] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:18] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157877.044258, 'A': 1515157875.331696, 'B': 1515157876.5704992, 'D': 1515157876.422109}}} from path: C -> D
+[D] [21:11:18] [Transport] [INFO] Receive data
+[D] [21:11:18] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:18] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:18] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157877.044258, 'A': 1515157875.331696, 'B': 1515157876.5704992, 'D': 1515157876.422109}}} from path: B -> D
+[D] [21:11:18] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:19] [Transport] [INFO] Receive data
+[D] [21:11:19] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157878.342498, 'B': 1515157876.5704992, 'C': 1515157877.044258, 'D': 1515157876.422109}}} to C
+[D] [21:11:19] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:19] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:19] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157878.342498, 'B': 1515157876.5704992, 'C': 1515157877.044258, 'D': 1515157876.422109}}} from path: B -> D
+[D] [21:11:19] [Transport] [INFO] Receive data
+[D] [21:11:19] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:19] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:19] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157878.342498, 'B': 1515157876.5704992, 'C': 1515157877.044258, 'D': 1515157876.422109}}} from path: C -> D
+[D] [21:11:19] [Transport] [INFO] Receive data
+[D] [21:11:19] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:19] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:19] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157878.342498, 'B': 1515157876.5704992, 'C': 1515157877.044258, 'D': 1515157876.422109}}} from path: B -> D
+[D] [21:11:19] [Transport] [INFO] Receive data
+[D] [21:11:19] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157878.342498, 'B': 1515157876.5704992, 'C': 1515157877.044258, 'D': 1515157876.422109}}} to B
+[D] [21:11:19] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:19] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:19] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157878.342498, 'B': 1515157876.5704992, 'C': 1515157877.044258, 'D': 1515157876.422109}}} from path: C -> D
+[D] [21:11:19] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157879.441893, 'C': 1515157877.044258, 'A': 1515157878.342498, 'B': 1515157876.5704992}}} to C
+[D] [21:11:19] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157879.441893, 'C': 1515157877.044258, 'A': 1515157878.342498, 'B': 1515157876.5704992}}} to B
+[D] [21:11:19] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:20] [Transport] [INFO] Receive data
+[D] [21:11:20] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:20] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:20] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157879.540538, 'A': 1515157878.342498, 'C': 1515157877.044258, 'D': 1515157879.441893}}} from path: C -> D
+[D] [21:11:20] [Transport] [INFO] Receive data
+[D] [21:11:20] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157879.540538, 'A': 1515157878.342498, 'C': 1515157877.044258, 'D': 1515157879.441893}}} to C
+[D] [21:11:20] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:20] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:20] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157879.540538, 'A': 1515157878.342498, 'C': 1515157877.044258, 'D': 1515157879.441893}}} from path: B -> D
+[D] [21:11:20] [Transport] [INFO] Receive data
+[D] [21:11:20] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:20] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:20] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157879.540538, 'A': 1515157878.342498, 'C': 1515157877.044258, 'D': 1515157879.441893}}} from path: C -> D
+[D] [21:11:21] [Transport] [INFO] Receive data
+[D] [21:11:21] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:21] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:21] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157880.083613, 'A': 1515157878.342498, 'B': 1515157879.540538, 'D': 1515157879.441893}}} from path: B -> D
+[D] [21:11:21] [Transport] [INFO] Receive data
+[D] [21:11:21] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157880.083613, 'A': 1515157878.342498, 'B': 1515157879.540538, 'D': 1515157879.441893}}} to B
+[D] [21:11:21] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:21] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:21] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157880.083613, 'A': 1515157878.342498, 'B': 1515157879.540538, 'D': 1515157879.441893}}} from path: C -> D
+[D] [21:11:21] [Transport] [INFO] Receive data
+[D] [21:11:21] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:21] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:21] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157880.083613, 'A': 1515157878.342498, 'B': 1515157879.540538, 'D': 1515157879.441893}}} from path: B -> D
+[D] [21:11:22] [Transport] [INFO] Receive data
+[D] [21:11:22] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157881.3530009, 'B': 1515157879.540538, 'C': 1515157880.083613, 'D': 1515157879.441893}}} to C
+[D] [21:11:22] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:22] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:22] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157881.3530009, 'B': 1515157879.540538, 'C': 1515157880.083613, 'D': 1515157879.441893}}} from path: B -> D
+[D] [21:11:22] [Transport] [INFO] Receive data
+[D] [21:11:22] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157881.3530009, 'B': 1515157879.540538, 'C': 1515157880.083613, 'D': 1515157879.441893}}} to B
+[D] [21:11:22] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:22] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:22] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157881.3530009, 'B': 1515157879.540538, 'C': 1515157880.083613, 'D': 1515157879.441893}}} from path: C -> D
+[D] [21:11:22] [Transport] [INFO] Receive data
+[D] [21:11:22] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:22] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:22] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157881.3530009, 'B': 1515157879.540538, 'C': 1515157880.083613, 'D': 1515157879.441893}}} from path: C -> D
+[D] [21:11:22] [Transport] [INFO] Receive data
+[D] [21:11:22] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:22] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:22] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157881.3530009, 'B': 1515157879.540538, 'C': 1515157880.083613, 'D': 1515157879.441893}}} from path: B -> D
+[D] [21:11:22] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157882.4584498, 'C': 1515157880.083613, 'A': 1515157881.3530009, 'B': 1515157879.540538}}} to C
+[D] [21:11:22] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157882.4584498, 'C': 1515157880.083613, 'A': 1515157881.3530009, 'B': 1515157879.540538}}} to B
+[D] [21:11:22] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:23] [Transport] [INFO] Receive data
+[D] [21:11:23] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:23] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:23] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157882.546858, 'A': 1515157881.3530009, 'C': 1515157880.083613, 'D': 1515157882.4584498}}} from path: C -> D
+[D] [21:11:23] [Transport] [INFO] Receive data
+[D] [21:11:23] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157882.546858, 'A': 1515157881.3530009, 'C': 1515157880.083613, 'D': 1515157882.4584498}}} to C
+[D] [21:11:23] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:23] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:23] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157882.546858, 'A': 1515157881.3530009, 'C': 1515157880.083613, 'D': 1515157882.4584498}}} from path: B -> D
+[D] [21:11:23] [Transport] [INFO] Receive data
+[D] [21:11:23] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:23] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:23] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157882.546858, 'A': 1515157881.3530009, 'C': 1515157880.083613, 'D': 1515157882.4584498}}} from path: C -> D
+[D] [21:11:24] [Transport] [INFO] Receive data
+[D] [21:11:24] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:24] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:24] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157883.095721, 'A': 1515157881.3530009, 'B': 1515157882.546858, 'D': 1515157882.4584498}}} from path: B -> D
+[D] [21:11:24] [Transport] [INFO] Receive data
+[D] [21:11:24] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157883.095721, 'A': 1515157881.3530009, 'B': 1515157882.546858, 'D': 1515157882.4584498}}} to B
+[D] [21:11:24] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:24] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:24] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157883.095721, 'A': 1515157881.3530009, 'B': 1515157882.546858, 'D': 1515157882.4584498}}} from path: C -> D
+[D] [21:11:24] [Transport] [INFO] Receive data
+[D] [21:11:24] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:24] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:24] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157883.095721, 'A': 1515157881.3530009, 'B': 1515157882.546858, 'D': 1515157882.4584498}}} from path: B -> D
+[D] [21:11:25] [Transport] [INFO] Receive data
+[D] [21:11:25] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157884.356742, 'B': 1515157882.546858, 'C': 1515157883.095721, 'D': 1515157882.4584498}}} to C
+[D] [21:11:25] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:25] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:25] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157884.356742, 'B': 1515157882.546858, 'C': 1515157883.095721, 'D': 1515157882.4584498}}} from path: B -> D
+[D] [21:11:25] [Transport] [INFO] Receive data
+[D] [21:11:25] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157884.356742, 'B': 1515157882.546858, 'C': 1515157883.095721, 'D': 1515157882.4584498}}} to B
+[D] [21:11:25] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:25] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:25] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157884.356742, 'B': 1515157882.546858, 'C': 1515157883.095721, 'D': 1515157882.4584498}}} from path: C -> D
+[D] [21:11:25] [Transport] [INFO] Receive data
+[D] [21:11:25] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:25] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:25] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157884.356742, 'B': 1515157882.546858, 'C': 1515157883.095721, 'D': 1515157882.4584498}}} from path: B -> D
+[D] [21:11:25] [Transport] [INFO] Receive data
+[D] [21:11:25] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:25] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:25] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157884.356742, 'B': 1515157882.546858, 'C': 1515157883.095721, 'D': 1515157882.4584498}}} from path: C -> D
+[D] [21:11:25] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157885.472492, 'C': 1515157883.095721, 'A': 1515157884.356742, 'B': 1515157882.546858}}} to C
+[D] [21:11:25] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157885.472492, 'C': 1515157883.095721, 'A': 1515157884.356742, 'B': 1515157882.546858}}} to B
+[D] [21:11:25] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:26] [Transport] [INFO] Receive data
+[D] [21:11:26] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:26] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:26] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157885.551636, 'A': 1515157884.356742, 'C': 1515157883.095721, 'D': 1515157885.472492}}} from path: C -> D
+[D] [21:11:26] [Transport] [INFO] Receive data
+[D] [21:11:26] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157885.551636, 'A': 1515157884.356742, 'C': 1515157883.095721, 'D': 1515157885.472492}}} to C
+[D] [21:11:26] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:26] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:26] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157885.551636, 'A': 1515157884.356742, 'C': 1515157883.095721, 'D': 1515157885.472492}}} from path: B -> D
+[D] [21:11:26] [Transport] [INFO] Receive data
+[D] [21:11:26] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:26] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:26] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157885.551636, 'A': 1515157884.356742, 'C': 1515157883.095721, 'D': 1515157885.472492}}} from path: C -> D
+[D] [21:11:27] [Transport] [INFO] Receive data
+[D] [21:11:27] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:27] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:27] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157886.082079, 'A': 1515157884.356742, 'B': 1515157885.551636, 'D': 1515157885.472492}}} from path: B -> D
+[D] [21:11:27] [Transport] [INFO] Receive data
+[D] [21:11:27] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157886.082079, 'A': 1515157884.356742, 'B': 1515157885.551636, 'D': 1515157885.472492}}} to B
+[D] [21:11:27] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:27] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:27] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157886.082079, 'A': 1515157884.356742, 'B': 1515157885.551636, 'D': 1515157885.472492}}} from path: C -> D
+[D] [21:11:27] [Transport] [INFO] Receive data
+[D] [21:11:27] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:27] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:27] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157886.082079, 'A': 1515157884.356742, 'B': 1515157885.551636, 'D': 1515157885.472492}}} from path: B -> D
+[D] [21:11:28] [Transport] [INFO] Receive data
+[D] [21:11:28] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157887.406902, 'B': 1515157885.551636, 'C': 1515157886.082079, 'D': 1515157885.472492}}} to C
+[D] [21:11:28] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:28] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:28] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157887.406902, 'B': 1515157885.551636, 'C': 1515157886.082079, 'D': 1515157885.472492}}} from path: B -> D
+[D] [21:11:28] [Transport] [INFO] Receive data
+[D] [21:11:28] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:28] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:28] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157887.406902, 'B': 1515157885.551636, 'C': 1515157886.082079, 'D': 1515157885.472492}}} from path: C -> D
+[D] [21:11:28] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:28] [Transport] [INFO] Receive data
+[D] [21:11:28] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157887.406902, 'B': 1515157885.551636, 'C': 1515157886.082079, 'D': 1515157885.472492}}} to B
+[D] [21:11:28] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:28] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:28] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157887.406902, 'B': 1515157885.551636, 'C': 1515157886.082079, 'D': 1515157885.472492}}} from path: C -> D
+[D] [21:11:28] [Transport] [INFO] Receive data
+[D] [21:11:28] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:28] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:28] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157887.406902, 'B': 1515157885.551636, 'C': 1515157886.082079, 'D': 1515157885.472492}}} from path: B -> D
+[D] [21:11:28] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157888.503391, 'C': 1515157886.082079, 'A': 1515157887.406902, 'B': 1515157885.551636}}} to C
+[D] [21:11:28] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157888.503391, 'C': 1515157886.082079, 'A': 1515157887.406902, 'B': 1515157885.551636}}} to B
+[D] [21:11:28] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:28] [Transport] [INFO] Receive data
+[D] [21:11:28] [Transport] [INFO] Routing from A to B 
+[D] [21:11:28] [Transport] [INFO] Sending {'type': 'Message', 'data': 'ls-test-step-3'} to B
+[D] [21:11:29] [Transport] [INFO] Receive data
+[D] [21:11:29] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157888.546356, 'A': 1515157887.406902, 'C': 1515157886.082079, 'D': 1515157888.503391}}} to C
+[D] [21:11:29] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:29] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:29] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157888.546356, 'A': 1515157887.406902, 'C': 1515157886.082079, 'D': 1515157888.503391}}} from path: B -> D
+[D] [21:11:29] [Transport] [INFO] Receive data
+[D] [21:11:29] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:29] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:29] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157888.546356, 'A': 1515157887.406902, 'C': 1515157886.082079, 'D': 1515157888.503391}}} from path: C -> D
+[D] [21:11:29] [Transport] [INFO] Receive data
+[D] [21:11:29] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:29] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:29] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157888.546356, 'A': 1515157887.406902, 'C': 1515157886.082079, 'D': 1515157888.503391}}} from path: C -> D
+[D] [21:11:30] [Transport] [INFO] Receive data
+[D] [21:11:30] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157889.1398652, 'A': 1515157887.406902, 'B': 1515157888.546356, 'D': 1515157888.503391}}} to B
+[D] [21:11:30] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:30] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:30] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157889.1398652, 'A': 1515157887.406902, 'B': 1515157888.546356, 'D': 1515157888.503391}}} from path: C -> D
+[D] [21:11:30] [Transport] [INFO] Receive data
+[D] [21:11:30] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:30] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:30] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157889.1398652, 'A': 1515157887.406902, 'B': 1515157888.546356, 'D': 1515157888.503391}}} from path: B -> D
+[D] [21:11:30] [Transport] [INFO] Receive data
+[D] [21:11:30] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:30] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:30] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157889.1398652, 'A': 1515157887.406902, 'B': 1515157888.546356, 'D': 1515157888.503391}}} from path: B -> D
+[D] [21:11:31] [Transport] [INFO] Receive data
+[D] [21:11:31] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157890.413357, 'B': 1515157888.546356, 'C': 1515157889.1398652, 'D': 1515157888.503391}}} to C
+[D] [21:11:31] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:31] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:31] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157890.413357, 'B': 1515157888.546356, 'C': 1515157889.1398652, 'D': 1515157888.503391}}} from path: B -> D
+[D] [21:11:31] [Transport] [INFO] Receive data
+[D] [21:11:31] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:31] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:31] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157890.413357, 'B': 1515157888.546356, 'C': 1515157889.1398652, 'D': 1515157888.503391}}} from path: C -> D
+[D] [21:11:31] [Transport] [INFO] Receive data
+[D] [21:11:31] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157890.413357, 'B': 1515157888.546356, 'C': 1515157889.1398652, 'D': 1515157888.503391}}} to B
+[D] [21:11:31] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:31] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:31] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157890.413357, 'B': 1515157888.546356, 'C': 1515157889.1398652, 'D': 1515157888.503391}}} from path: C -> D
+[D] [21:11:31] [Transport] [INFO] Receive data
+[D] [21:11:31] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:31] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:31] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157890.413357, 'B': 1515157888.546356, 'C': 1515157889.1398652, 'D': 1515157888.503391}}} from path: B -> D
+[D] [21:11:31] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157891.518958, 'C': 1515157889.1398652, 'A': 1515157890.413357, 'B': 1515157888.546356}}} to C
+[D] [21:11:31] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157891.518958, 'C': 1515157889.1398652, 'A': 1515157890.413357, 'B': 1515157888.546356}}} to B
+[D] [21:11:31] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:32] [Transport] [INFO] Receive data
+[D] [21:11:32] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157891.5659971, 'A': 1515157890.413357, 'C': 1515157889.1398652, 'D': 1515157891.518958}}} to C
+[D] [21:11:32] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:32] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:32] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157891.5659971, 'A': 1515157890.413357, 'C': 1515157889.1398652, 'D': 1515157891.518958}}} from path: B -> D
+[D] [21:11:32] [Transport] [INFO] Receive data
+[D] [21:11:32] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:32] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:32] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157891.5659971, 'A': 1515157890.413357, 'C': 1515157889.1398652, 'D': 1515157891.518958}}} from path: C -> D
+[D] [21:11:32] [Transport] [INFO] Receive data
+[D] [21:11:32] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:32] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:32] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157891.5659971, 'A': 1515157890.413357, 'C': 1515157889.1398652, 'D': 1515157891.518958}}} from path: C -> D
+[D] [21:11:33] [Transport] [INFO] Receive data
+[D] [21:11:33] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:33] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:33] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157892.157347, 'A': 1515157890.413357, 'B': 1515157891.5659971, 'D': 1515157891.518958}}} from path: B -> D
+[D] [21:11:33] [Transport] [INFO] Receive data
+[D] [21:11:33] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157892.157347, 'A': 1515157890.413357, 'B': 1515157891.5659971, 'D': 1515157891.518958}}} to B
+[D] [21:11:33] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:33] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:33] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157892.157347, 'A': 1515157890.413357, 'B': 1515157891.5659971, 'D': 1515157891.518958}}} from path: C -> D
+[D] [21:11:33] [Transport] [INFO] Receive data
+[D] [21:11:33] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:33] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:33] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157892.157347, 'A': 1515157890.413357, 'B': 1515157891.5659971, 'D': 1515157891.518958}}} from path: B -> D
+[D] [21:11:34] [Transport] [INFO] Receive data
+[D] [21:11:34] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157894.1205251, 'B': 1515157891.5659971, 'C': 1515157892.157347, 'D': 1515157891.518958}}} to C
+[D] [21:11:34] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:34] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:34] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157894.1205251, 'B': 1515157891.5659971, 'C': 1515157892.157347, 'D': 1515157891.518958}}} from path: B -> D
+[D] [21:11:34] [Transport] [INFO] Receive data
+[D] [21:11:34] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:34] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:34] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157894.1205251, 'B': 1515157891.5659971, 'C': 1515157892.157347, 'D': 1515157891.518958}}} from path: C -> D
+[D] [21:11:34] [Transport] [INFO] Receive data
+[D] [21:11:34] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:34] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:34] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157894.1205251, 'B': 1515157891.5659971, 'C': 1515157892.157347, 'D': 1515157891.518958}}} from path: B -> D
+[D] [21:11:34] [Transport] [INFO] Receive data
+[D] [21:11:34] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157894.1205251, 'B': 1515157891.5659971, 'C': 1515157892.157347, 'D': 1515157891.518958}}} to B
+[D] [21:11:34] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:34] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:34] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157894.1205251, 'B': 1515157891.5659971, 'C': 1515157892.157347, 'D': 1515157891.518958}}} from path: C -> D
+[D] [21:11:34] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157894.499386, 'C': 1515157892.157347, 'A': 1515157894.1205251, 'B': 1515157891.5659971}}} to C
+[D] [21:11:34] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157894.499386, 'C': 1515157892.157347, 'A': 1515157894.1205251, 'B': 1515157891.5659971}}} to B
+[D] [21:11:34] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:35] [Transport] [INFO] Receive data
+[D] [21:11:35] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:35] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:35] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157894.58374, 'A': 1515157894.1205251, 'C': 1515157892.157347, 'D': 1515157894.499386}}} from path: C -> D
+[D] [21:11:35] [Transport] [INFO] Receive data
+[D] [21:11:35] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157894.58374, 'A': 1515157894.1205251, 'C': 1515157892.157347, 'D': 1515157894.499386}}} to C
+[D] [21:11:35] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:35] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:35] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157894.58374, 'A': 1515157894.1205251, 'C': 1515157892.157347, 'D': 1515157894.499386}}} from path: B -> D
+[D] [21:11:35] [Transport] [INFO] Receive data
+[D] [21:11:35] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:35] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:35] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157894.58374, 'A': 1515157894.1205251, 'C': 1515157892.157347, 'D': 1515157894.499386}}} from path: C -> D
+[D] [21:11:36] [Transport] [INFO] Receive data
+[D] [21:11:36] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:36] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:36] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157895.137857, 'A': 1515157894.1205251, 'B': 1515157894.58374, 'D': 1515157894.499386}}} from path: B -> D
+[D] [21:11:36] [Transport] [INFO] Receive data
+[D] [21:11:36] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157895.137857, 'A': 1515157894.1205251, 'B': 1515157894.58374, 'D': 1515157894.499386}}} to B
+[D] [21:11:36] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:36] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:36] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157895.137857, 'A': 1515157894.1205251, 'B': 1515157894.58374, 'D': 1515157894.499386}}} from path: C -> D
+[D] [21:11:36] [Transport] [INFO] Receive data
+[D] [21:11:36] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:36] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:36] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157895.137857, 'A': 1515157894.1205251, 'B': 1515157894.58374, 'D': 1515157894.499386}}} from path: B -> D
+[D] [21:11:37] [Transport] [INFO] Receive data
+[D] [21:11:37] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157896.452967, 'B': 1515157894.58374, 'C': 1515157895.137857, 'D': 1515157894.499386}}} to C
+[D] [21:11:37] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:37] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:37] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157896.452967, 'B': 1515157894.58374, 'C': 1515157895.137857, 'D': 1515157894.499386}}} from path: B -> D
+[D] [21:11:37] [Transport] [INFO] Receive data
+[D] [21:11:37] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:37] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:37] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157896.452967, 'B': 1515157894.58374, 'C': 1515157895.137857, 'D': 1515157894.499386}}} from path: C -> D
+[D] [21:11:37] [Transport] [INFO] Receive data
+[D] [21:11:37] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:37] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:37] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157896.452967, 'B': 1515157894.58374, 'C': 1515157895.137857, 'D': 1515157894.499386}}} from path: B -> D
+[D] [21:11:37] [Transport] [INFO] Receive data
+[D] [21:11:37] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157896.452967, 'B': 1515157894.58374, 'C': 1515157895.137857, 'D': 1515157894.499386}}} to B
+[D] [21:11:37] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:37] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:37] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157896.452967, 'B': 1515157894.58374, 'C': 1515157895.137857, 'D': 1515157894.499386}}} from path: C -> D
+[D] [21:11:37] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157897.508366, 'C': 1515157895.137857, 'A': 1515157896.452967, 'B': 1515157894.58374}}} to C
+[D] [21:11:37] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157897.508366, 'C': 1515157895.137857, 'A': 1515157896.452967, 'B': 1515157894.58374}}} to B
+[D] [21:11:37] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:38] [Transport] [INFO] Receive data
+[D] [21:11:38] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157897.586449, 'A': 1515157896.452967, 'C': 1515157895.137857, 'D': 1515157897.508366}}} to C
+[D] [21:11:38] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:38] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:38] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157897.586449, 'A': 1515157896.452967, 'C': 1515157895.137857, 'D': 1515157897.508366}}} from path: B -> D
+[D] [21:11:38] [Transport] [INFO] Receive data
+[D] [21:11:38] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:38] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:38] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157897.586449, 'A': 1515157896.452967, 'C': 1515157895.137857, 'D': 1515157897.508366}}} from path: C -> D
+[D] [21:11:38] [Transport] [INFO] Receive data
+[D] [21:11:38] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:38] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:38] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157897.586449, 'A': 1515157896.452967, 'C': 1515157895.137857, 'D': 1515157897.508366}}} from path: C -> D
+[D] [21:11:38] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:39] [Transport] [INFO] Receive data
+[D] [21:11:39] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157899.0429492, 'A': 1515157896.452967, 'B': 1515157897.586449, 'D': 1515157897.508366}}} to B
+[D] [21:11:39] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:39] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:39] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157899.0429492, 'A': 1515157896.452967, 'B': 1515157897.586449, 'D': 1515157897.508366}}} from path: C -> D
+[D] [21:11:39] [Transport] [INFO] Receive data
+[D] [21:11:39] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:39] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:39] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157899.0429492, 'A': 1515157896.452967, 'B': 1515157897.586449, 'D': 1515157897.508366}}} from path: B -> D
+[D] [21:11:39] [Transport] [INFO] Receive data
+[D] [21:11:39] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:39] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:39] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157899.0429492, 'A': 1515157896.452967, 'B': 1515157897.586449, 'D': 1515157897.508366}}} from path: B -> D
+[D] [21:11:40] [Transport] [INFO] Receive data
+[D] [21:11:40] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157899.4613209, 'B': 1515157897.586449, 'C': 1515157899.0429492, 'D': 1515157897.508366}}} to C
+[D] [21:11:40] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:40] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:40] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157899.4613209, 'B': 1515157897.586449, 'C': 1515157899.0429492, 'D': 1515157897.508366}}} from path: B -> D
+[D] [21:11:40] [Transport] [INFO] Receive data
+[D] [21:11:40] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:40] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:40] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157899.4613209, 'B': 1515157897.586449, 'C': 1515157899.0429492, 'D': 1515157897.508366}}} from path: C -> D
+[D] [21:11:40] [Transport] [INFO] Receive data
+[D] [21:11:40] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:40] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:40] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157899.4613209, 'B': 1515157897.586449, 'C': 1515157899.0429492, 'D': 1515157897.508366}}} from path: B -> D
+[D] [21:11:40] [Transport] [INFO] Receive data
+[D] [21:11:40] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157899.4613209, 'B': 1515157897.586449, 'C': 1515157899.0429492, 'D': 1515157897.508366}}} to B
+[D] [21:11:40] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:40] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:40] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157899.4613209, 'B': 1515157897.586449, 'C': 1515157899.0429492, 'D': 1515157897.508366}}} from path: C -> D
+[D] [21:11:40] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157900.533696, 'C': 1515157899.0429492, 'A': 1515157899.4613209, 'B': 1515157897.586449}}} to C
+[D] [21:11:40] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157900.533696, 'C': 1515157899.0429492, 'A': 1515157899.4613209, 'B': 1515157897.586449}}} to B
+[D] [21:11:40] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:41] [Transport] [INFO] Receive data
+[D] [21:11:41] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157900.596863, 'A': 1515157899.4613209, 'C': 1515157899.0429492, 'D': 1515157900.533696}}} to C
+[D] [21:11:41] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:41] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:41] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157900.596863, 'A': 1515157899.4613209, 'C': 1515157899.0429492, 'D': 1515157900.533696}}} from path: B -> D
+[D] [21:11:41] [Transport] [INFO] Receive data
+[D] [21:11:41] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:41] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:41] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157900.596863, 'A': 1515157899.4613209, 'C': 1515157899.0429492, 'D': 1515157900.533696}}} from path: C -> D
+[D] [21:11:41] [Transport] [INFO] Receive data
+[D] [21:11:41] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:41] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:41] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157900.596863, 'A': 1515157899.4613209, 'C': 1515157899.0429492, 'D': 1515157900.533696}}} from path: C -> D
+[D] [21:11:42] [Transport] [INFO] Receive data
+[D] [21:11:42] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:42] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:42] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157901.183476, 'A': 1515157899.4613209, 'B': 1515157900.596863, 'D': 1515157900.533696}}} from path: B -> D
+[D] [21:11:42] [Transport] [INFO] Receive data
+[D] [21:11:42] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157901.183476, 'A': 1515157899.4613209, 'B': 1515157900.596863, 'D': 1515157900.533696}}} to B
+[D] [21:11:42] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:42] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:42] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157901.183476, 'A': 1515157899.4613209, 'B': 1515157900.596863, 'D': 1515157900.533696}}} from path: C -> D
+[D] [21:11:42] [Transport] [INFO] Receive data
+[D] [21:11:42] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:42] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:42] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157901.183476, 'A': 1515157899.4613209, 'B': 1515157900.596863, 'D': 1515157900.533696}}} from path: B -> D
+[D] [21:11:43] [Transport] [INFO] Receive data
+[D] [21:11:43] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157902.49104, 'B': 1515157900.596863, 'C': 1515157901.183476, 'D': 1515157900.533696}}} to C
+[D] [21:11:43] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:43] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:43] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157902.49104, 'B': 1515157900.596863, 'C': 1515157901.183476, 'D': 1515157900.533696}}} from path: B -> D
+[D] [21:11:43] [Transport] [INFO] Receive data
+[D] [21:11:43] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:43] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:43] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157902.49104, 'B': 1515157900.596863, 'C': 1515157901.183476, 'D': 1515157900.533696}}} from path: C -> D
+[D] [21:11:43] [Transport] [INFO] Receive data
+[D] [21:11:43] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:43] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:43] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157902.49104, 'B': 1515157900.596863, 'C': 1515157901.183476, 'D': 1515157900.533696}}} from path: B -> D
+[D] [21:11:43] [Transport] [INFO] Receive data
+[D] [21:11:43] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157902.49104, 'B': 1515157900.596863, 'C': 1515157901.183476, 'D': 1515157900.533696}}} to B
+[D] [21:11:43] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:43] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:43] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157902.49104, 'B': 1515157900.596863, 'C': 1515157901.183476, 'D': 1515157900.533696}}} from path: C -> D
+[D] [21:11:43] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157903.557326, 'C': 1515157901.183476, 'A': 1515157902.49104, 'B': 1515157900.596863}}} to C
+[D] [21:11:43] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157903.557326, 'C': 1515157901.183476, 'A': 1515157902.49104, 'B': 1515157900.596863}}} to B
+[D] [21:11:43] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:44] [Transport] [INFO] Receive data
+[D] [21:11:44] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157903.799377, 'A': 1515157902.49104, 'C': 1515157901.183476, 'D': 1515157903.557326}}} to C
+[D] [21:11:44] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:44] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:44] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157903.799377, 'A': 1515157902.49104, 'C': 1515157901.183476, 'D': 1515157903.557326}}} from path: B -> D
+[D] [21:11:44] [Transport] [INFO] Receive data
+[D] [21:11:44] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:44] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:44] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157903.799377, 'A': 1515157902.49104, 'C': 1515157901.183476, 'D': 1515157903.557326}}} from path: C -> D
+[D] [21:11:44] [Transport] [INFO] Receive data
+[D] [21:11:44] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:44] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:44] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157903.799377, 'A': 1515157902.49104, 'C': 1515157901.183476, 'D': 1515157903.557326}}} from path: C -> D
+[D] [21:11:45] [Transport] [INFO] Receive data
+[D] [21:11:45] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:45] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:45] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157904.189452, 'A': 1515157902.49104, 'B': 1515157903.799377, 'D': 1515157903.557326}}} from path: B -> D
+[D] [21:11:45] [Transport] [INFO] Receive data
+[D] [21:11:45] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157904.189452, 'A': 1515157902.49104, 'B': 1515157903.799377, 'D': 1515157903.557326}}} to B
+[D] [21:11:45] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:45] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:45] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157904.189452, 'A': 1515157902.49104, 'B': 1515157903.799377, 'D': 1515157903.557326}}} from path: C -> D
+[D] [21:11:45] [Transport] [INFO] Receive data
+[D] [21:11:45] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:45] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:45] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157904.189452, 'A': 1515157902.49104, 'B': 1515157903.799377, 'D': 1515157903.557326}}} from path: B -> D
+[D] [21:11:46] [Transport] [INFO] Receive data
+[D] [21:11:46] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157905.533344, 'B': 1515157903.799377, 'C': 1515157904.189452, 'D': 1515157903.557326}}} to C
+[D] [21:11:46] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:46] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:46] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157905.533344, 'B': 1515157903.799377, 'C': 1515157904.189452, 'D': 1515157903.557326}}} from path: B -> D
+[D] [21:11:46] [Transport] [INFO] Receive data
+[D] [21:11:46] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157905.533344, 'B': 1515157903.799377, 'C': 1515157904.189452, 'D': 1515157903.557326}}} to B
+[D] [21:11:46] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:46] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:46] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157905.533344, 'B': 1515157903.799377, 'C': 1515157904.189452, 'D': 1515157903.557326}}} from path: C -> D
+[D] [21:11:46] [Transport] [INFO] Receive data
+[D] [21:11:46] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:46] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:46] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157905.533344, 'B': 1515157903.799377, 'C': 1515157904.189452, 'D': 1515157903.557326}}} from path: B -> D
+[D] [21:11:46] [Transport] [INFO] Receive data
+[D] [21:11:46] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:46] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:46] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157905.533344, 'B': 1515157903.799377, 'C': 1515157904.189452, 'D': 1515157903.557326}}} from path: C -> D
+[D] [21:11:46] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157906.5686269, 'C': 1515157904.189452, 'A': 1515157905.533344, 'B': 1515157903.799377}}} to C
+[D] [21:11:46] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157906.5686269, 'C': 1515157904.189452, 'A': 1515157905.533344, 'B': 1515157903.799377}}} to B
+[D] [21:11:46] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:47] [Transport] [INFO] Receive data
+[D] [21:11:47] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157906.642146, 'A': 1515157905.533344, 'C': 1515157904.189452, 'D': 1515157906.5686269}}} to C
+[D] [21:11:47] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:47] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:47] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157906.642146, 'A': 1515157905.533344, 'C': 1515157904.189452, 'D': 1515157906.5686269}}} from path: B -> D
+[D] [21:11:47] [Transport] [INFO] Receive data
+[D] [21:11:47] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:47] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:47] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157906.642146, 'A': 1515157905.533344, 'C': 1515157904.189452, 'D': 1515157906.5686269}}} from path: C -> D
+[D] [21:11:47] [Transport] [INFO] Receive data
+[D] [21:11:47] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:47] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:47] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157906.642146, 'A': 1515157905.533344, 'C': 1515157904.189452, 'D': 1515157906.5686269}}} from path: C -> D
+[D] [21:11:48] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:48] [Transport] [INFO] Receive data
+[D] [21:11:48] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:48] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:48] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157907.224243, 'A': 1515157905.533344, 'B': 1515157906.642146, 'D': 1515157906.5686269}}} from path: B -> D
+[D] [21:11:48] [Transport] [INFO] Receive data
+[D] [21:11:48] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157907.224243, 'A': 1515157905.533344, 'B': 1515157906.642146, 'D': 1515157906.5686269}}} to B
+[D] [21:11:48] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:48] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:48] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157907.224243, 'A': 1515157905.533344, 'B': 1515157906.642146, 'D': 1515157906.5686269}}} from path: C -> D
+[D] [21:11:48] [Transport] [INFO] Receive data
+[D] [21:11:48] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:48] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:48] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157907.224243, 'A': 1515157905.533344, 'B': 1515157906.642146, 'D': 1515157906.5686269}}} from path: B -> D
+[D] [21:11:49] [Transport] [INFO] Receive data
+[D] [21:11:49] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157908.5762932, 'B': 1515157906.642146, 'C': 1515157907.224243, 'D': 1515157906.5686269}}} to C
+[D] [21:11:49] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:49] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:49] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157908.5762932, 'B': 1515157906.642146, 'C': 1515157907.224243, 'D': 1515157906.5686269}}} from path: B -> D
+[D] [21:11:49] [Transport] [INFO] Receive data
+[D] [21:11:49] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157908.5762932, 'B': 1515157906.642146, 'C': 1515157907.224243, 'D': 1515157906.5686269}}} to B
+[D] [21:11:49] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:49] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:49] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157908.5762932, 'B': 1515157906.642146, 'C': 1515157907.224243, 'D': 1515157906.5686269}}} from path: C -> D
+[D] [21:11:49] [Transport] [INFO] Receive data
+[D] [21:11:49] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:49] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:49] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157908.5762932, 'B': 1515157906.642146, 'C': 1515157907.224243, 'D': 1515157906.5686269}}} from path: B -> D
+[D] [21:11:49] [Transport] [INFO] Receive data
+[D] [21:11:49] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:49] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:49] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157908.5762932, 'B': 1515157906.642146, 'C': 1515157907.224243, 'D': 1515157906.5686269}}} from path: C -> D
+[D] [21:11:49] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157909.582699, 'C': 1515157907.224243, 'A': 1515157908.5762932, 'B': 1515157906.642146}}} to C
+[D] [21:11:49] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157909.582699, 'C': 1515157907.224243, 'A': 1515157908.5762932, 'B': 1515157906.642146}}} to B
+[D] [21:11:49] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:50] [Transport] [INFO] Receive data
+[D] [21:11:50] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157909.652718, 'A': 1515157908.5762932, 'C': 1515157907.224243, 'D': 1515157909.582699}}} to C
+[D] [21:11:50] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:50] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:50] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157909.652718, 'A': 1515157908.5762932, 'C': 1515157907.224243, 'D': 1515157909.582699}}} from path: B -> D
+[D] [21:11:50] [Transport] [INFO] Receive data
+[D] [21:11:50] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:50] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:50] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157909.652718, 'A': 1515157908.5762932, 'C': 1515157907.224243, 'D': 1515157909.582699}}} from path: C -> D
+[D] [21:11:50] [Transport] [INFO] Receive data
+[D] [21:11:50] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:50] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:50] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157909.652718, 'A': 1515157908.5762932, 'C': 1515157907.224243, 'D': 1515157909.582699}}} from path: C -> D
+[D] [21:11:51] [Transport] [INFO] Receive data
+[D] [21:11:51] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157910.237612, 'A': 1515157908.5762932, 'B': 1515157909.652718, 'D': 1515157909.582699}}} to B
+[D] [21:11:51] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:51] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:51] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157910.237612, 'A': 1515157908.5762932, 'B': 1515157909.652718, 'D': 1515157909.582699}}} from path: C -> D
+[D] [21:11:51] [Transport] [INFO] Receive data
+[D] [21:11:51] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:51] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:51] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157910.237612, 'A': 1515157908.5762932, 'B': 1515157909.652718, 'D': 1515157909.582699}}} from path: B -> D
+[D] [21:11:51] [Transport] [INFO] Receive data
+[D] [21:11:51] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:51] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:51] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157910.237612, 'A': 1515157908.5762932, 'B': 1515157909.652718, 'D': 1515157909.582699}}} from path: B -> D
+[D] [21:11:52] [Transport] [INFO] Receive data
+[D] [21:11:52] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157911.591029, 'B': 1515157909.652718, 'C': 1515157910.237612, 'D': 1515157909.582699}}} to C
+[D] [21:11:52] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:52] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:52] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157911.591029, 'B': 1515157909.652718, 'C': 1515157910.237612, 'D': 1515157909.582699}}} from path: B -> D
+[D] [21:11:52] [Transport] [INFO] Receive data
+[D] [21:11:52] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:52] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:52] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157911.591029, 'B': 1515157909.652718, 'C': 1515157910.237612, 'D': 1515157909.582699}}} from path: C -> D
+[D] [21:11:52] [Transport] [INFO] Receive data
+[D] [21:11:52] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:52] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:52] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157911.591029, 'B': 1515157909.652718, 'C': 1515157910.237612, 'D': 1515157909.582699}}} from path: B -> D
+[D] [21:11:52] [Transport] [INFO] Receive data
+[D] [21:11:52] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157911.591029, 'B': 1515157909.652718, 'C': 1515157910.237612, 'D': 1515157909.582699}}} to B
+[D] [21:11:52] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:52] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:52] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157911.591029, 'B': 1515157909.652718, 'C': 1515157910.237612, 'D': 1515157909.582699}}} from path: C -> D
+[D] [21:11:52] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157912.611496, 'C': 1515157910.237612, 'A': 1515157911.591029, 'B': 1515157909.652718}}} to C
+[D] [21:11:52] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157912.611496, 'C': 1515157910.237612, 'A': 1515157911.591029, 'B': 1515157909.652718}}} to B
+[D] [21:11:52] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:53] [Transport] [INFO] Receive data
+[D] [21:11:53] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157912.651627, 'A': 1515157911.591029, 'C': 1515157910.237612, 'D': 1515157912.611496}}} to C
+[D] [21:11:53] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:53] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:53] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157912.651627, 'A': 1515157911.591029, 'C': 1515157910.237612, 'D': 1515157912.611496}}} from path: B -> D
+[D] [21:11:53] [Transport] [INFO] Receive data
+[D] [21:11:53] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:53] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:53] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157912.651627, 'A': 1515157911.591029, 'C': 1515157910.237612, 'D': 1515157912.611496}}} from path: C -> D
+[D] [21:11:53] [Transport] [INFO] Receive data
+[D] [21:11:53] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:53] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:53] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157912.651627, 'A': 1515157911.591029, 'C': 1515157910.237612, 'D': 1515157912.611496}}} from path: C -> D
+[D] [21:11:54] [Transport] [INFO] Receive data
+[D] [21:11:54] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157913.247227, 'A': 1515157911.591029, 'B': 1515157912.651627, 'D': 1515157912.611496}}} to B
+[D] [21:11:54] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:54] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:54] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157913.247227, 'A': 1515157911.591029, 'B': 1515157912.651627, 'D': 1515157912.611496}}} from path: C -> D
+[D] [21:11:54] [Transport] [INFO] Receive data
+[D] [21:11:54] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:54] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:54] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157913.247227, 'A': 1515157911.591029, 'B': 1515157912.651627, 'D': 1515157912.611496}}} from path: B -> D
+[D] [21:11:54] [Transport] [INFO] Receive data
+[D] [21:11:54] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:54] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:54] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157913.247227, 'A': 1515157911.591029, 'B': 1515157912.651627, 'D': 1515157912.611496}}} from path: B -> D
+[D] [21:11:55] [Transport] [INFO] Receive data
+[D] [21:11:55] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157914.6376781, 'B': 1515157912.651627, 'C': 1515157913.247227, 'D': 1515157912.611496}}} to C
+[D] [21:11:55] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:55] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:55] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157914.6376781, 'B': 1515157912.651627, 'C': 1515157913.247227, 'D': 1515157912.611496}}} from path: B -> D
+[D] [21:11:55] [Transport] [INFO] Receive data
+[D] [21:11:55] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:55] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:55] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157914.6376781, 'B': 1515157912.651627, 'C': 1515157913.247227, 'D': 1515157912.611496}}} from path: C -> D
+[D] [21:11:55] [Transport] [INFO] Receive data
+[D] [21:11:55] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:55] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:55] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157914.6376781, 'B': 1515157912.651627, 'C': 1515157913.247227, 'D': 1515157912.611496}}} from path: B -> D
+[D] [21:11:55] [Transport] [INFO] Receive data
+[D] [21:11:55] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157914.6376781, 'B': 1515157912.651627, 'C': 1515157913.247227, 'D': 1515157912.611496}}} to B
+[D] [21:11:55] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:55] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:55] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157914.6376781, 'B': 1515157912.651627, 'C': 1515157913.247227, 'D': 1515157912.611496}}} from path: C -> D
+[D] [21:11:55] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157915.613523, 'C': 1515157913.247227, 'A': 1515157914.6376781, 'B': 1515157912.651627}}} to C
+[D] [21:11:55] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157915.613523, 'C': 1515157913.247227, 'A': 1515157914.6376781, 'B': 1515157912.651627}}} to B
+[D] [21:11:55] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:56] [Transport] [INFO] Receive data
+[D] [21:11:56] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157915.649419, 'A': 1515157914.6376781, 'C': 1515157913.247227, 'D': 1515157915.613523}}} to C
+[D] [21:11:56] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:56] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:56] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157915.649419, 'A': 1515157914.6376781, 'C': 1515157913.247227, 'D': 1515157915.613523}}} from path: B -> D
+[D] [21:11:56] [Transport] [INFO] Receive data
+[D] [21:11:56] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:56] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:56] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157915.649419, 'A': 1515157914.6376781, 'C': 1515157913.247227, 'D': 1515157915.613523}}} from path: C -> D
+[D] [21:11:56] [Transport] [INFO] Receive data
+[D] [21:11:56] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:56] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:56] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157915.649419, 'A': 1515157914.6376781, 'C': 1515157913.247227, 'D': 1515157915.613523}}} from path: C -> D
+[D] [21:11:57] [Transport] [INFO] Receive data
+[D] [21:11:57] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:57] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:57] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157916.251513, 'A': 1515157914.6376781, 'B': 1515157915.649419, 'D': 1515157915.613523}}} from path: B -> D
+[D] [21:11:57] [Transport] [INFO] Receive data
+[D] [21:11:57] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157916.251513, 'A': 1515157914.6376781, 'B': 1515157915.649419, 'D': 1515157915.613523}}} to B
+[D] [21:11:57] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:57] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:57] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157916.251513, 'A': 1515157914.6376781, 'B': 1515157915.649419, 'D': 1515157915.613523}}} from path: C -> D
+[D] [21:11:57] [Transport] [INFO] Receive data
+[D] [21:11:57] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:11:57] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:57] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157916.251513, 'A': 1515157914.6376781, 'B': 1515157915.649419, 'D': 1515157915.613523}}} from path: B -> D
+[D] [21:11:58] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:58] [Transport] [INFO] Receive data
+[D] [21:11:58] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157917.6877599, 'B': 1515157915.649419, 'C': 1515157916.251513, 'D': 1515157915.613523}}} to C
+[D] [21:11:58] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:58] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:58] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157917.6877599, 'B': 1515157915.649419, 'C': 1515157916.251513, 'D': 1515157915.613523}}} from path: B -> D
+[D] [21:11:58] [Transport] [INFO] Receive data
+[D] [21:11:58] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:58] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:58] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157917.6877599, 'B': 1515157915.649419, 'C': 1515157916.251513, 'D': 1515157915.613523}}} from path: C -> D
+[D] [21:11:58] [Transport] [INFO] Receive data
+[D] [21:11:58] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:58] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:58] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157917.6877599, 'B': 1515157915.649419, 'C': 1515157916.251513, 'D': 1515157915.613523}}} from path: B -> D
+[D] [21:11:58] [Transport] [INFO] Receive data
+[D] [21:11:58] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157917.6877599, 'B': 1515157915.649419, 'C': 1515157916.251513, 'D': 1515157915.613523}}} to B
+[D] [21:11:58] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:11:58] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:58] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157917.6877599, 'B': 1515157915.649419, 'C': 1515157916.251513, 'D': 1515157915.613523}}} from path: C -> D
+[D] [21:11:58] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157918.625857, 'C': 1515157916.251513, 'A': 1515157917.6877599, 'B': 1515157915.649419}}} to C
+[D] [21:11:58] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157918.625857, 'C': 1515157916.251513, 'A': 1515157917.6877599, 'B': 1515157915.649419}}} to B
+[D] [21:11:58] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:11:59] [Transport] [INFO] Receive data
+[D] [21:11:59] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157918.667708, 'A': 1515157917.6877599, 'C': 1515157916.251513, 'D': 1515157918.625857}}} to C
+[D] [21:11:59] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:59] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:59] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157918.667708, 'A': 1515157917.6877599, 'C': 1515157916.251513, 'D': 1515157918.625857}}} from path: B -> D
+[D] [21:11:59] [Transport] [INFO] Receive data
+[D] [21:11:59] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:59] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:59] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157918.667708, 'A': 1515157917.6877599, 'C': 1515157916.251513, 'D': 1515157918.625857}}} from path: C -> D
+[D] [21:11:59] [Transport] [INFO] Receive data
+[D] [21:11:59] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:11:59] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:11:59] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157918.667708, 'A': 1515157917.6877599, 'C': 1515157916.251513, 'D': 1515157918.625857}}} from path: C -> D
+[D] [21:12:00] [Transport] [INFO] Receive data
+[D] [21:12:00] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:00] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:00] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157919.281972, 'A': 1515157917.6877599, 'B': 1515157918.667708, 'D': 1515157918.625857}}} from path: B -> D
+[D] [21:12:00] [Transport] [INFO] Receive data
+[D] [21:12:00] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157919.281972, 'A': 1515157917.6877599, 'B': 1515157918.667708, 'D': 1515157918.625857}}} to B
+[D] [21:12:00] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:00] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:00] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157919.281972, 'A': 1515157917.6877599, 'B': 1515157918.667708, 'D': 1515157918.625857}}} from path: C -> D
+[D] [21:12:00] [Transport] [INFO] Receive data
+[D] [21:12:00] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:00] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:00] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157919.281972, 'A': 1515157917.6877599, 'B': 1515157918.667708, 'D': 1515157918.625857}}} from path: B -> D
+[D] [21:12:01] [Transport] [INFO] Receive data
+[D] [21:12:01] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157920.735828, 'B': 1515157918.667708, 'C': 1515157919.281972, 'D': 1515157918.625857}}} to C
+[D] [21:12:01] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:01] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:01] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157920.735828, 'B': 1515157918.667708, 'C': 1515157919.281972, 'D': 1515157918.625857}}} from path: B -> D
+[D] [21:12:01] [Transport] [INFO] Receive data
+[D] [21:12:01] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:01] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:01] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157921.637263, 'C': 1515157919.281972, 'A': 1515157920.735828, 'B': 1515157918.667708}}} to C
+[D] [21:12:01] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157920.735828, 'B': 1515157918.667708, 'C': 1515157919.281972, 'D': 1515157918.625857}}} from path: C -> D
+[D] [21:12:01] [Transport] [INFO] Receive data
+[D] [21:12:01] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:01] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:01] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157921.637263, 'C': 1515157919.281972, 'A': 1515157920.735828, 'B': 1515157918.667708}}} to B
+[D] [21:12:01] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157920.735828, 'B': 1515157918.667708, 'C': 1515157919.281972, 'D': 1515157918.625857}}} from path: B -> D
+[D] [21:12:01] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:12:01] [Transport] [INFO] Receive data
+[D] [21:12:01] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157920.735828, 'B': 1515157918.667708, 'C': 1515157919.281972, 'D': 1515157918.625857}}} to B
+[D] [21:12:01] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:01] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:01] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157920.735828, 'B': 1515157918.667708, 'C': 1515157919.281972, 'D': 1515157918.625857}}} from path: C -> D
+[D] [21:12:02] [Transport] [INFO] Receive data
+[D] [21:12:02] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157921.737216, 'A': 1515157920.735828, 'C': 1515157919.281972, 'D': 1515157921.637263}}} to C
+[D] [21:12:02] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:02] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:02] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157921.737216, 'A': 1515157920.735828, 'C': 1515157919.281972, 'D': 1515157921.637263}}} from path: B -> D
+[D] [21:12:02] [Transport] [INFO] Receive data
+[D] [21:12:02] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:02] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:02] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157921.737216, 'A': 1515157920.735828, 'C': 1515157919.281972, 'D': 1515157921.637263}}} from path: C -> D
+[D] [21:12:02] [Transport] [INFO] Receive data
+[D] [21:12:02] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:02] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:02] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157921.737216, 'A': 1515157920.735828, 'C': 1515157919.281972, 'D': 1515157921.637263}}} from path: C -> D
+[D] [21:12:03] [Transport] [INFO] Receive data
+[D] [21:12:03] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:03] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:03] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157922.291757, 'A': 1515157920.735828, 'B': 1515157921.737216, 'D': 1515157921.637263}}} from path: B -> D
+[D] [21:12:03] [Transport] [INFO] Receive data
+[D] [21:12:03] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157922.291757, 'A': 1515157920.735828, 'B': 1515157921.737216, 'D': 1515157921.637263}}} to B
+[D] [21:12:03] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:03] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:03] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157922.291757, 'A': 1515157920.735828, 'B': 1515157921.737216, 'D': 1515157921.637263}}} from path: C -> D
+[D] [21:12:03] [Transport] [INFO] Receive data
+[D] [21:12:03] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:03] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:03] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157922.291757, 'A': 1515157920.735828, 'B': 1515157921.737216, 'D': 1515157921.637263}}} from path: B -> D
+[D] [21:12:04] [Transport] [INFO] Receive data
+[D] [21:12:04] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157924.132446, 'B': 1515157921.737216, 'C': 1515157922.291757, 'D': 1515157921.637263}}} to C
+[D] [21:12:04] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:04] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:04] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157924.132446, 'B': 1515157921.737216, 'C': 1515157922.291757, 'D': 1515157921.637263}}} from path: B -> D
+[D] [21:12:04] [Transport] [INFO] Receive data
+[D] [21:12:04] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:04] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:04] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157924.132446, 'B': 1515157921.737216, 'C': 1515157922.291757, 'D': 1515157921.637263}}} from path: C -> D
+[D] [21:12:04] [Transport] [INFO] Receive data
+[D] [21:12:04] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:04] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:04] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157924.132446, 'B': 1515157921.737216, 'C': 1515157922.291757, 'D': 1515157921.637263}}} from path: B -> D
+[D] [21:12:04] [Transport] [INFO] Receive data
+[D] [21:12:04] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157924.132446, 'B': 1515157921.737216, 'C': 1515157922.291757, 'D': 1515157921.637263}}} to B
+[D] [21:12:04] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:04] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:04] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157924.132446, 'B': 1515157921.737216, 'C': 1515157922.291757, 'D': 1515157921.637263}}} from path: C -> D
+[D] [21:12:04] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157924.704601, 'C': 1515157922.291757, 'A': 1515157924.132446, 'B': 1515157921.737216}}} to C
+[D] [21:12:04] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157924.704601, 'C': 1515157922.291757, 'A': 1515157924.132446, 'B': 1515157921.737216}}} to B
+[D] [21:12:04] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:12:05] [Transport] [INFO] Receive data
+[D] [21:12:05] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157924.751919, 'A': 1515157924.132446, 'C': 1515157922.291757, 'D': 1515157924.704601}}} to C
+[D] [21:12:05] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:05] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:05] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157924.751919, 'A': 1515157924.132446, 'C': 1515157922.291757, 'D': 1515157924.704601}}} from path: B -> D
+[D] [21:12:05] [Transport] [INFO] Receive data
+[D] [21:12:05] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:05] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:05] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157924.751919, 'A': 1515157924.132446, 'C': 1515157922.291757, 'D': 1515157924.704601}}} from path: C -> D
+[D] [21:12:05] [Transport] [INFO] Receive data
+[D] [21:12:05] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:05] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:05] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157924.751919, 'A': 1515157924.132446, 'C': 1515157922.291757, 'D': 1515157924.704601}}} from path: C -> D
+[D] [21:12:06] [Transport] [INFO] Receive data
+[D] [21:12:06] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157925.307341, 'A': 1515157924.132446, 'B': 1515157924.751919, 'D': 1515157924.704601}}} to B
+[D] [21:12:06] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:06] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:06] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157925.307341, 'A': 1515157924.132446, 'B': 1515157924.751919, 'D': 1515157924.704601}}} from path: C -> D
+[D] [21:12:06] [Transport] [INFO] Receive data
+[D] [21:12:06] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:06] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:06] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157925.307341, 'A': 1515157924.132446, 'B': 1515157924.751919, 'D': 1515157924.704601}}} from path: B -> D
+[D] [21:12:06] [Transport] [INFO] Receive data
+[D] [21:12:06] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:06] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:06] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157925.307341, 'A': 1515157924.132446, 'B': 1515157924.751919, 'D': 1515157924.704601}}} from path: B -> D
+[D] [21:12:07] [Transport] [INFO] Receive data
+[D] [21:12:07] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157926.8240929, 'B': 1515157924.751919, 'C': 1515157925.307341, 'D': 1515157924.704601}}} to C
+[D] [21:12:07] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:07] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:07] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157926.8240929, 'B': 1515157924.751919, 'C': 1515157925.307341, 'D': 1515157924.704601}}} from path: B -> D
+[D] [21:12:07] [Transport] [INFO] Receive data
+[D] [21:12:07] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:07] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:07] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157927.718103, 'C': 1515157925.307341, 'A': 1515157926.8240929, 'B': 1515157924.751919}}} to C
+[D] [21:12:07] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157926.8240929, 'B': 1515157924.751919, 'C': 1515157925.307341, 'D': 1515157924.704601}}} from path: C -> D
+[D] [21:12:07] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157927.718103, 'C': 1515157925.307341, 'A': 1515157926.8240929, 'B': 1515157924.751919}}} to B
+[D] [21:12:07] [Algorithm] send neighbor information: {'C': 1, 'B': 1}
+[D] [21:12:07] [Transport] [INFO] Receive data
+[D] [21:12:07] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:07] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:07] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157926.8240929, 'B': 1515157924.751919, 'C': 1515157925.307341, 'D': 1515157924.704601}}} from path: B -> D
+[D] [21:12:07] [Transport] [INFO] Receive data
+[D] [21:12:07] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157926.8240929, 'B': 1515157924.751919, 'C': 1515157925.307341, 'D': 1515157924.704601}}} to B
+[D] [21:12:07] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:07] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:07] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157926.8240929, 'B': 1515157924.751919, 'C': 1515157925.307341, 'D': 1515157924.704601}}} from path: C -> D
+[D] [21:12:08] [Transport] [INFO] Receive data
+[D] [21:12:08] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:08] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:08] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157927.8245702, 'A': 1515157926.8240929, 'C': 1515157925.307341, 'D': 1515157927.718103}}} from path: C -> D
+[D] [21:12:08] [Transport] [INFO] Receive data
+[D] [21:12:08] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157927.8245702, 'A': 1515157926.8240929, 'C': 1515157925.307341, 'D': 1515157927.718103}}} to C
+[D] [21:12:08] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:08] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:08] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157927.8245702, 'A': 1515157926.8240929, 'C': 1515157925.307341, 'D': 1515157927.718103}}} from path: B -> D
+[D] [21:12:08] [Transport] [INFO] Receive data
+[D] [21:12:08] [Algorithm] receive routing data from B: {'A': 5, 'C': 3, 'D': 1}
+[D] [21:12:08] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:08] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'B', 'neighbor': {'A': 5, 'C': 3, 'D': 1}, 'alive': {'B': 1515157927.8245702, 'A': 1515157926.8240929, 'C': 1515157925.307341, 'D': 1515157927.718103}}} from path: C -> D
+[D] [21:12:08] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:09] [Transport] [INFO] Receive data
+[D] [21:12:09] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:09] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:09] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157929.055752, 'A': 1515157926.8240929, 'B': 1515157927.8245702, 'D': 1515157927.718103}}} from path: B -> D
+[D] [21:12:09] [Transport] [INFO] Receive data
+[D] [21:12:09] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157929.055752, 'A': 1515157926.8240929, 'B': 1515157927.8245702, 'D': 1515157927.718103}}} to B
+[D] [21:12:09] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:09] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:09] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157929.055752, 'A': 1515157926.8240929, 'B': 1515157927.8245702, 'D': 1515157927.718103}}} from path: C -> D
+[D] [21:12:09] [Transport] [INFO] Receive data
+[D] [21:12:09] [Algorithm] receive routing data from C: {'B': 3, 'A': 1, 'D': 1}
+[D] [21:12:09] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:09] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'C', 'neighbor': {'B': 3, 'A': 1, 'D': 1}, 'alive': {'C': 1515157929.055752, 'A': 1515157926.8240929, 'B': 1515157927.8245702, 'D': 1515157927.718103}}} from path: B -> D
+[D] [21:12:10] [Transport] [INFO] Receive data
+[D] [21:12:10] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157929.871829, 'B': 1515157927.8245702, 'C': 1515157929.055752, 'D': 1515157927.718103}}} to C
+[D] [21:12:10] [Algorithm] receive routing data from A: {'B': 5, 'C': 1}
+[D] [21:12:10] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'C': {'next': 'C', 'cost': 1}, 'B': {'next': 'B', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}}
+[D] [21:12:10] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157929.871829, 'B': 1515157927.8245702, 'C': 1515157929.055752, 'D': 1515157927.718103}}} from path: B -> D
+[D] [21:12:10] [Transport] [INFO] Receive data
+[D] [21:12:10] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'A', 'neighbor': {'B': 5, 'C': 1}, 'alive': {'A': 1515157929.871829, 'B': 1515157927.8245702, 'C': 1515157929.055752, 'D': 1515157927.718103}}} to B
+[D] [21:12:10] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'source': 'D', 'neighbor': {'C': 1, 'B': 1}, 'alive': {'D': 1515157930.752057, 'C': 1515157929.055752, 'A': 1515157929.871829, 'B': 1515157927.8245702}}} to C

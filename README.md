@@ -2,6 +2,13 @@
 
 computer networking final project
 
+## Group Member
+
+- 15331344 薛明淇
+- 15331348 颜泽鑫
+- 15331371 叶佳全
+- 15331373 姚志立
+
 ## Homework Submission
 
 - group report, individual reports, slide are under `routing-simulation/report`

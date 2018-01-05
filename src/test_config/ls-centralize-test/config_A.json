@@ -1,0 +1,17 @@
+{
+  "hostname": "A",
+  "ip": "127.0.0.1",
+  "port": 8889,
+  "hns_ip": "127.0.0.1",
+  "hns_port": 8888,
+  "algorithm": "LS_CENTRALIZE",
+  "dead_timeout": 10,
+  "update_interval": 3,
+  "controller_hostname": "Control",
+  "neighbors": [
+    {
+      "hostname": "Control",
+      "cost": 1
+    }
+  ]
+}

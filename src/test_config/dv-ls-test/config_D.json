@@ -1,0 +1,21 @@
+{
+    "hostname": "D",
+    "ip": "127.0.0.1",
+    "port": 8892,
+    "hns_ip": "127.0.0.1",
+    "hns_port": 8888,
+    "algorithm": "LS",
+    "dead_timeout": 10,
+    "update_interval": 3,
+    "controller_hostname": "",
+    "neighbors": [
+        {
+            "hostname": "B",
+            "cost": 1
+        },
+        {
+            "hostname": "C",
+            "cost": 1
+        }
+    ]
+}

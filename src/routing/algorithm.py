@@ -143,7 +143,7 @@ class DV(Algorithm):
                 self._update_neighbor_routing(src, data['routing'])
                 destinations = self._get_destinations()
 
-                info('neighbor routing: {}'.format(self._neighbor_routing))
+                # info('neighbor routing: {}'.format(self._neighbor_routing))
 
                 for dest_host in destinations:
                     min_next, min_cost = None, -1
@@ -161,7 +161,6 @@ class DV(Algorithm):
                         'next': min_next,
                         'cost': min_cost
                     }
-
 
             log('routing table: {}'.format(self._routing_table))
 
@@ -238,6 +237,7 @@ class DV(Algorithm):
     def _notice_neighbor(self):
         current_time = time.time()
         dead_hostnames = []
+        neighbor_table = self._neighbor.get()
 
         send_data = {
             'type': ALGORITHM_TYPE,
@@ -255,12 +255,21 @@ class DV(Algorithm):
 
         self._neighbor_routing_timeout(dead_hostnames)
 
+        timeout_neighbor = []
+        for hostname in dead_hostnames:
+            if hostname in neighbor_table:
+                timeout_neighbor.append(hostname)
+
+        if len(timeout_neighbor) != 0:
+            log('dead hostnames: {}'.format(timeout_neighbor))
+            self._neighbor_timeout(timeout_neighbor)
+
         with self._routing_table_lock:
-            if len(dead_hostnames) != 0:
-                log('dead hostnames: {}'.format(dead_hostnames))
-                self._neighbor_timeout(dead_hostnames)
-                self._reset_default_routing()
-                self._push_to_routing_model(False)
+            for hostname in dead_hostnames:
+                if hostname in self._routing_table:
+                    self._reset_default_routing()
+                    self._push_to_routing_model(False)
+                    break
 
             send_data['data']['routing'] = copy.deepcopy(self._routing_table)
 

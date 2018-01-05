@@ -91,12 +91,12 @@ class Algorithm(object):
             self._check_alive_thread.cancel()
             self._check_alive_thread = None
 
-    def _push_to_routing_model(self):
-        self._routing_table_lock.acquire()
-        try:
+    def _push_to_routing_model(self, lock=True):
+        if lock is True:
+            with self._routing_table_lock:
+                self._routing.update(self._routing_table)
+        else:
             self._routing.update(self._routing_table)
-        finally:
-            self._routing_table_lock.release()
 
     def _neighbor_update(self, neighbor_table):
         log('new neighbor table: {}'.format(neighbor_table))
@@ -117,69 +117,53 @@ class Algorithm(object):
         pass
 
 class DV(Algorithm):
+    def __init__(self, hostname, transport, routing_table, neighbor,
+                 dispatcher, update_interval=30, timeout=180):
+        super(DV, self).__init__(hostname,
+                                 transport,
+                                 routing_table,
+                                 neighbor,
+                                 dispatcher,
+                                 update_interval,
+                                 timeout)
+        self._neighbor_routing = {}
+        self._neighbor_routing_lock = threading.Lock()
+
     def receive(self, src, data):
-        modified = False
-        dead_hostnames = []
+        if self._have_timeout(data) is True:
+            info('Discard data for timeout hostname in routing table')
+            return
 
-        with self._alive_table_lock:
-            current_time = time.time()
-            self._alive_table[self._hostname] = current_time
-            self._alive_table[src] = current_time
-            dead_hostnames = [hostname
-                              for hostname in self._alive_table
-                              if current_time - self._alive_table[hostname] > self._timeout]
-            for hostname in dead_hostnames:
-                self._alive_table.pop(hostname)
-
-        if len(dead_hostnames) != 0:
-            log('dead hostnames: {}'.format(dead_hostnames))
-            self._neighbor_timeout(dead_hostnames)
+        log('receive routing data from {}: {}'.format(src,
+                                                      data['routing']))
+        dead_hostnames = self._update_alive_get_dead(data['alive'])
 
         with self._routing_table_lock:
-            if len(set(self._routing_table.keys()) & set(dead_hostnames)) > 0:
-                modified = True
+            with self._neighbor_routing_lock:
+                self._update_neighbor_routing(src, data['routing'])
+                destinations = self._get_destinations()
 
-            self._routing_table = {
-                k: v for k, v in self._routing_table.items()
-                if k not in dead_hostnames and v['next'] not in dead_hostnames
-            }
+                info('neighbor routing: {}'.format(self._neighbor_routing))
 
-            data_routing_table = {
-                k: v for k, v in data['routing'].items()
-                if k not in dead_hostnames and v['next'] not in dead_hostnames
-            }
+                for dest_host in destinations:
+                    min_next, min_cost = None, -1
 
-            neighbor_table = self._neighbor.get()
-            for hostname in neighbor_table:
-                if hostname not in dead_hostnames and hostname not in self._routing_table:
-                    self._routing_table[hostname] = {
-                        'next': hostname,
-                        'cost': neighbor_table[hostname]
+                    for neighbor in self._neighbor_routing:
+                        if dest_host in self._neighbor_routing[neighbor]:
+                            indirect_cost = self._neighbor_routing[self._hostname][neighbor]['cost'] + \
+                                            self._neighbor_routing[neighbor][dest_host]['cost']
+
+                            if min_next is None or indirect_cost < min_cost:
+                                min_cost = indirect_cost
+                                min_next = neighbor if neighbor != self._hostname else dest_host
+
+                    self._routing_table[dest_host] = {
+                        'next': min_next,
+                        'cost': min_cost
                     }
 
-            for destination in data_routing_table:
-                if src not in self._routing_table:
-                    break
 
-                indirect_cost = self._routing_table[src]['cost'] + \
-                                data_routing_table[destination]['cost']
-                if destination not in self._routing_table:
-                    self._routing_table[destination] = {
-                        'next': src,
-                        'cost': indirect_cost
-                    }
-                    modified = True
-                elif self._routing_table[destination]['cost'] > indirect_cost:
-                    self._routing_table[destination]['next'] = src
-                    self._routing_table[destination]['cost'] = indirect_cost
-                    modified = True
-
-            log('receive routing data from {}: {}'.format(src,
-                                                          data['routing']))
             log('routing table: {}'.format(self._routing_table))
-
-        if modified is True:
-            self._notice_neighbor()
 
         self._push_to_routing_model()
 
@@ -192,57 +176,121 @@ class DV(Algorithm):
     def stop(self):
         super(DV, self).stop()
 
+    def _neighbor_update(self, neighbor_table):
+        log('new neighbor table: {}'.format(neighbor_table))
 
-    def _notice_neighbor(self):
-        neighbor_table = self._neighbor.get()
+    def _have_timeout(self, data):
+        current_time = time.time()
+        dead_hostnames = []
 
-        with self._routing_table_lock:
-            send_data = {
-                'type': ALGORITHM_TYPE,
-                'data': {
-                    'routing': copy.deepcopy(self._routing_table)
-                }
-            }
+        for hostname in data['alive']:
+            if current_time - data['alive'][hostname] > self._timeout:
+                dead_hostnames.append(hostname)
 
-        for hostname in list(neighbor_table.keys()):
-            self._transport.send(hostname, send_data, True)
-            log('send routing data to {}: {}'.format(hostname, send_data['data']['routing']))
+        for hostname in data['routing']:
+            if hostname in dead_hostnames:
+                return True
 
-    def _check_timeout(self):
+        return False
+
+    def _update_alive_get_dead(self, alive_table):
+        dead_hostnames = []
+        current_time = time.time()
+
         with self._alive_table_lock:
-            current_time = time.time()
             self._alive_table[self._hostname] = current_time
+            for hostname in alive_table:
+                if hostname not in self._alive_table:
+                    self._alive_table[hostname] = alive_table[hostname]
+                elif alive_table[hostname] > self._alive_table[hostname]:
+                    self._alive_table[hostname] = alive_table[hostname]
+
             dead_hostnames = [hostname
                               for hostname in self._alive_table
                               if current_time - self._alive_table[hostname] > self._timeout]
-            for hostname in dead_hostnames:
-                self._alive_table.pop(hostname)
 
-        if len(dead_hostnames) != 0:
-            log('dead hostnames: {}'.format(dead_hostnames))
-            self._neighbor_timeout(dead_hostnames)
+        return dead_hostnames
 
-        with self._routing_table_lock:
-            self._routing_table = {
-                k: v for k, v in self._routing_table.items()
-                if k not in dead_hostnames and v['next'] not in dead_hostnames
+    def _get_destinations(self):
+        destinations = set()
+
+        for neighbor in self._neighbor_routing:
+            destinations.add(neighbor)
+            for hostname in self._neighbor_routing[neighbor]:
+                destinations.add(hostname)
+
+        return list(destinations)
+
+    def _update_neighbor_routing(self, src, neighbor_routing):
+        self._neighbor_routing[src] = neighbor_routing
+        self._neighbor_routing[self._hostname] = {
+            self._hostname: {
+                'next': self._hostname,
+                'cost': 0
+            }
+        }
+
+        neighbor_table = self._neighbor.get()
+
+        for hostname in neighbor_table:
+            self._neighbor_routing[self._hostname][hostname] = {
+                'next': hostname,
+                'cost': neighbor_table[hostname]
             }
 
-            neighbor_table = self._neighbor.get()
-            for hostname in neighbor_table:
-                if hostname not in dead_hostnames and hostname not in self._routing_table:
-                    self._routing_table[hostname] = {
-                        'next': hostname,
-                        'cost': neighbor_table[hostname]
-                    }
+    def _notice_neighbor(self):
+        current_time = time.time()
+        dead_hostnames = []
 
-            log('routing table: {}'.format(self._routing_table))
+        send_data = {
+            'type': ALGORITHM_TYPE,
+            'data': {}
+        }
 
-        self._notice_neighbor()
-        self._push_to_routing_model()
+        with self._alive_table_lock:
+            self._alive_table[self._hostname] = time.time()
 
-        self._check_alive_thread = threading.Timer(self._timeout, DV._check_timeout, args=(self,))
-        self._check_alive_thread.start()
+            for hostname in self._alive_table:
+                if current_time - self._alive_table[hostname] > self._timeout:
+                    dead_hostnames.append(hostname)
+
+            send_data['data']['alive'] = self._alive_table
+
+        self._neighbor_routing_timeout(dead_hostnames)
+
+        with self._routing_table_lock:
+            if len(dead_hostnames) != 0:
+                log('dead hostnames: {}'.format(dead_hostnames))
+                self._neighbor_timeout(dead_hostnames)
+                self._reset_default_routing()
+                self._push_to_routing_model(False)
+
+            send_data['data']['routing'] = copy.deepcopy(self._routing_table)
+
+        for hostname in list(self._neighbor.get().keys()):
+            self._transport.send(hostname, send_data, True)
+            log('send routing data to {}: {}'.format(hostname, send_data['data']['routing']))
+
+    def _reset_default_routing(self):
+        self._routing_table = {
+            self._hostname: {
+                'next': self._hostname,
+                'cost': 0
+            }
+        }
+        neighbor_table = self._neighbor.get()
+
+        for hostname in neighbor_table:
+            self._routing_table[hostname] = {
+                'next': hostname,
+                'cost': neighbor_table[hostname]
+            }
+
+    def _neighbor_routing_timeout(self, dead_hostnames):
+        with self._neighbor_routing_lock:
+            for hostname in dead_hostnames:
+                if hostname in self._neighbor_routing:
+                    self._neighbor_routing.pop(hostname)
 
 class LS(Algorithm):
     def receive(self, src, data):

@@ -1,0 +1,161 @@
+[D] [22:44:21] [Transport] [ERROR] hostname "Control" unreachable
+[D] [22:44:21] [Transport] [ERROR] Fail to make a frame for {'type': 'algorithm', 'data': {'neighbor': {}}}, sending cancelled
+[D] [22:44:21] [Algorithm] send neighbor information to Control: {}
+[D] [22:44:24] [Transport] [ERROR] hostname "Control" unreachable
+[D] [22:44:24] [Transport] [ERROR] Fail to make a frame for {'type': 'algorithm', 'data': {'neighbor': {}}}, sending cancelled
+[D] [22:44:24] [Algorithm] send neighbor information to Control: {}
+[D] [22:44:27] [Transport] [ERROR] hostname "Control" unreachable
+[D] [22:44:27] [Transport] [ERROR] Fail to make a frame for {'type': 'algorithm', 'data': {'neighbor': {}}}, sending cancelled
+[D] [22:44:27] [Algorithm] send neighbor information to Control: {}
+[D] [22:44:28] [Neighbors] [INFO] neighbor B timeout, retry left: 2
+[D] [22:44:28] [Neighbors] [INFO] sending data '1' to host 'B'
+[D] [22:44:28] [Neighbors] [INFO] neighbor C timeout, retry left: 2
+[D] [22:44:28] [Transport] [INFO] Sending {'type': 'neighbor', 'data': 1} to B
+[D] [22:44:28] [Neighbors] [INFO] neighbor Control timeout, retry left: 2
+[D] [22:44:28] [Neighbors] [INFO] sending data '1' to host 'C'
+[D] [22:44:28] [Neighbors] [INFO] sending data '1' to host 'Control'
+[D] [22:44:28] [Transport] [INFO] Receive data
+[D] [22:44:28] [Transport] [INFO] Sending {'type': 'neighbor', 'data': 1} to C
+[D] [22:44:28] [Neighbors] [INFO] receiving cost '1' from host 'B'
+[D] [22:44:28] [Neighbors] [INFO] reply from host 'B' received
+[D] [22:44:28] [NeighborTable] [INFO] set host 'B' to cost '1'
+[D] [22:44:28] [Algorithm] new neighbor table: {'B': 1}
+[D] [22:44:28] [Transport] [INFO] Receive data {'type': 'neighbor', 'data': 1} from path: B -> D
+[D] [22:44:28] [Transport] [INFO] Receive data
+[D] [22:44:28] [Neighbors] [INFO] receiving cost '1' from host 'C'
+[D] [22:44:28] [Neighbors] [INFO] reply from host 'C' received
+[D] [22:44:28] [NeighborTable] [INFO] set host 'C' to cost '1'
+[D] [22:44:28] [Algorithm] new neighbor table: {'B': 1, 'C': 1}
+[D] [22:44:28] [Transport] [INFO] Receive data {'type': 'neighbor', 'data': 1} from path: C -> D
+[D] [22:44:28] [Transport] [INFO] Sending {'type': 'neighbor', 'data': 1} to Control
+[D] [22:44:28] [Transport] [INFO] Receive data
+[D] [22:44:28] [Neighbors] [INFO] receiving cost '1' from host 'Control'
+[D] [22:44:28] [Neighbors] [INFO] reply from host 'Control' received
+[D] [22:44:28] [NeighborTable] [INFO] set host 'Control' to cost '1'
+[D] [22:44:28] [Algorithm] new neighbor table: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:28] [Transport] [INFO] Receive data {'type': 'neighbor', 'data': 1} from path: Control -> D
+[D] [22:44:30] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:30] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:32] [Transport] [INFO] Receive data
+[D] [22:44:32] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:32] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:32] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:33] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:33] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:35] [Transport] [INFO] Receive data
+[D] [22:44:35] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:35] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:35] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:36] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:36] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:38] [Transport] [INFO] Receive data
+[D] [22:44:38] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:38] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:38] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:39] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:39] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:41] [Transport] [INFO] Receive data
+[D] [22:44:41] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:41] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:41] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:42] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:42] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:44] [Transport] [INFO] Receive data
+[D] [22:44:44] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:44] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:44] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:45] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:45] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:46] [Transport] [INFO] Receive data
+[D] [22:44:46] [Transport] [INFO] Routing from A to B
+[D] [22:44:46] [Transport] [INFO] Sending {'type': 'Message', 'data': 'ls-cent-test-step-3'} to B
+[D] [22:44:47] [Transport] [INFO] Receive data
+[D] [22:44:47] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:47] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:47] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:48] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:48] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:50] [Transport] [INFO] Receive data
+[D] [22:44:50] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:50] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:50] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:51] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:51] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:53] [Transport] [INFO] Receive data
+[D] [22:44:53] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:53] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:53] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:54] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:54] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:56] [Transport] [INFO] Receive data
+[D] [22:44:56] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:56] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:56] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:44:57] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:44:57] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:44:59] [Transport] [INFO] Receive data
+[D] [22:44:59] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:44:59] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:44:59] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:00] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:00] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:02] [Transport] [INFO] Receive data
+[D] [22:45:02] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:02] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:02] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:03] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:03] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:05] [Transport] [INFO] Receive data
+[D] [22:45:05] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:05] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:05] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:06] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:06] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:08] [Transport] [INFO] Receive data
+[D] [22:45:08] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:08] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:08] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:09] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:09] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:11] [Transport] [INFO] Receive data
+[D] [22:45:11] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:11] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:11] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:12] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:12] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:14] [Transport] [INFO] Receive data
+[D] [22:45:14] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:14] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:14] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:15] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:15] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:17] [Transport] [INFO] Receive data
+[D] [22:45:17] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:17] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:17] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:18] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:18] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:20] [Transport] [INFO] Receive data
+[D] [22:45:20] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:20] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:20] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:21] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:21] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:23] [Transport] [INFO] Receive data
+[D] [22:45:23] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:23] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:23] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:24] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:24] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:26] [Transport] [INFO] Receive data
+[D] [22:45:26] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:26] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:26] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:27] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:27] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}
+[D] [22:45:29] [Transport] [INFO] Receive data
+[D] [22:45:29] [Algorithm] receive routing data from Control: {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}
+[D] [22:45:29] [Algorithm] update routing table: {'D': {'next': 'D', 'cost': 0}, 'B': {'next': 'B', 'cost': 1}, 'C': {'next': 'C', 'cost': 1}, 'A': {'next': 'C', 'cost': 2}, 'Control': {'next': 'Control', 'cost': 1}}
+[D] [22:45:29] [Transport] [INFO] Receive data {'type': 'algorithm', 'data': {'link': {'A': {'B': 5, 'C': 1}, 'B': {'A': 5, 'C': 3, 'D': 1}, 'C': {'A': 1, 'B': 3, 'D': 1}, 'D': {'B': 1, 'C': 1}}, 'dead': []}} from path: Control -> D
+[D] [22:45:30] [Transport] [INFO] Sending {'type': 'algorithm', 'data': {'neighbor': {'B': 1, 'C': 1, 'Control': 1}}} to Control
+[D] [22:45:30] [Algorithm] send neighbor information to Control: {'B': 1, 'C': 1, 'Control': 1}

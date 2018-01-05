@@ -51,7 +51,7 @@ class Transport:
         """ Run this module
         """
         self._dispather.register(Transport.TYPE, self)
-        
+
         self._run_lock.acquire()
         self._running = True
         self._run_lock.release()
@@ -170,7 +170,7 @@ class Transport:
                                      data['datagram']['src'],
                                      data['datagram']['data']['data'])
             if self._debug:
-                message = 'Receive data from path: '
+                message = 'Receive data {} from path: '.format(data['datagram']['data'])
                 for host in data['datagram']['passed_by']:
                     message = message + host + ' -> '
                 message = message + self._name
@@ -198,16 +198,13 @@ class Transport:
           privileged_mode: if set True, it can send it to destination directly,
                             ignoring the next hop router
         """
-        if self._debug:
-            info('Ready for sending {}'.format(data))
-
         # make a frame
         datagram = self._make_datagram(self._name, destination, data)
         frame = self._make_frame(destination, datagram, False, [], privileged_mode)
 
         if frame is None:
             if self._debug:
-                error('Fail to make a frame, canceling sending')
+                error('Fail to make a frame for {}, sending cancelled'.format(data))
             return
 
         self._send_by_frame(frame)
@@ -230,7 +227,7 @@ class Transport:
 
         if frame is None:
             if self._debug:
-                error('Fail to make a frame, canceling sending')
+                error('Fail to make a frame for {}, sending cancelled'.format(data))
             return
 
         self._send_by_frame(frame)
@@ -252,7 +249,7 @@ class Transport:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.sendto(json.dumps(frame).encode(), sending_address)
         if self._debug:
-            info('Succeed sending {1} to {0}'.format(
+            info('Sending {1} to {0}'.format(
                 frame['next_name'], frame['datagram']['data']))
 
         s.close()
@@ -330,7 +327,7 @@ class Transport:
             else:
                 next_name = self._routing_table.get(dest)
         except Exception as err:
-            log(err)
+            error(err)
             return None
 
         if broadcasting:

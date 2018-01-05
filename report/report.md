@@ -715,8 +715,82 @@ D:
 
 #### DV
 
+**步骤一：起始状态**
+
+![dv-step1](./test/dv/1.png)
+
+**步骤二：加入C**
+
+![dv-step2](./test/dv/2.png)
+
+**步骤三：加入D**
+
+![dv-step3](./test/dv/3.png)
+
+**步骤四：退出D**
+
+![dv-step4](./test/dv/4.png)
+
+**步骤五：退出C**
+
+![dv-step5](./test/dv/5.png)
+
+**确认路径**
+
+![dv-path](./test/ls/path.png)
+
 #### LS
+
+**步骤一：起始状态**
+
+![ls-step1](./test/ls/1.png)
+
+**步骤二：加入C**
+
+![ls-step2](./test/ls/2.png)
+
+**步骤三：加入D**
+
+![ls-step3](./test/ls/3.png)
+
+**步骤四：退出D**
+
+![ls-step4](./test/ls/4.png)
+
+**步骤五：退出C**
+
+![ls-step5](./test/ls/5.png)
+
+**确认路径**
+
+![ls-path](./test/ls/path.png)
+
+注1：从步骤一、步骤三、步骤五的图中的log框，可以看出Algorithm模块发送的信息与之前介绍的LS算法所使用的数据结构相对应。
+
+注2：LS协议测试A、B、C、D的运行完整log见[github仓库](https://github.com/VinaLx/routing-simulation/tree/master/logs/ls)
 
 #### 中心化LS
 
+**步骤一：起始状态**
 
+![ls-cent-step1](./test/ls-centralize/1.png)
+
+**步骤二：加入C**
+
+![ls-cent-step2](./test/ls-centralize/2.png)
+
+**步骤三：加入D**
+
+![ls-cent-step3](./test/ls-centralize/3.png)
+
+**步骤四：退出D**
+
+![ls-cent-step4](./test/ls-centralize/4.png)
+
+**步骤五：退出C**
+
+![ls-cent-step5](./test/ls-centralize/5.png)
+
+**确认路径**
+
+![ls-cent-path](./test/ls-centralize/path.png)

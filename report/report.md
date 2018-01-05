@@ -626,6 +626,7 @@ def get_routing_table() -> Dict[str, Info]:
 _注：任何协议下配置文件内容类似，除了`algorithm`字段和`controller_hostname`字段不同之外_
 
 A:
+
 ```json
 {
   "hostname": "A",
@@ -641,6 +642,7 @@ A:
 }
 ```
 B:
+
 ```json
 {
   "hostname": "B",
@@ -661,6 +663,7 @@ B:
 }
 ```
 C:
+
 ```json
 {
     "hostname": "C",
@@ -685,6 +688,7 @@ C:
 }
 ```
 D:
+
 ```json
 {
     "hostname": "D",
@@ -714,3 +718,5 @@ D:
 #### LS
 
 #### 中心化LS
+
+

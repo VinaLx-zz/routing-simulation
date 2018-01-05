@@ -1,0 +1,12 @@
+{
+    "hostname": "Control",
+    "ip": "127.0.0.1",
+    "port": 8893,
+    "hns_ip": "127.0.0.1",
+    "hns_port": 8888,
+    "algorithm": "LS_CONTROL",
+    "dead_timeout": 7,
+    "update_interval": 2,
+    "controller_hostname": "",
+    "neighbors": []
+}

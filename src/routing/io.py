@@ -1,6 +1,6 @@
 import datetime
 import threading
-from threading import Lock
+
 
 view = None
 mutex = threading.Lock()
@@ -14,8 +14,12 @@ def init(_view):
 def now():
     return datetime.datetime.now().strftime('%H:%M:%S')
 
+
 def make_message(msg):
+    if view:
+        return "[Hostname: {0} {1}] {2}".format(view.hostname, now(), msg)
     return "[{0}] {1}".format(now(), msg)
+
 
 def print_message(message):
     item = make_message(message)

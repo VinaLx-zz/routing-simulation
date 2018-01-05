@@ -19,6 +19,7 @@ class ContentFrame(wx.Frame):
                           size=(700, 600),
                           title="Router-{}".format(self.router.hostname),
                           pos=(-1, -1))
+        self.hostname = self.router.hostname
         self.hostnames = []
         self.neighbor = []
         self._update_hostnames()

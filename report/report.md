@@ -880,6 +880,9 @@ _注：路由表中的control即为中心化类LS协议中的中控主机，从�
 
 ### 颜泽鑫
 
+- UI界面设计和实现
+- 协助debug和测试
+
 ### 叶佳全
 
 - Algorithm、RoutingTable相关模块实现
@@ -887,4 +890,4 @@ _注：路由表中的control即为中心化类LS协议中的中控主机，从�
 
 ### 姚志立
 
-- HNS、Transport相关模块实现
+- HNS、Transport相关模块实现，message小模块实现

@@ -6,8 +6,8 @@ computer networking final project
 
 - 15331344 薛明淇
 - 15331348 颜泽鑫
-- 15331371 叶佳全
-- 15331373 姚志立
+- 15331371 姚志立
+- 15331373 叶佳全
 
 ## Homework Submission
 
